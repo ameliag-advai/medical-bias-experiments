@@ -1,0 +1,8 @@
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - jupyter
+  - notebook
+  - pip
+  - ipykernel

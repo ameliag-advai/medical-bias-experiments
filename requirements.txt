@@ -1,0 +1,1 @@
+advai_common @ git+ssh://git@github.com/Advai-Ltd/advai_common.git@latest#egg=advai_common
