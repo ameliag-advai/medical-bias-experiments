@@ -114,23 +114,20 @@ Provide detailed instructions on how to set up the project. Include step-by-step
 
 ``git clone <repository_url>``
 
-2. Create a Conda environment and activate it:
+2. Install UV if not already installed on your system
 
-``conda env create -f environment.yml``
-``conda activate <your_environment_name>``
+``curl -LsSf https://astral.sh/uv/install.sh | sh``
 
-3. Add any additional setup instructions specific to your project.
+3.  Setup your .venv
+
+``uv sync``
+
 
 ## Usage Instructions
 
-Explain how to use the project once it has been set up. Include example commands, input files, or any other information needed to run the project and obtain the desired results.
+Run the basic_loading_and_analysing.ipynb notebook
 
-## Guidelines for Contributing
 
-Mention the steps to contribute to the project, such as creating a fork, cloning the repository, creating a new branch, making changes, and submitting a pull request. Refer to the `CONTRIBUTING.md` file for more detailed information on the contribution process.
 
-## Contact Information
-
-Provide the contact information for the project lead, including their name, email address, and any other relevant contact details. Encourage users to reach out with questions, feedback, or suggestions.
 
 

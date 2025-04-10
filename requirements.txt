@@ -3,6 +3,7 @@ tqdm
 plotly
 pandas
 sae-lens
+sae-dashboard
 jupyter
 notebook
 ipykernel
