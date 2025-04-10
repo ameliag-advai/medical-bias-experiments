@@ -1,4 +1,4 @@
-# Advai Python Research Template
+# Project Alethia
 A template repository for research repositories.
 
 [<img src="https://img.shields.io/badge/python-3.8-green">](https://img.shields.io/badge/python-3.8-green)
@@ -7,18 +7,6 @@ A template repository for research repositories.
 
 [![CICD](https://github.com/Advai-Ltd/advai_python_template/actions/workflows/cicd.yaml/badge.svg)](https://github.com/Advai-Ltd/advai_python_template/actions/workflows/cicd.yaml)
 
-## Description
-This repository is designed to be a template repository that can be used to create new research repositories.
-
-It contains all the workbench subpackages and various templates to facilitate research.
-
-It is designed to also afford easy handover to development & engineering teams through the mimicked workbench structure.
-
-It also allows for tests to be written easily and for the package to be built and distributed. Moreover, it allows for containerisation.
-
-In addition, withe the specification fo the `re.yaml`, we can easily create or destroy a conda environment for the project. (`re` stamds for research environment).
-
-Lastly, the `Makefile` allows for easy commands to be run for the project.
 
 ## Usage
 
