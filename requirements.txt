@@ -1,1 +1,13 @@
-advai_common @ git+ssh://git@github.com/Advai-Ltd/advai_common.git@latest#egg=advai_common
+torch
+tqdm
+plotly
+pandas
+sae-lens
+jupyter
+notebook
+ipykernel
+pylint
+pycodestyle
+pydocstyle
+toml
+build

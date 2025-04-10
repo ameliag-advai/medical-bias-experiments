@@ -33,11 +33,11 @@ convention = "pep257"
 
 # PROJECT
 [project]
-name = "advai_python_research_template"
-description = "Advai's Python Research Template"
+name = "alethia"
+description = "SAE for bias detection"
 readme = "README.md"
-requires-python = ">=3.8"
-keywords = ["Advai", "Adversarial", "AI", "Artifical", "Intelligence"]
+requires-python = ">=3.12"
+keywords = ["Advai", "Adversarial", "AI", "Artifical", "Intelligence", "SAE"]
 license = {file = "LICENSE.txt"}
 authors = [{name = "Advai Ltd.", email = "support@advai.co.uk"}]
 dynamic = ["version", "dependencies"]
