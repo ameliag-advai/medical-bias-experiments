@@ -1,6 +1,6 @@
 # Project Alethia
 
-[<img src="https://img.shields.io/badge/python-3.12-green">](https://img.shields.io/badge/python-3.10-green)
+[<img src="https://img.shields.io/badge/python-3.12-green">](https://img.shields.io/badge/python-3.12-green)
 
 [![CICD](https://github.com/Advai-Ltd/advai_python_template/actions/workflows/cicd.yaml/badge.svg)](https://github.com/Advai-Ltd/advai_python_template/actions/workflows/cicd.yaml)
 
