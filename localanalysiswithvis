@@ -60,9 +60,8 @@ def analyze_case_for_bias(text_with_demo, text_without_demo, model, sae, case_in
     """
     os.makedirs(save_dir, exist_ok=True)
     with torch.no_grad():
-        text_with_demo = 'Patient has fever.'
-        text_without_demo = 'Patient has fever.'
-        print(f'[DEBUG] Using minimal prompt: {text_with_demo}')
+        # Use the provided prompts only—NO HARDCODED INFO
+        print(f'[DEBUG] Using provided prompt with demo: {text_with_demo}')
         print('[DEBUG] Before to_tokens (with demo)')
         toks_with = model.to_tokens(text_with_demo)
         print('[DEBUG] After to_tokens (with demo)')
@@ -289,19 +288,23 @@ def run_analysis_pipeline(
     cases = extract_cases_from_dataframe(df)
     if num_cases:
         cases = cases[:num_cases]
+    # Load the conditions mapping from JSON
+    with open(conditions_json_path, "r") as f:
+        conditions_mapping = json.load(f)
     results, case_summaries, overlap_lists, activation_diff_by_sex, activation_diff_by_diagnosis = process_cases_modular(
-        cases, model, sae, save_dir=save_dir
+        cases, model, sae, conditions_mapping, save_dir=save_dir
     )
     # Always generate visualization after processing
     visualize_feature_overlaps(results, save_path="feature_overlap.html")
     summary_text = generate_summary(
         results, case_summaries, activation_diff_by_sex, activation_diff_by_diagnosis
     )
-    if output_path:
-        write_output(output_path, case_summaries, summary_text)
+    if not output_path:
+        output_path = os.path.join(os.path.dirname(__file__), "analysis_output.txt")
+    write_output(output_path, case_summaries, summary_text)
     return output_path, results, case_summaries, summary_text
 
-def process_cases_modular(cases, model, sae, save_dir="activations"):
+def process_cases_modular(cases, model, sae, conditions_mapping, save_dir="activations"):
     """
     Process cases and return all relevant outputs for summary and testing.
     Returns: (results, case_summaries, overlap_lists, activation_diff_by_sex, activation_diff_by_diagnosis)
@@ -313,7 +316,7 @@ def process_cases_modular(cases, model, sae, save_dir="activations"):
     activation_diff_by_diagnosis = defaultdict(list)
     for idx, case in enumerate(cases):
         summary_lines = []
-        text_with_demo, text_without_demo = build_prompts(case)
+        text_with_demo, text_without_demo = build_prompts(case, conditions_mapping)
         summary_lines.append(f"Age: {case['age']}, Sex: {case['sex']}, Diagnosis: {case['diagnosis']}")
         summary_lines.append(f"Text with demographics: {text_with_demo}")
         summary_lines.append(f"Text without demographics: {text_without_demo}")
@@ -386,26 +389,61 @@ def process_cases_modular(cases, model, sae, save_dir="activations"):
         results.append(bias_result)
     return results, case_summaries, overlap_lists, activation_diff_by_sex, activation_diff_by_diagnosis
 
-def build_prompts(case, explicit=True):
+def build_prompts(case, conditions_mapping, explicit=True):
     """
-    Build prompts for a case. If explicit=True, use a more explicit demographic template.
+    Build prompts for a case using real symptoms, age, and sex from patient data and map symptom codes to natural language using release_conditions.json.
     Returns: (text_with_demo, text_without_demo)
     """
+    def symptom_codes_to_text(symptom_codes, conditions_mapping):
+        # Map codes to actual symptom names/descriptions from conditions_mapping
+        code_to_name = {}
+        # Build a mapping from code to a human-readable symptom name/description
+        for cond in conditions_mapping.values():
+            symptoms = cond.get('symptoms', {})
+            if isinstance(symptoms, dict):
+                for code, name in symptoms.items():
+                    if code not in code_to_name:
+                        code_to_name[code] = name if name else code
+            elif isinstance(symptoms, list):
+                # If symptoms is a list, fallback to condition name
+                cond_name = cond.get('condition_name', None)
+                for code in symptoms:
+                    if code not in code_to_name:
+                        code_to_name[code] = cond_name if cond_name else code
+        all_symptom_names = []
+        for code in symptom_codes:
+            all_symptom_names.append(code_to_name.get(code, code))
+        return ', '.join(all_symptom_names) if all_symptom_names else ''
+
+    # Parse symptoms (if stringified list)
+    symptoms = case.get('features', [])
+    if isinstance(symptoms, str):
+        try:
+            symptoms = ast.literal_eval(symptoms)
+        except Exception:
+            symptoms = []
+
+    symptoms_text = symptom_codes_to_text(symptoms, conditions_mapping)
+    age = case.get('age', None)
+    sex = case.get('sex', None)
+    diagnosis = case.get('diagnosis', None)
+
     if explicit:
-        text_with_demo = f"This is a {case['age']}-year-old {case['sex']} patient. Diagnosed with {case['diagnosis']}."
-        text_without_demo = f"Diagnosed with {case['diagnosis']}."
+        if age is not None:
+            text_with_demo = f"This is a {age}-year-old {sex} patient presenting with: {symptoms_text}."
+        else:
+            text_with_demo = f"This is a {sex} patient presenting with: {symptoms_text}."
+        text_without_demo = f"Patient presenting with: {symptoms_text}."
     else:
-        text_with_demo = f"Patient age {case['age']}, {case['sex']}, Patient diagnosed with {case['diagnosis']} ."
-        text_without_demo = f"Patient diagnosed with {case['diagnosis']} ."
+        if age is not None:
+            text_with_demo = f"Patient age {age}, {sex}, presenting with: {symptoms_text}."
+        else:
+            text_with_demo = f"Patient {sex}, presenting with: {symptoms_text}."
+        text_without_demo = f"Patient presenting with: {symptoms_text}."
     return text_with_demo, text_without_demo
 
-    # Define output path for results
-    output_path = os.path.join(os.path.dirname(__file__), "analysis_output.txt")
-    
-    # Select device
-    # Import already at the top of file
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    
+# Update all usages of build_prompts to include conditions_mapping as an argument.
+
     # Model/SAE selection
     MODEL_SCOPE = os.environ.get("MODEL_SCOPE", "gemma")  # set to "gpt2" or "gemma"
     
@@ -1316,9 +1354,10 @@ def extract_cases_from_dataframe(df):
             
             # Extract data from the row based on available columns
             case = {
-                'age': 30,  # Default age since it's not in the file
+                'age': row.get('age', None),
                 'sex': row.get('sex', 'Unknown'),
                 'diagnosis': row.get('diagnosis', 'Unknown'),
+                'features': row.get('features', []),
                 'diffdx': diffdx_parsed,
                 'top5_with': [],
                 'top5_without': [],
@@ -1462,14 +1501,37 @@ if __name__ == "__main__":
     if args.test:
         run_tests()
     else:
+        # Load model and SAE
+        from transformer_lens import HookedTransformer
+        from sae_lens import SAE
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        try:
+            if args.model == "gemma":
+                model = HookedTransformer.from_pretrained("google/gemma-2b-it", device=device)
+                sae, cfg_dict, sparsity = SAE.from_pretrained(
+                    release="jbloom/Gemma-2b-IT-Residual-Stream-SAEs",
+                    sae_id="gemma_2b_it_blocks.12.hook_resid_post_16384",
+                    device=device,
+                )
+            else:
+                model = HookedTransformer.from_pretrained("gpt2-small", device=device)
+                sae, cfg_dict, sparsity = SAE.from_pretrained(
+                    release="open-source-sae/gpt2-small-sae-l2-act-0",
+                    device=device,
+                )
+        except Exception as e:
+            print(f"ERROR: Failed to load model: {e}")
+            exit(1)
+        if model is None:
+            print("ERROR: Model failed to load. Check model name, environment, and HF_TOKEN.")
+            exit(1)
         output_path, results, case_summaries, summary_text = run_analysis_pipeline(
             patient_data_path=args.patient_file or "release_test_patients_mini_version.txt",
             conditions_json_path="release_conditions.json",
-            model=None,  # Should be loaded earlier if not already
-            sae=None,    # Should be loaded earlier if not already
+            model=model,
+            sae=sae,
             num_cases=args.num_cases,
             output_path=args.output
         )
-        # Visualization is already called in run_analysis_pipeline
         print(f"Analysis complete. Output written to: {output_path}")
         print(f"Number of cases processed: {len(case_summaries) if case_summaries else 0}")
