@@ -38,6 +38,7 @@ def analyse_case_for_bias(text_with_demo, text_without_demo, model, sae, case_in
             candidate_tokens = model.to_tokens(candidate)
             logits, _ = model.run_with_cache(toks)
             log_probs = []
+            raw_logits = []
             candidate_tokens = candidate_tokens.flatten().tolist() if hasattr(candidate_tokens, 'flatten') else list(candidate_tokens)
             for i, token_id in enumerate(candidate_tokens):
                 idx = int(token_id)
@@ -55,9 +56,11 @@ def analyse_case_for_bias(text_with_demo, text_without_demo, model, sae, case_in
                         log_probs.append(float(val))
                 else:
                     log_probs.append(float(log_prob))
-            return sum(log_probs) if log_probs else float('-inf')
+                raw_logits.append(logit[idx].item())
+            print(f"[LOGITS] Candidate: '{candidate}' | Log probs (scalar): {log_probs} | Raw logits: {raw_logits}")
+            return sum(log_probs) if log_probs else float('-inf'), log_probs, raw_logits
 
-        dx_json_path = "PATHTO/release_conditions.json"
+        dx_json_path = "PATH/TO/release_conditions.json"
         print('[DEBUG] Before load_diagnosis_list')
         diagnosis_list = load_diagnosis_list(dx_json_path)
         print(f'[DEBUG] After load_diagnosis_list: {len(diagnosis_list)} diagnoses loaded')
@@ -66,14 +69,30 @@ def analyse_case_for_bias(text_with_demo, text_without_demo, model, sae, case_in
         print('[DEBUG] Before dx_scores_with loop')
         dx_scores_with = []
         dx_scores_without = []
+        debug_rows = []  # To collect debug info for CSV
         for dx in diagnosis_list[:5]:
             print(f'[DEBUG] Scoring WITH demo: {dx}')
-            dx_scores_with.append((dx, score_candidate(prefix_with, dx, model)))
+            score, log_probs, raw_logits = score_candidate(prefix_with, dx, model)
+            dx_scores_with.append((dx, score))
+            debug_rows.append({'case_id': case_id, 'group': 'with_demo', 'candidate': dx, 'log_probs': log_probs, 'raw_logits': raw_logits})
         print('[DEBUG] After dx_scores_with loop')
         for dx in diagnosis_list[:5]:
             print(f'[DEBUG] Scoring WITHOUT demo: {dx}')
-            dx_scores_without.append((dx, score_candidate(prefix_without, dx, model)))
+            score, log_probs, raw_logits = score_candidate(prefix_without, dx, model)
+            dx_scores_without.append((dx, score))
+            debug_rows.append({'case_id': case_id, 'group': 'no_demo', 'candidate': dx, 'log_probs': log_probs, 'raw_logits': raw_logits})
         print('[DEBUG] After dx_scores_without loop')
+        # Save debug info to CSV for post-analysis
+        import csv
+        with open('diagnosis_logit_debug.csv', 'a', newline='') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=['case_id', 'group', 'candidate', 'log_probs', 'raw_logits'])
+            if csvfile.tell() == 0:
+                writer.writeheader()
+            for row in debug_rows:
+                # Write as string for list fields
+                row['log_probs'] = str(row['log_probs'])
+                row['raw_logits'] = str(row['raw_logits'])
+                writer.writerow(row)
         top5_with = [dx for dx, _ in sorted(dx_scores_with, key=lambda x: x[1], reverse=True)[:5]]
         top5_without = [dx for dx, _ in sorted(dx_scores_without, key=lambda x: x[1], reverse=True)[:5]]
         vec_with = act_with[0, -1, :].unsqueeze(0)
