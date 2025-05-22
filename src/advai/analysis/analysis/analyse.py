@@ -57,7 +57,7 @@ def analyse_case_for_bias(text_with_demo, text_without_demo, model, sae, case_in
                     log_probs.append(float(log_prob))
             return sum(log_probs) if log_probs else float('-inf')
 
-        dx_json_path = "/Users/ameliag/Downloads/alethia-main/release_conditions.json"
+        dx_json_path = "PATHTO/release_conditions.json"
         print('[DEBUG] Before load_diagnosis_list')
         diagnosis_list = load_diagnosis_list(dx_json_path)
         print(f'[DEBUG] After load_diagnosis_list: {len(diagnosis_list)} diagnoses loaded')
