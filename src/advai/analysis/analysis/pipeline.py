@@ -6,6 +6,8 @@ from src.advai.data.build_prompts import build_prompts
 from src.advai.analysis.analyse import analyse_case_for_bias
 from src.advai.visuals.plots import visualize_feature_overlaps
 from src.advai.analysis.summary import generate_summary, write_output
+import sys
+import io
 
 def run_analysis_pipeline(
     patient_data_path,
@@ -29,13 +31,6 @@ def run_analysis_pipeline(
     Returns:
         Tuple (output_path, results, case_summaries, summary_text)
     """
-    import os
-    from src.advai.data.io import load_patient_data, extract_cases_from_dataframe, load_conditions_mapping
-    from src.advai.data.build_prompts import build_prompts
-    from src.advai.analysis.analyse import analyse_case_for_bias
-    from src.advai.visuals.plots import visualize_feature_overlaps
-    from src.advai.analysis.summary import generate_summary, write_output
-    from tqdm import tqdm
 
     df = load_patient_data(patient_data_path)
     cases = extract_cases_from_dataframe(df)
@@ -53,8 +48,7 @@ def run_analysis_pipeline(
     prompts_dir = os.path.join(save_dir, "prompts")
     os.makedirs(prompts_dir, exist_ok=True)
     all_prompts_text = []
-    import sys
-    import io
+  
     # Redirect stdout to capture all debug/print output
     debug_log_path = os.path.join(save_dir, "debug_log.txt")
     old_stdout = sys.stdout
