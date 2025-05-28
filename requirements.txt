@@ -12,3 +12,4 @@ pycodestyle
 pydocstyle
 toml
 build
+langchain
