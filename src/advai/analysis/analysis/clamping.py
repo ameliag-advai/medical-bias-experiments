@@ -1,6 +1,5 @@
 """
 
-
 Manual PyTorch clamping utilities for SAE features representing demographic info (sex, age).
 Allows user to clamp features for 'male', 'female', 'old', 'young' to a specified extent (e.g., 5x, 10x).
 
