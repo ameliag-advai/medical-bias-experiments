@@ -1,6 +1,62 @@
 import torch
 import os
 import json
+import csv
+import logging
+
+logging.basicConfig(level=logging.INFO)  # Set to logging.DEBUG to show debug messages
+logger = logging.getLogger()
+
+def load_diagnosis_list(json_path):
+    with open(json_path, 'r') as f:
+        data = json.load(f)
+    return [v['condition_name'] for v in data.values()]
+
+def score_candidate(prompt_prefix, candidate, model):
+    prompt = f"{prompt_prefix}{candidate}."
+    toks = model.to_tokens(prompt)
+    candidate_tokens = model.to_tokens(candidate)
+    logits, _ = model.run_with_cache(toks)
+    log_probs = []
+    raw_logits = []
+    candidate_tokens = candidate_tokens.flatten().tolist() if hasattr(candidate_tokens, 'flatten') else list(candidate_tokens)
+    for i, token_id in enumerate(candidate_tokens):
+        idx = int(token_id)
+        pos = -len(candidate_tokens) - 1 + i  # position of each candidate token
+        logit = logits[0, pos, :]
+        log_prob = torch.log_softmax(logit, dim=-1)[idx]
+        # Ensure log_prob is a scalar
+        if hasattr(log_prob, 'item') and log_prob.numel() == 1:
+            log_probs.append(log_prob.item())
+        elif hasattr(log_prob, 'tolist'):
+            val = log_prob.tolist()
+            if isinstance(val, list):
+                log_probs.append(val[0] if val and isinstance(val[0], (int, float)) else float('nan'))
+            else:
+                log_probs.append(float(val))
+        else:
+            log_probs.append(float(log_prob))
+        raw_logits.append(logit[idx].item())
+    logger.debug(f"[LOGITS] Candidate: '{candidate}' | Log probs (scalar): {log_probs} | Raw logits: {raw_logits}")
+    return sum(log_probs) if log_probs else float('-inf'), log_probs, raw_logits
+
+def score_diagnoses(prefix, group, diagnosis_list, model, case_id, score_candidate_func, debug_rows=None):
+    if debug_rows is None:
+        debug_rows = []
+    dx_scores = []
+    for dx in diagnosis_list[:5]:
+        score, log_probs, raw_logits = score_candidate_func(prefix, dx, model)
+        dx_scores.append((dx, score))
+        debug_rows.append({'case_id': case_id, 'group': group, 'candidate': dx, 'log_probs': log_probs, 'raw_logits': raw_logits})
+    return dx_scores, debug_rows
+
+def process_activations(act, sae, threshold=1.0):
+    vec = act[0, -1, :].unsqueeze(0)
+    sae_out = sae(vec)
+    active = (sae_out[0].abs() > threshold).squeeze(0)
+    n_active = active.sum().item()
+    top_dxs = torch.topk(sae_out[0], 5).indices.tolist()
+    return sae_out, active, n_active, top_dxs
 
 def analyse_case_for_bias(text_with_demo, text_without_demo, model, sae, case_info=None, case_id=None, save_dir="activations"):
     """
@@ -9,81 +65,30 @@ def analyse_case_for_bias(text_with_demo, text_without_demo, model, sae, case_in
     Returns a dict with keys: n_active_with, n_active_without, activation_difference, overlapping_features, top_dxs_with_demo, top_dxs_without_demo, sae_out_with, sae_out_without
     """
     os.makedirs(save_dir, exist_ok=True)
-    import torch
+
     with torch.no_grad():
         # Use the provided prompts only—NO HARDCODED INFO
-        print(f'[DEBUG] Using provided prompt with demo: {text_with_demo}')
-        print('[DEBUG] Before to_tokens (with demo)')
+        logger.debug(f'[DEBUG] Using provided prompt with demo: {text_with_demo}')
+        logger.debug('[DEBUG] Before to_tokens (with demo)')
         toks_with = model.to_tokens(text_with_demo)
-        print('[DEBUG] After to_tokens (with demo)')
-        print('[DEBUG] Before to_tokens (without demo)')
+        logger.debug('[DEBUG] After to_tokens (with demo)')
+        logger.debug('[DEBUG] Before to_tokens (without demo)')
         toks_without = model.to_tokens(text_without_demo)
-        print('[DEBUG] After to_tokens (without demo)')
-        print('[DEBUG] Before run_with_cache (with demo)')
+        logger.debug('[DEBUG] After to_tokens (without demo)')
+        logger.debug('[DEBUG] Before run_with_cache (with demo)')
         act_with = model.run_with_cache(toks_with, return_type=None)[1][sae.cfg.hook_name]
-        print('[DEBUG] After run_with_cache (with demo)')
-        print('[DEBUG] Before run_with_cache (without demo)')
+        logger.debug('[DEBUG] After run_with_cache (with demo)')
+        logger.debug('[DEBUG] Before run_with_cache (without demo)')
         act_without = model.run_with_cache(toks_without, return_type=None)[1][sae.cfg.hook_name]
-        print('[DEBUG] After run_with_cache (without demo)')
-        print('[DEBUG] Before SAE (with demo)')
+        logger.debug('[DEBUG] After run_with_cache (without demo)')
         # --- Candidate-based Top-5 Diagnoses Extraction ---
-        def load_diagnosis_list(json_path):
-            with open(json_path, 'r') as f:
-                data = json.load(f)
-            return [v['condition_name'] for v in data.values()]
-
-        def score_candidate(prompt_prefix, candidate, model):
-            prompt = f"{prompt_prefix}{candidate}."
-            toks = model.to_tokens(prompt)
-            candidate_tokens = model.to_tokens(candidate)
-            logits, _ = model.run_with_cache(toks)
-            log_probs = []
-            raw_logits = []
-            candidate_tokens = candidate_tokens.flatten().tolist() if hasattr(candidate_tokens, 'flatten') else list(candidate_tokens)
-            for i, token_id in enumerate(candidate_tokens):
-                idx = int(token_id)
-                pos = -len(candidate_tokens) - 1 + i  # position of each candidate token
-                logit = logits[0, pos, :]
-                log_prob = torch.log_softmax(logit, dim=-1)[idx]
-                # Ensure log_prob is a scalar
-                if hasattr(log_prob, 'item') and log_prob.numel() == 1:
-                    log_probs.append(log_prob.item())
-                elif hasattr(log_prob, 'tolist'):
-                    val = log_prob.tolist()
-                    if isinstance(val, list):
-                        log_probs.append(val[0] if val and isinstance(val[0], (int, float)) else float('nan'))
-                    else:
-                        log_probs.append(float(val))
-                else:
-                    log_probs.append(float(log_prob))
-                raw_logits.append(logit[idx].item())
-            print(f"[LOGITS] Candidate: '{candidate}' | Log probs (scalar): {log_probs} | Raw logits: {raw_logits}")
-            return sum(log_probs) if log_probs else float('-inf'), log_probs, raw_logits
-
-        dx_json_path = "PATH/TO/release_conditions.json"
-        print('[DEBUG] Before load_diagnosis_list')
+        dx_json_path = "/Users/ameliag/Downloads/alethia-main/release_conditions.json"
         diagnosis_list = load_diagnosis_list(dx_json_path)
-        print(f'[DEBUG] After load_diagnosis_list: {len(diagnosis_list)} diagnoses loaded')
         prefix_with = text_with_demo.rsplit(" ", 1)[0] + " "
         prefix_without = text_without_demo.rsplit(" ", 1)[0] + " "
-        print('[DEBUG] Before dx_scores_with loop')
-        dx_scores_with = []
-        dx_scores_without = []
-        debug_rows = []  # To collect debug info for CSV
-        for dx in diagnosis_list[:5]:
-            print(f'[DEBUG] Scoring WITH demo: {dx}')
-            score, log_probs, raw_logits = score_candidate(prefix_with, dx, model)
-            dx_scores_with.append((dx, score))
-            debug_rows.append({'case_id': case_id, 'group': 'with_demo', 'candidate': dx, 'log_probs': log_probs, 'raw_logits': raw_logits})
-        print('[DEBUG] After dx_scores_with loop')
-        for dx in diagnosis_list[:5]:
-            print(f'[DEBUG] Scoring WITHOUT demo: {dx}')
-            score, log_probs, raw_logits = score_candidate(prefix_without, dx, model)
-            dx_scores_without.append((dx, score))
-            debug_rows.append({'case_id': case_id, 'group': 'no_demo', 'candidate': dx, 'log_probs': log_probs, 'raw_logits': raw_logits})
-        print('[DEBUG] After dx_scores_without loop')
+        dx_scores_with, debug_rows = score_diagnoses(prefix_with, "with_demo", diagnosis_list, model, case_id, score_candidate)
+        dx_scores_without, debug_rows = score_diagnoses(prefix_without, "no_demo", diagnosis_list, model, case_id, score_candidate, debug_rows)
         # Save debug info to CSV for post-analysis
-        import csv
         with open('diagnosis_logit_debug.csv', 'a', newline='') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=['case_id', 'group', 'candidate', 'log_probs', 'raw_logits'])
             if csvfile.tell() == 0:
@@ -95,23 +100,11 @@ def analyse_case_for_bias(text_with_demo, text_without_demo, model, sae, case_in
                 writer.writerow(row)
         top5_with = [dx for dx, _ in sorted(dx_scores_with, key=lambda x: x[1], reverse=True)[:5]]
         top5_without = [dx for dx, _ in sorted(dx_scores_without, key=lambda x: x[1], reverse=True)[:5]]
-        vec_with = act_with[0, -1, :].unsqueeze(0)
-        sae_out_with = sae(vec_with)
-        print('[DEBUG] After SAE (with demo)')
-        print('[DEBUG] Before SAE (without demo)')
-        vec_without = act_without[0, -1, :].unsqueeze(0)
-        sae_out_without = sae(vec_without)
-        print('[DEBUG] After SAE (without demo)')
-        threshold = 1.0
-        active_with = (sae_out_with[0].abs() > threshold).squeeze(0)
-        active_without = (sae_out_without[0].abs() > threshold).squeeze(0)
-        n_active_with = active_with.sum().item()
-        n_active_without = active_without.sum().item()
+        sae_out_with, active_with, n_active_with, top_dxs_with_demo = process_activations(act_with, sae)
+        sae_out_without, active_without, n_active_without, top_dxs_without_demo = process_activations(act_without, sae)
         activation_difference = torch.norm(sae_out_with[0] - sae_out_without[0]).item()
         overlap = ((active_with) & (active_without)).nonzero(as_tuple=True)[0].tolist()
-        top_dxs_with_demo = torch.topk(sae_out_with[0], 5).indices.tolist()
-        top_dxs_without_demo = torch.topk(sae_out_without[0], 5).indices.tolist()
-        
+
         # Save activations
         torch.save({'sae_out_with': sae_out_with[0].cpu(), 'sae_out_without': sae_out_without[0].cpu()}, os.path.join(save_dir, f"case_{case_id}_activations.pt"))
         # Optionally, save more details if needed
