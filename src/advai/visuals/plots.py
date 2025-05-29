@@ -1,17 +1,26 @@
 import plotly.graph_objects as go
 import plotly.subplots as sp
+import pandas as pd
+from datetime import datetime
 
-def visualize_feature_overlaps(results, save_path="feature_overlap.html"):
+def _get_timestamped_filename(base_name, ext=".html"):
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    if base_name.endswith(ext):
+        base_name = base_name[: -len(ext)]
+    return f"{base_name}_{timestamp}{ext}"
+
+
+def visualize_feature_overlaps(results, save_path=None):
     """
     Visualize average change in feature activation and show a table of cases where the top-1 dx changed.
     Args:
         results: List of dicts from analyze_case_for_bias, one per case.
-        save_path: Where to save the HTML file.
+        save_path: Where to save the HTML file. If None, a timestamped file is created.
     """
-    # Gather per-case activation difference
+    if save_path is None:
+        save_path = _get_timestamped_filename("feature_overlap")
     diffs = [r.get('activation_difference', None) for r in results]
     diffs = [d for d in diffs if d is not None]
-    # Gather table info for dx-changed cases
     table_rows = []
     feature_diff_rows = []
     for r in results:
@@ -37,14 +46,12 @@ def visualize_feature_overlaps(results, save_path="feature_overlap.html"):
                 ', '.join(map(str, diff_with)),
                 ', '.join(map(str, diff_without))
             ])
-    # Create subplots: bar for avg activation diff, table for dx-changed cases, summary table
     fig = sp.make_subplots(
         rows=3, cols=1,
         subplot_titles=["Average Change in Feature Activation (L2)", "Cases Where Top-1 Diagnosis Changed (Demo vs No Demo)", "Summary of Feature Differences"],
         row_heights=[0.3, 0.3, 0.4],
         specs=[[{"type": "bar"}], [{"type": "table"}], [{"type": "table"}]]
     )
-    # Bar plot
     if diffs:
         fig.add_trace(
             go.Bar(y=diffs, x=[f"Case {i+1}" for i in range(len(diffs))], name="Activation Δ (L2)"),
@@ -52,7 +59,6 @@ def visualize_feature_overlaps(results, save_path="feature_overlap.html"):
         )
     else:
         fig.add_trace(go.Bar(y=[]), row=1, col=1)
-    # Table
     if table_rows:
         fig.add_trace(
             go.Table(
@@ -69,7 +75,6 @@ def visualize_feature_overlaps(results, save_path="feature_overlap.html"):
             ),
             row=2, col=1
         )
-    # Summary table
     if feature_diff_rows:
         fig.add_trace(
             go.Table(
@@ -90,15 +95,15 @@ def visualize_feature_overlaps(results, save_path="feature_overlap.html"):
     fig.write_html(save_path)
 
 
-def visualize_clamping_analysis(csv_path, save_path="clamping_feature_diag_changes.html"):
+def visualize_clamping_analysis(csv_path, save_path=None):
     """
     Visualize the output of clampinganalysis.csv, showing for each case if features or diagnoses changed between groups.
     Generates an interactive HTML table (plotly) highlighting changes.
+    If save_path is None, a timestamped file is created.
     """
-    import pandas as pd
-    import plotly.graph_objects as go
+    if save_path is None:
+        save_path = _get_timestamped_filename("clamping_feature_diag_changes")
     df = pd.read_csv(csv_path)
-    # Pivot so each row is a case, columns for each group
     groups = ['with_demo', 'no_demo', 'clamped']
     cases = sorted(df['case_id'].unique(), key=lambda x: int(x) if str(x).isdigit() else x)
     table_rows = []
