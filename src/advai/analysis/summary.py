@@ -1,7 +1,7 @@
 def generate_summary(results, case_summaries, activation_diff_by_sex, activation_diff_by_diagnosis):
     """Generate a human-readable summary of the analysis."""
     total_cases = len(results)
-    n_changed = sum(1 for r in results if r['n_active_with'] != r['n_active_without'])
+    n_changed = sum(1 for r in results if r['n_active_1'] != r['n_active_2'])
 
     lines = [
         "=== SUMMARY ===",
