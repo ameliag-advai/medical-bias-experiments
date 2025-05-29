@@ -43,7 +43,7 @@ def run_analysis_pipeline(patient_data_path, conditions_json_path, model, sae, n
 
     visualize_feature_overlaps(results, save_path="feature_overlap.html")
     summary_text = generate_summary(results, case_summaries, activation_diff_by_sex, activation_diff_by_diagnosis)
-     if output_path is None:
+    if output_path is None:
         now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         output_path = os.path.join(os.path.dirname(__file__), "..", f"analysis_output_{now}.txt")
     write_output(output_path, case_summaries, summary_text)
