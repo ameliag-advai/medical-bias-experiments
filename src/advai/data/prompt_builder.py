@@ -41,12 +41,12 @@ class PromptBuilder:
         """
 
         vars = {c: None if c not in self.concepts_to_test else case.get(c, None) for c in self.demographic_concepts}
+        vars["symptoms_text"] = self._get_symptoms_text(case)
         
         # Create a baseline symptom prompt that will be used to generate the text without demographic information.
         symptom_prompt = PromptTemplate(
             template="Patient presenting with: {symptoms_text}.",
             input_variables=["symptoms_text"],
-            partial_variables={"symptoms_text": lambda: self._get_symptoms_text(case)},
         )
 
         # Create a demographic prompt that will be used to generate the text with demographic information.
@@ -80,6 +80,15 @@ class PromptBuilder:
 
     def generate_jinja_template(self) -> str:
         """Given a set of demographic concepts, generate a Jinja2 template string.
+
+        Example:
+            "{% if age and sex %}
+            Age: {{ age }}. Sex: {{ sex }}.
+            {% elif age %}
+            Age: {{ age }}.
+            {% elif sex %}
+            Sex: {{ sex }}.
+            {% endif %}"
         
         :return: A Jinja2 template string that can be used to render demographic information.
         """
