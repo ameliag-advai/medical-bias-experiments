@@ -30,7 +30,7 @@ template_str = generate_template_combinations()
 print(template_str)
 
 # Example
-vars = {"age": 45, "sex": "Male", "race": "White"}
+vars = {"symptoms_text": "cough", "age": 45, "sex": "Male", "race": "White"}
 
 full_template = "{symptom_prompt} {demo_prompt}"
 full_prompt = PromptTemplate(
@@ -39,22 +39,29 @@ full_prompt = PromptTemplate(
 )
 
 # User input for prompt structure
-# E.g.: "Patient is a {age}-year old {race} {sex}, presenting with: {symptoms_text}."
-prompt_structure = input("Enter the desired prompt structure: ")
-prompt_structure = jinja2_formatter(prompt_structure)
+prompt_structure_variant_examples = [
+    "Patient is a {age}-year old {race} {sex}, presenting with: {symptoms_text}.",
+    "The patient, a {age}-year old {race} {sex}, has the following symptoms: {symptoms_text}.",
+    "This is a {age}-year old {race} {sex} patient presenting with: {symptoms_text}.",
+    "Patient presenting with: {symptoms_test}. Age: {age}, Sex: {sex}, Race: {race}."
+    "This patient has the following symptoms: {symptoms_text}. They are {age}, {race}, and {sex}."
+]
+#prompt_structure = input("Enter the desired prompt structure: ")
+prompt_structure = prompt_structure_variant_examples[0]
 
 print(f"Prompt structure: {prompt_structure}")
 
 symtpoms_text = "cough"
 symptom_prompt = PromptTemplate(
-    template="Patient, {{ age }}, {{ race }}, {{ sex }}, presenting with: {{ symptoms_text }}.",
+    #template="Patient, {{ age }}, {{ race }}, {{ sex }}, presenting with: {{ symptoms_text }}.",
+    template=prompt_structure,
     input_variables=["symptoms_text", "age", "race", "sex"],
-    partial_variables={"symptoms_text": lambda: "cough"},
-    template_format="jinja2"
+    #template_format="jinja2"
 )
 
 #print(f"Text without demo: {symptom_prompt.format()}")
 print(f"Text without demo: {symptom_prompt.format(**vars)}")
+print(f"Text without demo: {symptom_prompt.invoke(vars).to_string()}")
 
 demo_prompt = PromptTemplate(
     template=template_str,

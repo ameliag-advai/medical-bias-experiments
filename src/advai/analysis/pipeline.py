@@ -23,7 +23,7 @@ def run_analysis_pipeline(patient_data_path, conditions_json_path, model, sae, n
     prompt_builder = PromptBuilder(
         conditions_mapping, 
         demographic_concepts=["age", "sex"],
-        concepts_to_test=["sex"]
+        concepts_to_test=["age", "sex"]
     )
 
     results = []
@@ -32,8 +32,17 @@ def run_analysis_pipeline(patient_data_path, conditions_json_path, model, sae, n
     activation_diff_by_diagnosis = {}
 
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
-        text_with_demo, text_without_demo = prompt_builder.build_prompts(case)
-        result = analyse_case_for_bias(text_with_demo, text_without_demo, model, sae, case_info=case, case_id=idx, save_dir=save_dir)
+        # Calculate demographic combinations
+        demographic_combinations = prompt_builder.get_demographic_combinations(case)
+        activations = []
+        for demo_combination in demographic_combinations:
+            prompt = prompt_builder.build_prompts(case, demo_combination)
+            # @TODO: get rid of this line after testing
+            result = analyse_case_for_bias(prompt, model, sae, case_info=case, case_id=idx, save_dir=save_dir)
+            #activation = run_prompt(prompt, model, sae)
+            #acivations.append(activation)
+            
+        #case_result = compare_activations(activations, case_id=idx, threshold=1.0)
         results.append(result)
         case_summaries.append(str(result))
 

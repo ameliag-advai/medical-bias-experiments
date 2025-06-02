@@ -10,7 +10,8 @@ ipykernel
 pylint
 pycodestyle
 pydocstyle
-pyrit-ai
+pyrit
 toml
 build
 langchain
+inspect-ai

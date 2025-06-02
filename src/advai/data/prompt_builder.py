@@ -34,12 +34,13 @@ class PromptBuilder:
                 raise ValueError(f"'{concept}' is not in the set of demographic concepts in this dataset.")
         self.concepts_to_test = concepts_to_test
 
-    def build_prompts(self, case: Dict[str, Any]) -> Tuple[str, str]:
+    def build_prompts_old(self, case: Dict[str, Any]) -> Tuple[str, str]:
         """Build the prompt templates for LLM testing.
         
         :param case: A dictionary representing the features of a patient case, including symptoms.
         """
 
+        # @TODO: move the data extraction outside of the class. 
         vars = {c: None if c not in self.concepts_to_test else case.get(c, None) for c in self.demographic_concepts}
         vars["symptoms_text"] = self._get_symptoms_text(case)
         
@@ -77,6 +78,16 @@ class PromptBuilder:
         text_with_demo = full_prompt.invoke(vars).to_string()
 
         return text_with_demo, text_without_demo
+    
+    def build_prompts(self, case: Dict[str, Any]) -> Tuple[str, str]:
+        """Build the prompt templates for LLM testing.
+        
+        :param case: A dictionary representing the features of a patient case, including symptoms.
+        """
+
+        # @TODO: move the data extraction outside of the class. 
+        vars = {c: None if c not in self.concepts_to_test else case.get(c, None) for c in self.demographic_concepts}
+        vars["symptoms_text"] = self._get_symptoms_text(case)
 
     def generate_jinja_template(self) -> str:
         """Given a set of demographic concepts, generate a Jinja2 template string.
