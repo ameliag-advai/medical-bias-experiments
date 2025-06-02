@@ -1,5 +1,6 @@
 import os
 import json
+import datetime
 from tqdm import tqdm
 from src.advai.data.io import load_patient_data, extract_cases_from_dataframe, load_conditions_mapping
 from src.advai.data.prompt_builder import PromptBuilder
