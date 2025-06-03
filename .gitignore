@@ -146,6 +146,3 @@ dmypy.json
 
 # Advai
 build_report
-
-/.env
-/.venv
