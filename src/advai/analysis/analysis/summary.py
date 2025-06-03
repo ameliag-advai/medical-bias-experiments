@@ -10,10 +10,7 @@ def generate_summary(results, case_summaries, activation_diff_by_sex, activation
         str: The summary text
     """
     total_cases = len(results)
-
-    n_changed = sum(1 for r in results if r['n_active_1'] != r['n_active_2'])
-
-
+    n_changed = sum(1 for r in results if r.get('n_active_with') != r.get('n_active_without'))
     lines = [
         "=== SUMMARY ===",
         f"Total cases: {total_cases}",

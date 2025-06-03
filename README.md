@@ -32,7 +32,6 @@ List the main goals and objectives of the project. Clearly outline what the proj
 
 List any required software, hardware, or data needed to run the project. Include version numbers, operating systems, and any other relevant information. Also, mention any optional dependencies that can enhance the project's functionality.
 
-Dataset: https://figshare.com/articles/dataset/DDXPlus_Dataset_English_/22687585?file=40278016
 
 ## Installation and Setup Instructions
 
