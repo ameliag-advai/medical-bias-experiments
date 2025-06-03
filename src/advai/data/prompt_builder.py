@@ -70,6 +70,8 @@ class PromptBuilder:
     def build_prompts_langchain(self, case: Dict[str, Any]) -> Tuple[str, str]:
         """Build the prompt templates for LLM testing.
 
+        NB: This used fixed prompt templates. 
+
         :param case: A dictionary representing the features of a patient case, including symptoms.
         """
         vars = {

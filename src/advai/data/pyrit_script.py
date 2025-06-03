@@ -38,18 +38,18 @@ templates = [
 env = Environment(undefined=PartialUndefined)
 
 baseline_template = (
-    "The following jinja2 prompt contains demographic information about age, sex, and race: {prompt_template}."
+    "The following jinja2 prompt contains demographic information about age, sex, and race: {prompt_template}"
     "Remove the 'race' and 'sex' parts of the prompt, and make sure that the rest of the prompt structure remains the same."
-    "Make the remaining prompt grammatically correct."
+    "Make the remaining prompt grammatically correct. Just return the modified prompt without any additional text."
 )
 for t in templates:
     template = baseline_template.format(prompt_template=t)
-    client = InferenceClient(model="mistralai/Mixtral-8x7B-Instruct-v0.1")
+    client = InferenceClient(model="mistralai/Mistral-7B-Instruct-v0.3") # "mistralai/Mixtral-8x7B-Instruct-v0.1")
     response = client.text_generation(template)
     print(f"Response: {response}")
     jinja_template = env.from_string(response)
 
-    vars = {"symptoms_text": "cough", "sex": "male", "race": "white"}
+    vars = {"symptoms_text": "cough", "age": 45, "sex": "male", "race": "white"}
 
     template_str = generate_template(jinja_template, vars)
     print(f"Generated template: {template_str}")
