@@ -2,27 +2,55 @@
 
 import ast
 from itertools import chain, combinations
-from typing import Dict, Any, List, Tuple, Iterable
+from typing import Any, Dict, Iterable, List, Tuple
 
+from jinja2 import Environment, Undefined
 from langchain_core.prompts import PromptTemplate
 
 
-def all_nonempty_subsets(fields: List[Any]) -> Iterable[Tuple[Any, ...]]:
+def all_nonempty_subsets(
+    fields: List[Any], lower: int = -1
+) -> Iterable[Tuple[Any, ...]]:
     """Generate all non-empty subsets of a list of fields."""
-    return chain.from_iterable(combinations(fields, r) for r in range(len(fields) + 1, 0, -1))
+    return chain.from_iterable(
+        combinations(fields, r) for r in range(len(fields) + 1, lower, -1)
+    )
+
+
+class PartialUndefined(Undefined):
+    # Return the original placeholder format
+    def __str__(self):
+        return f"{{{{ {self._undefined_name} }}}}" if self._undefined_name else ""
+
+    def __repr__(self):
+        return f"{{{{ {self._undefined_name} }}}}" if self._undefined_name else ""
+
+    def __iter__(self):
+        """Prevent Jinja from evaluating loops by returning a placeholder string instead of an iterable."""
+        return self
+
+    def __bool__(self):
+        return True  # Ensures it doesn't evaluate to False
 
 
 class PromptBuilder:
     """A class to build prompts from an dataset example or case using a prompt template.
-    
-    Example: 
+
+    Example:
         - Without demo: "Patient presenting with: {symptoms_text}."
         - With demo: "Patient presenting with: {symptoms_text}. Age: {age}. Sex: {sex}. Race: {race}."
     """
 
-    def __init__(self, conditions_mapping, demographic_concepts: List[str], concepts_to_test: List[str]) -> None:
+    def __init__(
+        self,
+        conditions_mapping,
+        demographic_concepts: List[str],
+        concepts_to_test: List[str],
+        prompt_template: str,
+        baseline_prompt_template: str,
+    ) -> None:
         """Initialize the PromptBuilder.
-        
+
         :param case: A dictionary representing the features of a patient case, including symptoms.
         :param conditions_mapping: A mapping of conditions to their corresponding symptoms and other metadata.
         """
@@ -31,19 +59,25 @@ class PromptBuilder:
         self.demographic_template_string = self.generate_jinja_template()
         for concept in concepts_to_test:
             if concept not in self.demographic_concepts:
-                raise ValueError(f"'{concept}' is not in the set of demographic concepts in this dataset.")
+                raise ValueError(
+                    f"'{concept}' is not in the set of demographic concepts in this dataset."
+                )
         self.concepts_to_test = concepts_to_test
+        self.prompt_template = prompt_template
+        self.baseline_prompt_template = baseline_prompt_template
+        self.env = Environment(undefined=PartialUndefined)
 
-    def build_prompts_old(self, case: Dict[str, Any]) -> Tuple[str, str]:
+    def build_prompts_langchain(self, case: Dict[str, Any]) -> Tuple[str, str]:
         """Build the prompt templates for LLM testing.
-        
+
         :param case: A dictionary representing the features of a patient case, including symptoms.
         """
-
-        # @TODO: move the data extraction outside of the class. 
-        vars = {c: None if c not in self.concepts_to_test else case.get(c, None) for c in self.demographic_concepts}
+        vars = {
+            c: None if c not in self.concepts_to_test else case.get(c, None)
+            for c in self.demographic_concepts
+        }
         vars["symptoms_text"] = self._get_symptoms_text(case)
-        
+
         # Create a baseline symptom prompt that will be used to generate the text without demographic information.
         symptom_prompt = PromptTemplate(
             template="Patient presenting with: {symptoms_text}.",
@@ -54,13 +88,13 @@ class PromptBuilder:
         demo_prompt = PromptTemplate(
             template=self.demographic_template_string,
             input_variables=self.demographic_concepts,
-            template_format="jinja2"
+            template_format="jinja2",
         )
 
         # Define the full template with placeholders for symptom and demographic prompts.
         input_prompts = [
             ("symptom_prompt", symptom_prompt),
-            ("demo_prompt", demo_prompt)
+            ("demo_prompt", demo_prompt),
         ]
 
         full_template = "{symptom_prompt} {demo_prompt}"
@@ -78,16 +112,24 @@ class PromptBuilder:
         text_with_demo = full_prompt.invoke(vars).to_string()
 
         return text_with_demo, text_without_demo
-    
+
     def build_prompts(self, case: Dict[str, Any]) -> Tuple[str, str]:
         """Build the prompt templates for LLM testing.
-        
+
         :param case: A dictionary representing the features of a patient case, including symptoms.
         """
 
-        # @TODO: move the data extraction outside of the class. 
-        vars = {c: None if c not in self.concepts_to_test else case.get(c, None) for c in self.demographic_concepts}
+        # @TODO: move the data extraction outside of the class.
+        vars = {
+            c: None if c not in self.concepts_to_test else case.get(c, None)
+            for c in self.demographic_concepts
+        }
         vars["symptoms_text"] = self._get_symptoms_text(case)
+
+    def get_demographic_combinations(
+        self, case: Dict[str, Any]
+    ) -> Iterable[Tuple[Any, ...]]:
+        """Get all combinations of demographic concepts present in the case."""
 
     def generate_jinja_template(self) -> str:
         """Given a set of demographic concepts, generate a Jinja2 template string.
@@ -100,7 +142,7 @@ class PromptBuilder:
             {% elif sex %}
             Sex: {{ sex }}.
             {% endif %}"
-        
+
         :return: A Jinja2 template string that can be used to render demographic information.
         """
         template_parts = []
@@ -110,7 +152,10 @@ class PromptBuilder:
                 jinja_condition = f"{{% if {condition} %}}"
             else:
                 jinja_condition = f"{{% elif {condition} %}}"
-            phrase_parts = " ".join(f"{field.capitalize()}: {{{{ {field} }}}}." for field in demo_combination)
+            phrase_parts = " ".join(
+                f"{field.capitalize()}: {{{{ {field} }}}}."
+                for field in demo_combination
+            )
 
             template_parts.append(f"{jinja_condition}\n{phrase_parts}")
 
@@ -120,19 +165,19 @@ class PromptBuilder:
 
     def _get_symptoms_text(self, case: Dict[str, Any]) -> str:
         """Get the symptoms text from the case.
-        
+
         :param case: A dictionary representing the features of a patient case, including symptoms.
         :return: A string representation of the symptoms.
         """
         symptoms = case.get("features", [])
         symptoms = self.safe_eval_symptoms(symptoms)
         symptoms_text = self.symptom_codes_to_text(symptoms)
-        
+
         return symptoms_text
 
     def safe_eval_symptoms(self, raw_symptoms: Any) -> List[str]:
         """Safely evaluate the symptoms strings.
-        
+
         :param raw_symptoms: The raw symptoms data from the case.
         :return: A list of symptoms.
         """
@@ -143,12 +188,12 @@ class PromptBuilder:
                 symptoms = ast.literal_eval(raw_symptoms)
             except (ValueError, SyntaxError):
                 symptoms = []
-        
+
         return symptoms
-    
+
     def symptom_codes_to_text(self, symptoms_codes) -> str:
         """Convert symptom codes into human-readable text using the conditions mapping.
-        
+
         :param symptoms_codes: A list of symptom codes.
         :return: A string representation of the symptoms.
         """
@@ -158,5 +203,5 @@ class PromptBuilder:
             if isinstance(symptoms, dict):
                 for code, name in symptoms.items():
                     code_to_name[code] = name or code
-  
+
         return ", ".join(code_to_name.get(c, c) for c in symptoms_codes)
