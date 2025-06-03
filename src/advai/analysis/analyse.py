@@ -1,33 +1,29 @@
 import torch
 
-def analyse_case_for_bias(text_with_demo, text_without_demo, model, sae, case_info=None, case_id=None, save_dir="activations"):
-    """Analyze a single case to compare SAE feature activations with/without demographics."""
+def run_prompt(prompt, model, sae):
+    """Run a single prompt and return SAE feature activations."""
     with torch.no_grad():
-        toks_with = model.to_tokens(text_with_demo)
-        toks_without = model.to_tokens(text_without_demo)
+        tokenised_prompt = model.to_tokens(prompt)
+        model_activations = model.run_with_cache(tokenised_prompt, return_type=None)[1][sae.cfg.hook_name]
+        vectorised = model_activations[0, -1, :].unsqueeze(0)
+        sae_activations = sae(vectorised)[0]
 
-        act_with = model.run_with_cache(toks_with, return_type=None)[1][sae.cfg.hook_name]
-        act_without = model.run_with_cache(toks_without, return_type=None)[1][sae.cfg.hook_name]
+        return sae_activations
+    
+def compare_activations(activations_1, activations_2, case_id=None, threshold=1.0):
+    """Compare SAE feature activations for two sets of activations."""
+    active_features_1 = (activations_1.abs() > threshold).squeeze(0)
+    active_features_2 = (activations_2.abs() > threshold).squeeze(0)
+    
+    n_active_features_1 = active_features_1.sum().item()
+    n_active_features_2 = active_features_2.sum().item()
 
-        vec_with = act_with[0, -1, :].unsqueeze(0)
-        vec_without = act_without[0, -1, :].unsqueeze(0)
-
-        sae_out_with = sae(vec_with)[0]
-        sae_out_without = sae(vec_without)[0]
-
-        threshold = 1.0
-        active_with = (sae_out_with.abs() > threshold).squeeze(0)
-        active_without = (sae_out_without.abs() > threshold).squeeze(0)
-
-        n_active_with = active_with.sum().item()
-        n_active_without = active_without.sum().item()
-        activation_difference = torch.norm(sae_out_with - sae_out_without).item()
-        overlap = ((active_with) & (active_without)).nonzero(as_tuple=True)[0].tolist()
-
-        return {
-            'n_active_with': n_active_with,
-            'n_active_without': n_active_without,
-            'activation_difference': activation_difference,
-            'overlapping_features': overlap,
-            'case_id': case_id
-        }
+    activation_difference = torch.norm(activations_1 - activations_2).item()
+    overlap = ((active_features_1) & (active_features_2)).nonzero(as_tuple=True)[0].tolist()
+    return {
+        'n_active_1': n_active_features_1,
+        'n_active_2': n_active_features_2,
+        'activation_difference': activation_difference,
+        'overlapping_features': overlap,
+        'case_id': case_id
+    }
