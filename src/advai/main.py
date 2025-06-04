@@ -32,17 +32,15 @@ def main():
     load_dotenv()
     os.environ["HF_TOKEN"] = os.getenv("HF_TOKEN")
 
-    # raise ValueError("Stop here.")
-
-    # model, sae = load_model_and_sae(model_scope=args.model, device=args.device)
+    model, sae = load_model_and_sae(model_scope=args.model, device=args.device)
     conditions_path = "release_conditions.json"
     patient_path = args.patient_file or "release_test_patients_mini_version.txt"
 
     run_analysis_pipeline(
         patient_data_path=patient_path,
         conditions_json_path=conditions_path,
-        # model=model,
-        # sae=sae,
+        model=model,
+        sae=sae,
         num_cases=args.num_cases,
         concepts_to_test=args.concepts,
         output_path=args.output,

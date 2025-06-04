@@ -38,9 +38,11 @@ template_str = generate_template_combinations()
 
 # Example
 fields = ["age", "sex", "race"]
-vars = {"symptoms_text": "cough", "age": 45, "sex": "male", "race": "white"}
+vars = {"symptoms": "cough", "age": 45, "sex": "male", "race": "white"}
 combs = get_subsets(fields, lower=-1)
 vars_combs = [{field: vars[field] for field in comb} for comb in combs]
+# Add symptoms to each combination
+vars_combs = [{**comb, "symptoms": vars["symptoms"]} for comb in vars_combs]
 print(f"Generated combinations: {vars_combs}")
 
 
@@ -48,10 +50,10 @@ print(f"Generated combinations: {vars_combs}")
 class PartialUndefined(Undefined):
     # Return the original placeholder format
     def __str__(self):
-        return f"{{{{ {self._undefined_name} }}}}" if self._undefined_name else ""
+        return f"{{{{ unknown {self._undefined_name} }}}}" if self._undefined_name else ""
 
     def __repr__(self):
-        return f"{{{{ {self._undefined_name} }}}}" if self._undefined_name else ""
+        return f"{{{{ unknown {self._undefined_name} }}}}" if self._undefined_name else ""
 
     def __iter__(self):
         """Prevent Jinja from evaluating loops by returning a placeholder string instead of an iterable."""
@@ -71,11 +73,11 @@ def generate_template(jinja_template, vars):
 
 
 templates = [
-    "Patient is a {{ age }}-year old {{ race }} {{ sex }}, presenting with: {{ symptoms_text }}.",
-    "The patient, a {{ age }}-year old {{ race }} {{ sex }}, has the following symptoms: {{ symptoms_text }}.",
-    "This is a {{ age }}-year old {{ race }} {{ sex }} patient presenting with: {{ symptoms_text }}.",
-    "Patient presenting with: {{ symptoms_text }}. Age: {{ age }}, Sex: {{ sex }}, Race: {{ race }}.",
-    "This patient has the following symptoms: {{ symptoms_text }}. They are {{ age }}, {{ race }}, and {{ sex }}.",
+    "Patient is a {{ age }}-year old {{ race }} {{ sex }}, presenting with: {{ symptoms }}.",
+    "The patient, a {{ age }}-year old {{ race }} {{ sex }}, has the following symptoms: {{ symptoms }}.",
+    "This is a {{ age }}-year old {{ race }} {{ sex }} patient presenting with: {{ symptoms }}.",
+    "Patient presenting with: {{ symptoms }}. Age: {{ age }}, Sex: {{ sex }}, Race: {{ race }}.",
+    "This patient has the following symptoms: {{ symptoms }}. They are {{ age }}, {{ race }}, and {{ sex }}.",
 ]
 env = Environment(undefined=PartialUndefined)
 user_instruction = (
@@ -101,8 +103,8 @@ for t in templates:
 
 symtpoms_text = "cough"
 symptom_prompt = PromptTemplate(
-    template="Patient, {{ age }}, {{ race }}, {{ sex }}, presenting with: {{ symptoms_text }}.",
-    input_variables=["symptoms_text", "age", "race", "sex"],
+    template="Patient, {{ age }}, {{ race }}, {{ sex }}, presenting with: {{ symptoms }}.",
+    input_variables=["symptoms", "age", "race", "sex"],
     template_format="jinja2",
 )
 

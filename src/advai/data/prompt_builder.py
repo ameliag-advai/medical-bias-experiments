@@ -8,7 +8,7 @@ from jinja2 import Environment, Undefined
 from langchain_core.prompts import PromptTemplate
 
 
-def all_nonempty_subsets(
+def get_subsets(
     fields: List[Any], lower: int = -1
 ) -> Iterable[Tuple[Any, ...]]:
     """Generate all non-empty subsets of a list of fields."""
@@ -20,10 +20,10 @@ def all_nonempty_subsets(
 class PartialUndefined(Undefined):
     # Return the original placeholder format
     def __str__(self):
-        return f"{{{{ {self._undefined_name} }}}}" if self._undefined_name else ""
+        return f"{{{{ unknown {self._undefined_name} }}}}" if self._undefined_name else ""
 
     def __repr__(self):
-        return f"{{{{ {self._undefined_name} }}}}" if self._undefined_name else ""
+        return f"{{{{ unknown {self._undefined_name} }}}}" if self._undefined_name else ""
 
     def __iter__(self):
         """Prevent Jinja from evaluating loops by returning a placeholder string instead of an iterable."""
@@ -46,7 +46,7 @@ class PromptBuilder:
         conditions_mapping,
         demographic_concepts: List[str],
         concepts_to_test: List[str],
-        prompt_template: str,
+        full_prompt_template: str,
         baseline_prompt_template: str,
     ) -> None:
         """Initialize the PromptBuilder.
@@ -63,9 +63,15 @@ class PromptBuilder:
                     f"'{concept}' is not in the set of demographic concepts in this dataset."
                 )
         self.concepts_to_test = concepts_to_test
-        self.prompt_template = prompt_template
+        self.full_prompt_template = full_prompt_template
         self.baseline_prompt_template = baseline_prompt_template
+        self.create_jinja_template()
+
+    def create_jinja_template(self) -> None:
+        """Create a Jinja2 template from the demographic concepts."""
         self.env = Environment(undefined=PartialUndefined)
+        self.full_jinja_template = self.env.from_string(self.full_prompt_template)
+        self.baseline_jinja_template = self.env.from_string(self.baseline_prompt_template)
 
     def build_prompts_langchain(self, case: Dict[str, Any]) -> Tuple[str, str]:
         """Build the prompt templates for LLM testing.
@@ -115,23 +121,57 @@ class PromptBuilder:
 
         return text_with_demo, text_without_demo
 
-    def build_prompts(self, case: Dict[str, Any]) -> Tuple[str, str]:
+    def build_prompts(self, case: Dict[str, Any], demographic_combination: List[str]) -> Tuple[str, str]:
         """Build the prompt templates for LLM testing.
 
         :param case: A dictionary representing the features of a patient case, including symptoms.
         """
 
-        # @TODO: move the data extraction outside of the class.
-        vars = {
-            c: None if c not in self.concepts_to_test else case.get(c, None)
-            for c in self.demographic_concepts
-        }
-        vars["symptoms_text"] = self._get_symptoms_text(case)
+        vars = {c: case.get(c, None) for c in demographic_combination}
+        vars = self.convert_to_human_readable(vars)
+        vars["symptoms"] = self._get_symptoms_text(case)
+
+        if len(demographic_combination) == 0:
+            jinja_template = self.baseline_jinja_template
+        else:
+            jinja_template = self.full_jinja_template
+
+        return self.generate_template(jinja_template, vars)
+
+    def convert_to_human_readable(self, vars: Dict[str, Any]) -> Dict[str, Any]:
+        """Convert the rendered demographic attributes to human-readable format."""
+        # Sex
+        if "sex" in vars:
+            if vars["sex"] == "M":
+                vars["sex"] = "male"
+            elif vars["sex"] == "F":
+                vars["sex"] = "female"
+            else:
+                vars["sex"] = "unknown sex"
+
+        return vars
+
+    def generate_template(self, jinja_template, vars):
+        """Generate a Jinja2 template with the provided variables."""
+        try:
+            # Render the template with the provided kwargs
+            return jinja_template.render(vars)
+        except Exception as e:
+            print(f"Error rendering template: {e}")
+            return jinja_template
 
     def get_demographic_combinations(
         self, case: Dict[str, Any]
     ) -> Iterable[Tuple[Any, ...]]:
         """Get all combinations of demographic concepts present in the case."""
+        non_null_concepts_in_this_case = []
+        for concept in self.concepts_to_test:
+            if case[concept] is not None:
+                non_null_concepts_in_this_case.append(concept)
+
+        demographic_combinations = get_subsets(non_null_concepts_in_this_case, lower=-1)
+
+        return demographic_combinations
 
     def generate_jinja_template(self) -> str:
         """Given a set of demographic concepts, generate a Jinja2 template string.
@@ -148,7 +188,7 @@ class PromptBuilder:
         :return: A Jinja2 template string that can be used to render demographic information.
         """
         template_parts = []
-        for demo_combination in all_nonempty_subsets(self.demographic_concepts):
+        for demo_combination in get_subsets(self.demographic_concepts, lower=0):
             condition = " and ".join(demo_combination)
             if len(template_parts) == 0:
                 jinja_condition = f"{{% if {condition} %}}"
