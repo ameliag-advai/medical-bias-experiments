@@ -43,7 +43,7 @@ def main():
         sae=sae,
         num_cases=args.num_cases,
         concepts_to_test=args.concepts,
-        output_path=args.output,
+        output_name=args.output,
     )
 
 

@@ -1,4 +1,5 @@
 """This module provides a pipeline for analyzing bias in AI models for a given dataset."""
+import datetime
 import json
 import os
 
@@ -42,7 +43,7 @@ def run_analysis_pipeline(
     demographic_concepts: list[str] = ["age", "sex"],
     concepts_to_test: list[str ] = ["age", "sex"],
     save_dir: str = "activations",
-    output_path: str = None,
+    output_name: str = None,
 ) -> str:
     """Run the full analysis pipeline including loading data, generating prompts,
     analyzing bias, and writing results to disk.
@@ -108,12 +109,12 @@ def run_analysis_pipeline(
         results.append(case_result)
         case_summaries.append(str(case_result))
     
-    visualize_feature_overlaps(results, save_path="feature_overlap.html")
-    summary_text = generate_summary(
-        results, case_summaries, activation_diff_by_sex, activation_diff_by_diagnosis
-    )
-    output_path = output_path or os.path.join(
-        os.path.dirname(__file__), "..", "analysis_output.txt"
-    )
-    write_output(output_path, case_summaries, summary_text)
-    return output_path
+    # Construct timestamped filenames using output_name
+    now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    base_name = f"{output_name or 'analysis'}_{now}"
+    feature_path = os.path.join(outputs_dir, f"{base_name}_feature_overlap.html")
+    analysis_path = os.path.join(outputs_dir, f"{base_name}_analysis_output.txt")
+    visualize_feature_overlaps(results, save_path=feature_path)
+    summary_text = generate_summary(results, case_summaries, activation_diff_by_sex, activation_diff_by_diagnosis)
+    write_output(analysis_path, case_summaries, summary_text)
+    return analysis_path
