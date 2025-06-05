@@ -4,7 +4,7 @@ import os
 
 from tqdm import tqdm
 
-from src.advai.analysis.analyse import analyse_case_for_bias
+from src.advai.analysis.analyse import run_prompt, compare_activations
 from src.advai.analysis.summary import generate_summary, write_output
 from src.advai.data.build_prompts import build_prompts
 from src.advai.data.io import (
@@ -29,7 +29,8 @@ def data_preprocessing(patient_data_path: str, conditions_json_path: str, num_ca
     if num_cases:
         cases = cases[:num_cases]
     conditions_mapping = load_conditions_mapping(conditions_json_path)
-    return df, cases, conditions_mapping
+
+    return cases, conditions_mapping
 
 
 def run_analysis_pipeline(
@@ -46,7 +47,13 @@ def run_analysis_pipeline(
     """Run the full analysis pipeline including loading data, generating prompts,
     analyzing bias, and writing results to disk.
     """
-    df, cases, conditions_mapping = data_preprocessing(
+    # Setup outputs directory at project level
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+    outputs_dir = os.path.join(project_root, 'outputs')
+    os.makedirs(outputs_dir, exist_ok=True)
+
+    # Get the patient data and conditions mapping
+    cases, conditions_mapping = data_preprocessing(
         patient_data_path, conditions_json_path, num_cases=num_cases
     )
 
@@ -91,19 +98,16 @@ def run_analysis_pipeline(
         for demo_combination in demographic_combinations:
             prompt = prompt_builder.build_prompts(case, demo_combination)
             print(f"Prompt: {prompt}")
-            # @TODO: get rid of this line after testing
-            ##result = analyse_case_for_bias(prompt, model, sae, case_info=case, case_id=idx, save_dir=save_dir)
-            # activation = run_prompt(prompt, model, sae)
-            # acivations.append(activation)
+            activation = run_prompt(prompt, model, sae)
+            activations.append(activation)
 
-        # case_result = compare_activations(activations, case_id=idx, threshold=1.0)
-        ##results.append(result)
-        ##case_summaries.append(str(result))
-        # results.append(case_result)
-        # case_summaries.append(str(case_result))
+        # @TODO: Compare activations needs to be rewritten to handle the above structure. 
+        # Currently takes two separate activations, but we have a list of activations.
+        # So maybe compare each pair of activations in the list?
+        case_result = compare_activations(activations, case_id=idx, threshold=1.0)
+        results.append(case_result)
+        case_summaries.append(str(case_result))
     
-    raise ValueError("Stop here.")
-
     visualize_feature_overlaps(results, save_path="feature_overlap.html")
     summary_text = generate_summary(
         results, case_summaries, activation_diff_by_sex, activation_diff_by_diagnosis
