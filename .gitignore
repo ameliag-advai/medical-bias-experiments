@@ -149,3 +149,4 @@ build_report
 
 /.env
 /.venv
+scripts/
