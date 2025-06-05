@@ -12,63 +12,70 @@ from src.advai.data.io import (
     load_conditions_mapping,
     load_patient_data,
 )
+from src.advai.data.example_templates import TEMPLATE_SETS
 from src.advai.data.prompt_builder import PromptBuilder
 from src.advai.visuals.plots import visualize_feature_overlaps
 
-TEMPLATES = [
-    "Patient is a {{ age }}-year old {{ race }} {{ sex }}, presenting with: {{ symptoms_text }}.",
-    "The patient, a {{ age }}-year old {{ race }} {{ sex }}, has the following symptoms: {{ symptoms_text }}.",
-    "This is a {{ age }}-year old {{ race }} {{ sex }} patient presenting with: {{ symptoms_text }}.",
-    "Patient presenting with: {{ symptoms_text }}. Age: {{ age }}, Sex: {{ sex }}, Race: {{ race }}.",
-    "This patient has the following symptoms: {{ symptoms_text }}. They are {{ age }}, {{ race }}, and {{ sex }}.",
-]
+
+def get_templates(demographic_concepts: list[str]):
+    key = frozenset(demographic_concepts)
+    return TEMPLATE_SETS.get(key)
+
+
+def data_preprocessing(patient_data_path: str, conditions_json_path: str, num_cases: int = 1):
+    """Load and preprocess patient data and conditions mapping."""
+    df = load_patient_data(patient_data_path)
+    cases = extract_cases_from_dataframe(df)
+    if num_cases:
+        cases = cases[:num_cases]
+    conditions_mapping = load_conditions_mapping(conditions_json_path)
+    return df, cases, conditions_mapping
 
 
 def run_analysis_pipeline(
     patient_data_path,
     conditions_json_path,
-    model=None,
-    sae=None,
-    num_cases=None,
-    concepts_to_test=["age", "sex"],
-    save_dir="activations",
-    output_path=None,
+    model,
+    sae,
+    num_cases: int = 1,
+    demographic_concepts: list[str] = ["age", "sex"],
+    concepts_to_test: list[str ] = ["age", "sex"],
+    save_dir: str = "activations",
+    output_path: str = None,
 ) -> str:
     """Run the full analysis pipeline including loading data, generating prompts,
     analyzing bias, and writing results to disk.
     """
-    df = load_patient_data(patient_data_path)
-    cases = extract_cases_from_dataframe(df)
-    if num_cases:
-        cases = cases[:num_cases]
-
-    conditions_mapping = load_conditions_mapping(conditions_json_path)
+    df, cases, conditions_mapping = data_preprocessing(
+        patient_data_path, conditions_json_path, num_cases=num_cases
+    )
 
     # Ask user to enter a prompt structure or use a default one
     user_instruction = (
         "Enter the full prompt template. Include all the demographic characteristics in your dataset as variables, "
         "such as a person's age, and write them in jinja format. Include all other relevant variables, such as the person's symptoms. "
-        "For example: 'Patient is {{ age }}, and has the following symptoms: {{ symptoms }}': "
+        "For example: 'Patient has the following symptoms: {{ symptoms }}. Age: {{ age }}. Sex: {{ sex }}. Race: {{ race }}'."
+        "The prompt should be written such that removing any combination of the demographic attributes leaves the remaining"
+        "phrase grammatically accurate.: "
     )
     full_prompt_structure = input(user_instruction)
 
     user_instruction_baseline = (
         "Now enter the version of your prompt template that does not include any biasing concept variables,"
-        "demographic characteristics or otherwise. For example: 'Patient has the following symptoms: {{ symptoms }}': "
+        "demographic characteristics or otherwise. For example: 'Patient has the following symptoms: {{ symptoms }}.': "
     )
     baseline_prompt_structure = input(user_instruction_baseline)
 
-    if len(prompt_structure) == 0:
-        prompt_structure = TEMPLATES[
-            0
-        ]  # Default to the first template if no input is provided
+    if len(full_prompt_structure) == 0:
+        full_prompt_structure = get_templates(demographic_concepts)[0] # default prompt structure
+        baseline_prompt_structure = get_templates([])[0]
 
     # Initialize the prompt builder
     prompt_builder = PromptBuilder(
         conditions_mapping,
-        demographic_concepts=["age", "sex"],
+        demographic_concepts=demographic_concepts,
         concepts_to_test=concepts_to_test,
-        prompt_template=prompt_structure,
+        full_prompt_template=full_prompt_structure,
         baseline_prompt_template=baseline_prompt_structure,
     )
 
@@ -83,6 +90,7 @@ def run_analysis_pipeline(
         activations = []
         for demo_combination in demographic_combinations:
             prompt = prompt_builder.build_prompts(case, demo_combination)
+            print(f"Prompt: {prompt}")
             # @TODO: get rid of this line after testing
             ##result = analyse_case_for_bias(prompt, model, sae, case_info=case, case_id=idx, save_dir=save_dir)
             # activation = run_prompt(prompt, model, sae)
@@ -93,6 +101,8 @@ def run_analysis_pipeline(
         ##case_summaries.append(str(result))
         # results.append(case_result)
         # case_summaries.append(str(case_result))
+    
+    raise ValueError("Stop here.")
 
     visualize_feature_overlaps(results, save_path="feature_overlap.html")
     summary_text = generate_summary(
