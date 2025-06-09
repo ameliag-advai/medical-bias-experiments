@@ -9,12 +9,12 @@ from langchain_core.prompts import PromptTemplate
 
 
 def get_subsets(
-    fields: List[Any], lower: int = -1
+    fields: List[Any], lower: int = 0
 ) -> Iterable[Tuple[Any, ...]]:
-    """Generate all non-empty subsets of a list of fields."""
-    return chain.from_iterable(
-        combinations(fields, r) for r in range(len(fields) + 1, lower, -1)
-    )
+    """Generate subsets of a list of fields."""
+    return list(chain.from_iterable(
+        combinations(fields, r) for r in range(len(fields), lower, -1)
+    ))
 
 
 class PartialUndefined(Undefined):

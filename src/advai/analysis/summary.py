@@ -1,19 +1,23 @@
 """Generate a summary of the analysis results."""
 
 
-def generate_summary(results):
+def generate_summary(results, pairs_to_compare):
     """Generate a human-readable summary of the analysis."""
     if len(results) == 0:
         raise ValueError("No results to summarize.")
+    
+    lines = ["=== SUMMARY ==="]
 
-    total_cases = len(results)
-    n_changed = sum(1 for r in results if r["n_active_1"] != r["n_active_2"])
+    for pair in pairs_to_compare:
+        results_for_pair = [r[pair] for r in results if r[pair] is not None]
 
-    lines = [
-        "=== SUMMARY ===",
-        f"Total cases: {total_cases}",
-        f"Diagnosis changed (activation count): {n_changed}/{total_cases}",
-    ]
+        total_cases = len(results_for_pair)
+        n_changed = sum(1 for r in results_for_pair if r["n_active_1"] != r["n_active_2"])
+
+        lines.append(f"\n--- Comparison: {pair} ---")
+        lines.append(f"Total cases where demographic exists: {total_cases}")
+        lines.append(f"Cases with changed diagnosis (activation count): {n_changed}/{total_cases}\n")
+        
     return "\n".join(lines)
 
 

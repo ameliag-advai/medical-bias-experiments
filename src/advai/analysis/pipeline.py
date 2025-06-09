@@ -13,7 +13,7 @@ from src.advai.data.io import (
     load_patient_data,
 )
 from src.advai.data.example_templates import TEMPLATE_SETS
-from src.advai.data.prompt_builder import PromptBuilder
+from src.advai.data.prompt_builder import PromptBuilder, get_subsets
 from src.advai.visuals.plots import visualize_feature_overlaps
 
 
@@ -35,6 +35,19 @@ def data_preprocessing(
     return cases, conditions_mapping
 
 
+def process_case_result(activations, pairs_to_compare, case_id=None, threshold=1.0):
+    """Process the activations and compare them for each pair."""
+    case_result = {}
+    for pair in pairs_to_compare:
+        activations_1 = activations[pair[0]]
+        activations_2 = activations[pair[1]]
+        if activations_1 is None or activations_2 is None:
+            case_result[pair] = None
+        else:
+            case_result[pair] = compare_activations(activations_1, activations_2, case_id=case_id, threshold=threshold)
+    return case_result
+
+
 def run_analysis_pipeline(
     patient_data_path,
     conditions_json_path,
@@ -50,7 +63,7 @@ def run_analysis_pipeline(
     analyzing bias, and writing results to disk.
     """
     # Setup outputs directory at project level
-    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
     outputs_dir = os.path.join(project_root, "outputs")
     os.makedirs(outputs_dir, exist_ok=True)
 
@@ -89,36 +102,40 @@ def run_analysis_pipeline(
         full_prompt_template=full_prompt_structure,
         baseline_prompt_template=baseline_prompt_structure,
     )
+    all_combinations = get_subsets(concepts_to_test, lower=-1)
+    pairs_to_compare = [("_".join(all_combinations[i]), "_".join(all_combinations[-1])) 
+                        for i in range(len(all_combinations) - 1)]
 
     results = []
     case_summaries = []
-    activation_diff_by_sex = {}
-    activation_diff_by_diagnosis = {}
-
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
         # Calculate demographic combinations
-        demographic_combinations = prompt_builder.get_demographic_combinations(case)
-        activations = []
-        print(f"Demographic combinations: {demographic_combinations}")
-        for demo_combination in demographic_combinations:
-            prompt = prompt_builder.build_prompts(case, demo_combination)
-            print(f"Prompt: {prompt}")
-            activation = run_prompt(prompt, model, sae)
-            activations.append(activation)
+        case_demographic_combinations = prompt_builder.get_demographic_combinations(case)
+        activations = {}
+        for demo_combination in all_combinations: #demographic_combinations:
+            if demo_combination in case_demographic_combinations:
+                prompt = prompt_builder.build_prompts(case, demo_combination)
+                #print(f"Prompt: {prompt}")
+                activation = run_prompt(prompt, model, sae)
+                activations["_".join(demo_combination)] = activation
+            # If this combination is not in the case, set to None
+            else:
+                activations["_".join(demo_combination)] = None
 
-        case_result = compare_activations(activations, case_id=idx, threshold=1.0)
+        #raise ValueError("Stop here.")
+        case_result = process_case_result(activations, pairs_to_compare, case_id=idx, threshold=1.0)
         results.append(case_result)
         case_summaries.append(str(case_result))
 
     # Construct timestamped filenames using output_name
     now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     base_name = f"{output_name or 'analysis'}_{now}"
-    feature_path = os.path.join(outputs_dir, f"{base_name}_feature_overlap.html")
+    feature_path = os.path.join(outputs_dir, f"{base_name}_feature_overlap")
     analysis_path = os.path.join(outputs_dir, f"{base_name}_analysis_output.txt")
-    visualize_feature_overlaps(results, save_path=feature_path)
+    visualize_feature_overlaps(results, pairs_to_compare, save_path=feature_path)
 
     # Generate results summaries
-    summary_text = generate_summary(results)
+    summary_text = generate_summary(results, pairs_to_compare)
     write_output(analysis_path, case_summaries, summary_text)
 
     return analysis_path

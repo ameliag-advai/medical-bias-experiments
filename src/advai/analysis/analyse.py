@@ -24,10 +24,13 @@ def compare_activations(activations_1, activations_2, case_id=None, threshold=1.
     overlap = (
         ((active_features_1) & (active_features_2)).nonzero(as_tuple=True)[0].tolist()
     )
-    return {
+
+    result = {
         "n_active_1": n_active_features_1,
         "n_active_2": n_active_features_2,
         "activation_difference": activation_difference,
         "overlapping_features": overlap,
         "case_id": case_id,
     }
+
+    return result
