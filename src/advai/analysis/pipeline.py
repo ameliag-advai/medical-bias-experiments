@@ -115,14 +115,12 @@ def run_analysis_pipeline(
         for demo_combination in all_combinations: #demographic_combinations:
             if demo_combination in case_demographic_combinations:
                 prompt = prompt_builder.build_prompts(case, demo_combination)
-                #print(f"Prompt: {prompt}")
                 activation = run_prompt(prompt, model, sae)
                 activations["_".join(demo_combination)] = activation
             # If this combination is not in the case, set to None
             else:
                 activations["_".join(demo_combination)] = None
 
-        #raise ValueError("Stop here.")
         case_result = process_case_result(activations, pairs_to_compare, case_id=idx, threshold=1.0)
         results.append(case_result)
         case_summaries.append(str(case_result))
