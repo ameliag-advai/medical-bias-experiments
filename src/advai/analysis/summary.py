@@ -1,9 +1,7 @@
-def generate_summary(
-    results,
-    case_summaries=None,
-    activation_diff_by_sex=None,
-    activation_diff_by_diagnosis=None,
-):
+"""Generate a summary of the analysis results."""
+
+
+def generate_summary(results):
     """Generate a human-readable summary of the analysis."""
     if len(results) == 0:
         raise ValueError("No results to summarize.")

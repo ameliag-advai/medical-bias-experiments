@@ -38,8 +38,8 @@ def data_preprocessing(
 def run_analysis_pipeline(
     patient_data_path,
     conditions_json_path,
-    model=None,
-    sae=None,
+    model,
+    sae,
     num_cases: int = 1,
     demographic_concepts: list[str] = ["age", "sex"],
     concepts_to_test: list[str] = ["age", "sex"],
@@ -103,17 +103,12 @@ def run_analysis_pipeline(
         for demo_combination in demographic_combinations:
             prompt = prompt_builder.build_prompts(case, demo_combination)
             print(f"Prompt: {prompt}")
-            # activation = run_prompt(prompt, model, sae)
-            # activations.append(activation)
+            activation = run_prompt(prompt, model, sae)
+            activations.append(activation)
 
-        # @TODO: Compare activations needs to be rewritten to handle the above structure.
-        # Currently takes two separate activations, but we have a list of activations.
-        # So maybe compare each pair of activations in the list?
-        # case_result = compare_activations(activations, case_id=idx, threshold=1.0)
-        # results.append(case_result)
-        # case_summaries.append(str(case_result))
-
-    raise ValueError("Stop here.")
+        case_result = compare_activations(activations, case_id=idx, threshold=1.0)
+        results.append(case_result)
+        case_summaries.append(str(case_result))
 
     # Construct timestamped filenames using output_name
     now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -121,8 +116,9 @@ def run_analysis_pipeline(
     feature_path = os.path.join(outputs_dir, f"{base_name}_feature_overlap.html")
     analysis_path = os.path.join(outputs_dir, f"{base_name}_analysis_output.txt")
     visualize_feature_overlaps(results, save_path=feature_path)
-    summary_text = generate_summary(
-        results, case_summaries, activation_diff_by_sex, activation_diff_by_diagnosis
-    )
+
+    # Generate results summaries
+    summary_text = generate_summary(results)
     write_output(analysis_path, case_summaries, summary_text)
+
     return analysis_path
