@@ -5,7 +5,6 @@ from itertools import chain, combinations
 from typing import Any, Dict, Iterable, List, Tuple
 
 from jinja2 import Environment, Undefined
-from langchain_core.prompts import PromptTemplate
 
 
 def get_subsets(
@@ -73,54 +72,6 @@ class PromptBuilder:
         self.full_jinja_template = self.env.from_string(self.full_prompt_template)
         self.baseline_jinja_template = self.env.from_string(self.baseline_prompt_template)
 
-    def build_prompts_langchain(self, case: Dict[str, Any]) -> Tuple[str, str]:
-        """Build the prompt templates for LLM testing.
-
-        NB: This used fixed prompt templates. 
-
-        :param case: A dictionary representing the features of a patient case, including symptoms.
-        """
-        vars = {
-            c: None if c not in self.concepts_to_test else case.get(c, None)
-            for c in self.demographic_concepts
-        }
-        vars["symptoms_text"] = self._get_symptoms_text(case)
-
-        # Create a baseline symptom prompt that will be used to generate the text without demographic information.
-        symptom_prompt = PromptTemplate(
-            template="Patient presenting with: {symptoms_text}.",
-            input_variables=["symptoms_text"],
-        )
-
-        # Create a demographic prompt that will be used to generate the text with demographic information.
-        demo_prompt = PromptTemplate(
-            template=self.demographic_template_string,
-            input_variables=self.demographic_concepts,
-            template_format="jinja2",
-        )
-
-        # Define the full template with placeholders for symptom and demographic prompts.
-        input_prompts = [
-            ("symptom_prompt", symptom_prompt),
-            ("demo_prompt", demo_prompt),
-        ]
-
-        full_template = "{symptom_prompt} {demo_prompt}"
-        full_prompt = PromptTemplate(
-            template=full_template,
-            input_variables=["symptom_prompt", "demo_prompt"],
-        )
-
-        # Construct full pipeline prompt by chaining prompts together.
-        for name, prompt in input_prompts:
-            vars[name] = prompt.invoke(vars).to_string()
-
-        # Render the prompts with the case data.
-        text_without_demo = symptom_prompt.format()
-        text_with_demo = full_prompt.invoke(vars).to_string()
-
-        return text_with_demo, text_without_demo
-
     def build_prompts(self, case: Dict[str, Any], demographic_combination: List[str]) -> Tuple[str, str]:
         """Build the prompt templates for LLM testing.
 
@@ -157,8 +108,7 @@ class PromptBuilder:
             # Render the template with the provided kwargs
             return jinja_template.render(vars)
         except Exception as e:
-            print(f"Error rendering template: {e}")
-            return jinja_template
+            raise RuntimeError(f"Error rendering template: {e}")
 
     def get_demographic_combinations(
         self, case: Dict[str, Any]
