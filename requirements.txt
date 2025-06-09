@@ -10,10 +10,5 @@ ipykernel
 pylint
 pycodestyle
 pydocstyle
-pyrit
 toml
 build
-langchain
-inspect-ai
-langfair
-langchain-google-vertexai
