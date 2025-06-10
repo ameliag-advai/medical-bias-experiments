@@ -1,7 +1,8 @@
 """This module provides a pipeline for analyzing bias in AI models for a given dataset."""
 import datetime
-import json
+import io
 import os
+import sys
 
 from tqdm import tqdm
 
@@ -108,32 +109,74 @@ def run_analysis_pipeline(
 
     results = []
     case_summaries = []
+
+    # Setup directory for saving prompts
+    prompts_dir = os.path.join(save_dir, "prompts")
+    os.makedirs(prompts_dir, exist_ok=True)
+    all_prompts_text = []
+  
+    # Redirect stdout to capture all debug/print output
+    debug_log_path = os.path.join(save_dir, "debug_log.txt")
+    old_stdout = sys.stdout
+    sys.stdout = io.StringIO()
+    print(f"[INFO] Saving all prompts for each case in: {prompts_dir}")
+    print(f"[INFO] Saving master prompt file at: {os.path.join(prompts_dir, 'all_prompts.txt')}")
+    print(f"[INFO] Visualization will be saved as: feature_overlap.html in {os.getcwd()}")
+
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
         # Calculate demographic combinations
         case_demographic_combinations = prompt_builder.get_demographic_combinations(case)
+
+        # Save prompts for this case
+        prompt_file = os.path.join(prompts_dir, f"case_{idx}_prompts.txt")
+        
         activations = {}
-        for demo_combination in all_combinations: #demographic_combinations:
+        prompts_for_this_case = []
+        for demo_combination in all_combinations:
             if demo_combination in case_demographic_combinations:
                 prompt = prompt_builder.build_prompts(case, demo_combination)
+                prompts_for_this_case.append(prompt)
+                # Get activations and store in a dictionary
                 activation = run_prompt(prompt, model, sae)
                 activations["_".join(demo_combination)] = activation
             # If this combination is not in the case, set to None
             else:
                 activations["_".join(demo_combination)] = None
 
+        # Now compare each pair of activations for this case
         case_result = process_case_result(activations, pairs_to_compare, case_id=idx, threshold=1.0)
         results.append(case_result)
         case_summaries.append(str(case_result))
+        
+        # Save all prompts for this case
+        case_prompts = f"CASE {idx}\n"
+        with open(prompt_file, "w", encoding="utf-8") as f:
+            for demo_combination, prompt in zip(case_demographic_combinations, prompts_for_this_case):
+                f.write(f"Demographic combination: {demo_combination}\n{prompt}\n")
+                case_prompts = case_prompts + f"Demographic combination: {demo_combination}\n{prompt}\n"
+        all_prompts_text.append(case_prompts)
+
+    # Save all prompts as a master text file
+    master_prompt_file = os.path.join(prompts_dir, "all_prompts.txt")
+    with open(master_prompt_file, "w", encoding="utf-8") as f:
+        f.write("\n\n".join(all_prompts_text))
+    
+    # Write debug log
+    debug_out = sys.stdout.getvalue()
+    with open(debug_log_path, "w", encoding="utf-8") as dbg:
+        dbg.write(debug_out)
+    sys.stdout = old_stdout
+    print(f"[INFO] Debug log for this run written to: {debug_log_path}")
 
     # Construct timestamped filenames using output_name
     now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     base_name = f"{output_name or 'analysis'}_{now}"
     feature_path = os.path.join(outputs_dir, f"{base_name}_feature_overlap")
     analysis_path = os.path.join(outputs_dir, f"{base_name}_analysis_output.txt")
-    visualize_feature_overlaps(results, pairs_to_compare, save_path=feature_path)
 
-    # Generate results summaries
+    # Generate results summaries and visualizations
     summary_text = generate_summary(results, pairs_to_compare)
+    visualize_feature_overlaps(results, pairs_to_compare, save_path=feature_path)
     write_output(analysis_path, case_summaries, summary_text)
 
     return analysis_path
