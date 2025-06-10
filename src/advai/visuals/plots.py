@@ -47,12 +47,14 @@ def visualize_feature_overlaps(results, save_path=None):
                 ', '.join(map(str, diff_with)),
                 ', '.join(map(str, diff_without))
             ])
+
     fig = sp.make_subplots(
         rows=3, cols=1,
         subplot_titles=["Average Change in Feature Activation (L2)", "Cases Where Top-1 Diagnosis Changed (Demo vs No Demo)", "Summary of Feature Differences"],
         row_heights=[0.3, 0.3, 0.4],
         specs=[[{"type": "bar"}], [{"type": "table"}], [{"type": "table"}]]
     )
+
     if diffs:
         fig.add_trace(
             go.Bar(y=diffs, x=[f"Case {i+1}" for i in range(len(diffs))], name="Activation Δ (L2)"),
@@ -96,6 +98,60 @@ def visualize_feature_overlaps(results, save_path=None):
     fig.write_html(save_path)
 
 
+def visualize_feature_overlaps(results, pairs_to_compare, save_path="feature_overlap.html"):
+    """Generate a visualization of feature overlap and activation differences."""
+    if save_path is None:
+        save_path = _get_timestamped_filename("feature_overlap")
+
+    for pair_to_compare in pairs_to_compare:
+        clean_results_for_this_pair = []
+        clean_x_for_this_pair = []
+        for i, r in enumerate(results):
+            if r[pair_to_compare] is not None:
+                clean_results_for_this_pair.append(r[pair_to_compare])
+                clean_x_for_this_pair.append(f"Case {r[pair_to_compare]['case_id']}")
+
+        if len(clean_results_for_this_pair) == 0:
+            raise ValueError("No results to summarize.")
+
+        # Insert table making here.
+        table_rows = []
+        feature_diff_rows = []
+
+        # Create the figure with subplots
+        pair_title = pair_to_compare[0].split("_")
+        comparison = "Comparing prompts with Demographics (" + ", ".join(pair_title) + ") vs. No Demographics"
+        fig = sp.make_subplots(
+            rows=3, cols=1,
+            subplot_titles=["Average Change in Feature Activation (L2). " + comparison, "Cases Where Top-1 Diagnosis Changed (Demo vs No Demo)", "Summary of Feature Differences"],
+            row_heights=[0.3, 0.3, 0.4],
+            specs=[[{"type": "bar"}], [{"type": "table"}], [{"type": "table"}]]
+        )
+
+        # Plot the average change in feature activation
+        clean_diffs = [r["activation_difference"] for r in clean_results_for_this_pair if r["activation_difference"] is not None]
+        if clean_diffs:
+            fig.add_trace(
+                go.Bar(y=clean_diffs, x=clean_x_for_this_pair, name="Activation Δ (L2)"),
+                row=1, col=1
+            )
+        else:
+            fig.add_trace(go.Bar(y=[], x=[]), row=1, col=1)
+
+        # Create a table of cases where the top-1 diagnosis changed
+
+
+        # Create a table of feature differences
+        
+
+        # Save the figure to an HTML file
+        comp1 = pair_to_compare[0]
+        comp2 = pair_to_compare[1] if len(pair_to_compare) > 1 else "no_demo"
+        pair_save_path = save_path + "_comparing_" + comp1 + "_vs_" + comp2 + ".html"
+        fig.update_layout(height=1000, showlegend=False)
+        fig.write_html(pair_save_path)
+
+
 def visualize_clamping_analysis(csv_path, save_path=None):
     """
     Visualize the output of clampinganalysis.csv, showing for each case if features or diagnoses changed between groups.
@@ -135,38 +191,3 @@ def visualize_clamping_analysis(csv_path, save_path=None):
     fig.write_html(save_path)
     print(f"[INFO] Clamping analysis visualization saved to {save_path}")
     print(f'[DEBUG] feature_overlap.html written to {save_path}')
-
-
-def visualize_feature_overlaps(results, pairs_to_compare, save_path="feature_overlap.html"):
-    """Generate a visualization of feature overlap and activation differences."""
-
-    for pair_to_compare in pairs_to_compare:
-        clean_results_for_this_pair = []
-        clean_x_for_this_pair = []
-        for i, r in enumerate(results):
-            if r[pair_to_compare] is not None:
-                clean_results_for_this_pair.append(r[pair_to_compare])
-                clean_x_for_this_pair.append(f"Case {r[pair_to_compare]['case_id']}")
-
-        if len(clean_results_for_this_pair) == 0:
-            raise ValueError("No results to summarize.")
-
-        clean_diffs = [r["activation_difference"] for r in clean_results_for_this_pair if r["activation_difference"] is not None]
-
-        fig = go.Figure(
-            data=[go.Bar(y=clean_diffs, x=clean_x_for_this_pair, name="Activation Δ (L2)")]
-        )
-
-        pair_title = pair_to_compare[0].split("_")
-        comparison = "Comparing prompts with Demographics (" + ", ".join(pair_title) + ") vs. No Demographics"
-
-        fig.update_layout(
-            title="Activation Differences Across Cases. " + comparison,
-            xaxis_title="Case",
-            yaxis_title="L2 Distance"
-        )
-
-        comp1 = pair_to_compare[0]
-        comp2 = pair_to_compare[1] if len(pair_to_compare) > 1 else "no_demo"
-        pair_save_path = save_path + "_comparing_" + comp1 + "_vs_" + comp2 + ".html"
-        fig.write_html(pair_save_path)
