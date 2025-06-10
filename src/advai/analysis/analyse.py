@@ -27,11 +27,14 @@ def debug_info_to_csv(debug_rows):
             writer.writerow(row)
 
 
-def score_candidate(prompt_prefix, candidate, model):
-    prompt = f"{prompt_prefix}{candidate}."
+def score_candidate(prompt, candidate, model):
+    """Score a candidate diagnosis by computing its log probability in the model's output."""
+    # Add the candidate diagnosis to the prompt and run the model.
+    prompt = f"{prompt} Diagnosis: {candidate}."
     toks = model.to_tokens(prompt)
     candidate_tokens = model.to_tokens(candidate)
     logits, _ = model.run_with_cache(toks)
+    
     log_probs = []
     raw_logits = []
     candidate_tokens = candidate_tokens.flatten().tolist() if hasattr(candidate_tokens, 'flatten') else list(candidate_tokens)
@@ -40,6 +43,7 @@ def score_candidate(prompt_prefix, candidate, model):
         pos = -len(candidate_tokens) - 1 + i  # position of each candidate token
         logit = logits[0, pos, :]
         log_prob = torch.log_softmax(logit, dim=-1)[idx]
+        
         # Ensure log_prob is a scalar
         if hasattr(log_prob, 'item') and log_prob.numel() == 1:
             log_probs.append(log_prob.item())
@@ -52,119 +56,112 @@ def score_candidate(prompt_prefix, candidate, model):
         else:
             log_probs.append(float(log_prob))
         raw_logits.append(logit[idx].item())
+    
     logger.debug(f"[LOGITS] Candidate: '{candidate}' | Log probs (scalar): {log_probs} | Raw logits: {raw_logits}")
+    
     return sum(log_probs) if log_probs else float('-inf'), log_probs, raw_logits
 
 
-def score_diagnoses(prefix, group, diagnosis_list, model, case_id, score_candidate_func, debug_rows=None):
+def score_diagnoses(prompt, group, diagnosis_list, model, case_id, debug_rows=None):
+    """Score a list of candidate diagnoses and return their scores along with debug information."""
     if debug_rows is None:
         debug_rows = []
     dx_scores = []
     for dx in diagnosis_list[:5]:
-        score, log_probs, raw_logits = score_candidate_func(prefix, dx, model)
+        score, log_probs, raw_logits = score_candidate(prompt, dx, model)
         dx_scores.append((dx, score))
         debug_rows.append({'case_id': case_id, 'group': group, 'candidate': dx, 'log_probs': log_probs, 'raw_logits': raw_logits})
     return dx_scores, debug_rows
 
 
-def process_activations(act, sae, threshold=1.0):
-    vec = act[0, -1, :].unsqueeze(0)
-    sae_out = sae(vec)
-    active = (sae_out[0].abs() > threshold).squeeze(0)
-    n_active = active.sum().item()
-    top_dxs = torch.topk(sae_out[0], 5).indices.tolist()
-    return sae_out, active, n_active, top_dxs
-
-
-def run_prompt(prompt, model, sae):
+def run_prompt(prompt, model, sae, threshold=1.0):
     """Run a single prompt and return SAE feature activations."""
     with torch.no_grad():
         tokenised_prompt = model.to_tokens(prompt)
         model_activations = model.run_with_cache(tokenised_prompt, return_type=None)[1][sae.cfg.hook_name]
         vectorised = model_activations[0, -1, :].unsqueeze(0)
         sae_activations = sae(vectorised)[0]
+        active_features = (sae_activations.abs() > threshold).squeeze(0)
+        n_active_features = active_features.sum().item()
+        top_dxs = torch.topk(sae_activations, 5).indices.tolist()
 
-    return sae_activations
+        sae_output = {
+            "activations": sae_activations,
+            "active_features": active_features,
+            "n_active_features": n_active_features,
+            "top_dxs": top_dxs
+        }
 
-
-def compare_activations(activations_1, activations_2, case_id=None, threshold=1.0):
-    """Compare SAE feature activations for two sets of activations."""
-    active_features_1 = (activations_1.abs() > threshold).squeeze(0)
-    active_features_2 = (activations_2.abs() > threshold).squeeze(0)
-
-    n_active_features_1 = active_features_1.sum().item()
-    n_active_features_2 = active_features_2.sum().item()
-
-    activation_difference = torch.norm(activations_1 - activations_2).item()
-    overlap = (
-        ((active_features_1) & (active_features_2)).nonzero(as_tuple=True)[0].tolist()
-    )
-
-    result = {
-        "n_active_1": n_active_features_1,
-        "n_active_2": n_active_features_2,
-        "activation_difference": activation_difference,
-        "overlapping_features": overlap,
-        "case_id": case_id,
-    }
-
-    return result
+    return sae_output
 
 
-def compare_activations(text_with_demo, text_without_demo, model, sae, case_info=None, case_id=None, save_dir="activations"):
+def extract_top_diagnoses(prompt, model, demo_combination, case_id):
+    """Extract top diagnoses from SAE activations.
+    
+    Candidate-based Top-5 Diagnoses Extraction.
+    """
+    with torch.no_grad():
+        dx_json_path = os.getcwd() + "/release_conditions.json"
+        diagnosis_list = load_diagnosis_list(dx_json_path)
+        group = "_".join(demo_combination) if len(demo_combination) > 0 else "no_demo"
+        dx_scores, debug_rows = score_diagnoses(prompt, group, diagnosis_list, model, case_id)
+        top5 = [dx for dx, _ in sorted(dx_scores, key=lambda x: x[1], reverse=True)[:5]]
+
+        # Save debug info to CSV for post-analysis
+        debug_info_to_csv(debug_rows)
+
+        diagnoses_output = {
+            "top5": top5,
+            "debug_rows": debug_rows
+        }
+
+    return diagnoses_output
+
+
+def compile_results(prompt_output_1, prompt_output_2, pair, case_id=None, case_info=None, save_dir="activations"):
     """Run model and SAE on both prompts, compute active features, activation difference, and overlap.
     
     Save per-case SAE activations to disk for further analysis.
     """
     os.makedirs(save_dir, exist_ok=True)
+    group1_name = pair[0]
+    group2_name = pair[1] if len(pair[1]) > 0 else 'no_demo'
 
-    with torch.no_grad():
-        # Use the provided prompts only—NO HARDCODED INFO
-        toks_with = model.to_tokens(text_with_demo)
-        toks_without = model.to_tokens(text_without_demo)
+    # Get result of comparing activations from both prompts' outputs
+    activations_1 = prompt_output_1["activations"]
+    activations_2 = prompt_output_2["activations"]
 
-        act_with = model.run_with_cache(toks_with, return_type=None)[1][sae.cfg.hook_name]
-        act_without = model.run_with_cache(toks_without, return_type=None)[1][sae.cfg.hook_name]
+    n_active_features_1 = prompt_output_1["n_active_features"]
+    n_active_features_2 = prompt_output_2["n_active_features"]
 
-        sae_out_with, active_with, n_active_with, top_dxs_with_demo = process_activations(act_with, sae)
-        sae_out_without, active_without, n_active_without, top_dxs_without_demo = process_activations(act_without, sae)
+    active_features_1 = prompt_output_1["active_features"]
+    active_features_2 = prompt_output_2["active_features"]
 
-        activation_difference = torch.norm(sae_out_with[0] - sae_out_without[0]).item()
-        overlap = ((active_with) & (active_without)).nonzero(as_tuple=True)[0].tolist()
+    activation_difference = torch.norm(activations_1 - activations_2).item()
+    overlap = ((active_features_1) & (active_features_2)).nonzero(as_tuple=True)[0].tolist()
 
-        # Save activations
-        torch.save({'sae_out_with': sae_out_with[0].cpu(), 'sae_out_without': sae_out_without[0].cpu()}, os.path.join(save_dir, f"case_{case_id}_activations.pt"))
+    # Save activations
+    torch.save(
+        {'sae_activations_' + group1_name: activations_1.cpu(), 'sae_activations_' + group2_name: activations_2.cpu()}, 
+        os.path.join(save_dir, f"case_{case_id}_activations.pt")
+    )
 
-        # --- Candidate-based Top-5 Diagnoses Extraction ---
-        dx_json_path = "~/release_conditions.json"
-        diagnosis_list = load_diagnosis_list(dx_json_path)
-
-        prefix_with = text_with_demo.rsplit(" ", 1)[0] + " "
-        prefix_without = text_without_demo.rsplit(" ", 1)[0] + " "
-
-        dx_scores_with, debug_rows = score_diagnoses(prefix_with, "with_demo", diagnosis_list, model, case_id, score_candidate)
-        dx_scores_without, debug_rows = score_diagnoses(prefix_without, "no_demo", diagnosis_list, model, case_id, score_candidate, debug_rows)
-        
-        top5_with = [dx for dx, _ in sorted(dx_scores_with, key=lambda x: x[1], reverse=True)[:5]]
-        top5_without = [dx for dx, _ in sorted(dx_scores_without, key=lambda x: x[1], reverse=True)[:5]]
-
-        # Save debug info to CSV for post-analysis
-        debug_info_to_csv(debug_rows)
-
-        # Optionally, save more details if needed
-        result = {
-            'n_active_with': n_active_with,
-            'n_active_without': n_active_without,
-            'activation_difference': activation_difference,
-            'overlapping_features': overlap,
-            'top_dxs_with_demo': top_dxs_with_demo,
-            'top_dxs_without_demo': top_dxs_without_demo,
-            'top_dxs_with_demo_candidate': top5_with,
-            'top_dxs_without_demo_candidate': top5_without,
-            'sae_out_with': sae_out_with[0].cpu().numpy(),
-            'sae_out_without': sae_out_without[0].cpu().numpy(),
-            'case_id': case_id,
-            'case_info': case_info
-        }
-        
-        return result
+    # Optionally, save more details if needed
+    result = {
+        '1': group1_name,
+        '2': group2_name,
+        'n_active_1': n_active_features_1,
+        'n_active_2': n_active_features_2,
+        'activation_difference': activation_difference,
+        'overlapping_features': overlap,
+        'top_dxs_' + group1_name: prompt_output_1["top_dxs"],
+        'top_dxs_' + group2_name: prompt_output_2["top_dxs"],
+        f'top_dxs_{group1_name}_candidate': prompt_output_1["top5"],
+        f'top_dxs_{group2_name}_candidate': prompt_output_2["top5"],
+        'sae_out_with': activations_1.cpu().numpy(),
+        'sae_out_without': activations_2.cpu().numpy(),
+        'case_id': case_id,
+        'case_info': case_info
+    }
+    
+    return result

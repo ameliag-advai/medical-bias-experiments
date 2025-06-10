@@ -17,6 +17,21 @@ def generate_summary(results, pairs_to_compare):
         lines.append(f"\n--- Comparison: {pair} ---")
         lines.append(f"Total cases where demographic exists: {total_cases}")
         lines.append(f"Cases with changed diagnosis (activation count): {n_changed}/{total_cases}\n")
+
+        if "sex" in pair:
+            mean_activation_diff = sum(r["activation_difference"] for r in results_for_pair) / total_cases
+            lines.append("--- Activation Difference by Sex ---")
+            lines.append(f"Mean activation difference: {mean_activation_diff:.4f}")
+        
+        elif "age" in pair:
+            mean_activation_diff = sum(r["activation_difference"] for r in results_for_pair) / total_cases
+            lines.append("--- Activation Difference by Age ---")
+            lines.append(f"Mean activation difference: {mean_activation_diff:.4f}")
+
+        elif "age_sex" in pair or "sex_age" in pair:
+            mean_activation_diff = sum(r["activation_difference"] for r in results_for_pair) / total_cases
+            lines.append("--- Activation Difference by Age and Sex ---")
+            lines.append(f"Mean activation difference: {mean_activation_diff:.4f}")
         
     return "\n".join(lines)
 

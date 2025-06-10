@@ -6,7 +6,7 @@ import sys
 
 from tqdm import tqdm
 
-from src.advai.analysis.analyse import run_prompt, compare_activations
+from src.advai.analysis.analyse import run_prompt, compile_results, extract_top_diagnoses
 from src.advai.analysis.summary import generate_summary, write_output
 from src.advai.data.io import (
     extract_cases_from_dataframe,
@@ -36,16 +36,16 @@ def data_preprocessing(
     return cases, conditions_mapping
 
 
-def process_case_result(activations, pairs_to_compare, case_id=None, threshold=1.0):
+def process_case_result(prompt_outputs, pairs_to_compare, case_id=None, case_info=None):
     """Process the activations and compare them for each pair."""
     case_result = {}
     for pair in pairs_to_compare:
-        activations_1 = activations[pair[0]]
-        activations_2 = activations[pair[1]]
-        if activations_1 is None or activations_2 is None:
+        prompt_output_1 = prompt_outputs[pair[0]]
+        prompt_output_2 = prompt_outputs[pair[1]]
+        if prompt_output_1 is None or prompt_output_2 is None:
             case_result[pair] = None
         else:
-            case_result[pair] = compare_activations(activations_1, activations_2, case_id=case_id, threshold=threshold)
+            case_result[pair] = compile_results(prompt_output_1, prompt_output_2, pair, case_id=case_id, case_info=case_info)
     return case_result
 
 
@@ -130,21 +130,24 @@ def run_analysis_pipeline(
         # Save prompts for this case
         prompt_file = os.path.join(prompts_dir, f"case_{idx}_prompts.txt")
         
-        activations = {}
+        prompt_outputs = {}
         prompts_for_this_case = []
         for demo_combination in all_combinations:
             if demo_combination in case_demographic_combinations:
                 prompt = prompt_builder.build_prompts(case, demo_combination)
                 prompts_for_this_case.append(prompt)
+                
                 # Get activations and store in a dictionary
-                activation = run_prompt(prompt, model, sae)
-                activations["_".join(demo_combination)] = activation
+                sae_output = run_prompt(prompt, model, sae)
+                diagnoses_output = extract_top_diagnoses(prompt, model, demo_combination, case_id=idx)
+                prompt_outputs["_".join(demo_combination)] = {**sae_output, **diagnoses_output}
+            
             # If this combination is not in the case, set to None
             else:
-                activations["_".join(demo_combination)] = None
+                prompt_outputs["_".join(demo_combination)] = None
 
-        # Now compare each pair of activations for this case
-        case_result = process_case_result(activations, pairs_to_compare, case_id=idx, threshold=1.0)
+        # Now compare relevant pairs of activations for this case
+        case_result = process_case_result(prompt_outputs, pairs_to_compare, case_id=idx, case_info=case)
         results.append(case_result)
         case_summaries.append(str(case_result))
         
@@ -152,8 +155,8 @@ def run_analysis_pipeline(
         case_prompts = f"CASE {idx}\n"
         with open(prompt_file, "w", encoding="utf-8") as f:
             for demo_combination, prompt in zip(case_demographic_combinations, prompts_for_this_case):
-                f.write(f"Demographic combination: {demo_combination}\n{prompt}\n")
-                case_prompts = case_prompts + f"Demographic combination: {demo_combination}\n{prompt}\n"
+                f.write(f"Demographic combination: {demo_combination}\nPrompt: {prompt}\n")
+                case_prompts = case_prompts + f"Demographic combination: {demo_combination}\nPrompt: {prompt}\n"
         all_prompts_text.append(case_prompts)
 
     # Save all prompts as a master text file
@@ -174,9 +177,11 @@ def run_analysis_pipeline(
     feature_path = os.path.join(outputs_dir, f"{base_name}_feature_overlap")
     analysis_path = os.path.join(outputs_dir, f"{base_name}_analysis_output.txt")
 
+    print(f"Results: {results}")
+
     # Generate results summaries and visualizations
     summary_text = generate_summary(results, pairs_to_compare)
-    visualize_feature_overlaps(results, pairs_to_compare, save_path=feature_path)
+    #visualize_feature_overlaps(results, pairs_to_compare, save_path=feature_path)
     write_output(analysis_path, case_summaries, summary_text)
 
     return analysis_path
