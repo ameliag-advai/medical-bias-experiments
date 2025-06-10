@@ -1,15 +1,39 @@
-import os
-import json
+"""This module provides a pipeline for analyzing bias in AI models for a given dataset."""
 import datetime
-from tqdm import tqdm
-from src.advai.data.io import load_patient_data, extract_cases_from_dataframe, load_conditions_mapping
-
-from src.advai.data.build_prompts import build_prompts
-from src.advai.analysis.analyse import analyse_case_for_bias
-from src.advai.visuals.plots import visualize_feature_overlaps
-from src.advai.analysis.summary import generate_summary, write_output
-import sys
 import io
+import os
+import sys
+
+from tqdm import tqdm
+
+from src.advai.analysis.analyse import run_prompt, compare_activations
+from src.advai.analysis.summary import generate_summary, write_output
+from src.advai.data.io import (
+    extract_cases_from_dataframe,
+    load_conditions_mapping,
+    load_patient_data,
+)
+from src.advai.data.example_templates import TEMPLATE_SETS
+from src.advai.data.prompt_builder import PromptBuilder
+from src.advai.visuals.plots import visualize_feature_overlaps
+
+
+def get_templates(demographic_concepts: list[str]):
+    key = frozenset(demographic_concepts)
+    return TEMPLATE_SETS.get(key)
+
+
+def data_preprocessing(
+    patient_data_path: str, conditions_json_path: str, num_cases: int = 1
+):
+    """Load and preprocess patient data and conditions mapping."""
+    df = load_patient_data(patient_data_path)
+    cases = extract_cases_from_dataframe(df)
+    if num_cases:
+        cases = cases[:num_cases]
+    conditions_mapping = load_conditions_mapping(conditions_json_path)
+
+    return cases, conditions_mapping
 
 
 def run_analysis_pipeline(
@@ -17,40 +41,61 @@ def run_analysis_pipeline(
     conditions_json_path,
     model,
     sae,
-    num_cases=None,
-    save_dir="activations",
-    output_path=None
-):
+    num_cases: int = 1,
+    demographic_concepts: list[str] = ["age", "sex"],
+    concepts_to_test: list[str] = ["age", "sex"],
+    save_dir: str = "activations",
+    output_name: str = None,
+) -> str:
+    """Run the full analysis pipeline including loading data, generating prompts,
+    analyzing bias, and writing results to disk.
     """
-    Orchestrate the full analysis pipeline.
-    Args:
-        patient_data_path: Path to patient data CSV
-        conditions_json_path: Path to the conditions JSON
-        model: Loaded model
-        sae: Loaded SAE
-        num_cases: Number of cases to process (optional)
-        save_dir: Directory to save activations
-        output_path: Path to write output (optional)
-    Returns:
-        Tuple (output_path, results, case_summaries, summary_text)
-    """
+    # Setup outputs directory at project level
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    outputs_dir = os.path.join(project_root, "outputs")
+    os.makedirs(outputs_dir, exist_ok=True)
 
-    df = load_patient_data(patient_data_path)
-    cases = extract_cases_from_dataframe(df)
-    if num_cases:
-        cases = cases[:num_cases]
+    # Get the patient data and conditions mapping
+    cases, conditions_mapping = data_preprocessing(
+        patient_data_path, conditions_json_path, num_cases=num_cases
+    )
 
-    conditions_mapping = load_conditions_mapping(conditions_json_path)
+    # Ask user to enter a prompt structure or use a default one
+    user_instruction = (
+        "Enter the full prompt template. Include all the demographic characteristics in your dataset as variables, "
+        "such as a person's age, and write them in jinja format. Include all other relevant variables, such as the person's symptoms. "
+        "For example: 'Patient has the following symptoms: {{ symptoms }}. Age: {{ age }}. Sex: {{ sex }}. Race: {{ race }}'."
+        "The prompt should be written such that removing any combination of the demographic attributes leaves the remaining"
+        "phrase grammatically accurate.: "
+    )
+    full_prompt_structure = input(user_instruction)
+
+    user_instruction_baseline = (
+        "Now enter the version of your prompt template that does not include any biasing concept variables,"
+        "demographic characteristics or otherwise. For example: 'Patient has the following symptoms: {{ symptoms }}.': "
+    )
+    baseline_prompt_structure = input(user_instruction_baseline)
+
+    if len(full_prompt_structure) == 0:
+        full_prompt_structure = get_templates(demographic_concepts)[
+            0
+        ]  # default prompt structure
+        baseline_prompt_structure = get_templates([])[0]
+
+    # Initialize the prompt builder
+    prompt_builder = PromptBuilder(
+        conditions_mapping,
+        demographic_concepts=demographic_concepts,
+        concepts_to_test=concepts_to_test,
+        full_prompt_template=full_prompt_structure,
+        baseline_prompt_template=baseline_prompt_structure,
+    )
 
     results = []
     case_summaries = []
-    activation_diff_by_sex = {}
-    activation_diff_by_diagnosis = {}
-    overlap_lists = []
 
     prompts_dir = os.path.join(save_dir, "prompts")
     os.makedirs(prompts_dir, exist_ok=True)
-    all_prompts_text = []
   
     # Redirect stdout to capture all debug/print output
     debug_log_path = os.path.join(save_dir, "debug_log.txt")
@@ -59,22 +104,30 @@ def run_analysis_pipeline(
     print(f"[INFO] Saving all prompts for each case in: {prompts_dir}")
     print(f"[INFO] Saving master prompt file at: {os.path.join(prompts_dir, 'all_prompts.txt')}")
     print(f"[INFO] Visualization will be saved as: feature_overlap.html in {os.getcwd()}")
+
+    # Run through each case and generate prompts
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
+        # Calculate demographic combinations
+        demographic_combinations = prompt_builder.get_demographic_combinations(case)
+        activations = []
+        print(f"Demographic combinations: {demographic_combinations}")
+        for demo_combination in demographic_combinations:
+            prompt = prompt_builder.build_prompts(case, demo_combination)
+            print(f"Prompt: {prompt}")
+            activation = run_prompt(prompt, model, sae)
+            activations.append(activation)
 
-
-
-        text_with_demo, text_without_demo = prompt_builder.build_prompts(case)
-
-        activations_1 = run_prompt(text_with_demo, model, sae)
-        activations_2 = run_prompt(text_without_demo, model, sae)
-        case_result = compare_activations(activations_1, activations_2,case_id=idx, threshold=1.0)
-        
+        case_result = compare_activations(activations, case_id=idx, threshold=1.0)
         results.append(case_result)
         case_summaries.append(str(case_result))
 
+    # Construct timestamped filenames using output_name
+    now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    base_name = f"{output_name or 'analysis'}_{now}"
+    feature_path = os.path.join(outputs_dir, f"{base_name}_feature_overlap.html")
+    analysis_path = os.path.join(outputs_dir, f"{base_name}_analysis_output.txt")
+    visualize_feature_overlaps(results, save_path=feature_path)
 
-
-    visualize_feature_overlaps(results, save_path="feature_overlap.html")
     # Write debug log
     debug_out = sys.stdout.getvalue()
     with open(debug_log_path, "w", encoding="utf-8") as dbg:
@@ -82,7 +135,8 @@ def run_analysis_pipeline(
     sys.stdout = old_stdout
     print(f"[INFO] Debug log for this run written to: {debug_log_path}")
 
-
-    summary_text = generate_summary(results, case_summaries, activation_diff_by_sex, activation_diff_by_diagnosis)
+    # Generate results summaries
+    summary_text = generate_summary(results)
     write_output(analysis_path, case_summaries, summary_text)
+
     return analysis_path
