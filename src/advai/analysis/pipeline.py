@@ -159,9 +159,10 @@ def run_analysis_pipeline(
         prompts_for_this_case = []
         for demo_combination in all_combinations:
             if demo_combination in case_demographic_combinations:
+                print("Hello")
                 prompt = prompt_builder.build_prompts(case, demo_combination)
                 prompts_for_this_case.append(prompt)
-                
+                print(f"{prompt=}")
                 # Get activations and store in a dictionary
                 sae_output = run_prompt(prompt, model, sae)
                 diagnoses_output = extract_top_diagnoses(prompt, model, demo_combination, case_id=idx)
