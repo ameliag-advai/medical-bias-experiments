@@ -1,12 +1,11 @@
-"""
-
-Manual PyTorch clamping utilities for SAE features representing demographic info (sex, age).
+"""Manual PyTorch clamping utilities for SAE features representing demographic info (sex, age).
 Allows user to clamp features for 'male', 'female', 'old', 'young' to a specified extent (e.g., 5x, 10x).
 
 Features were identified in previous analysis; update the indices below if new analysis is run.
 """
 import torch
 from typing import List, Literal
+
 
 # Indices of features most predictive for each demographic
 MALE_FEATURES = [198, 845, 678]       # Positive coef for sex (male)
@@ -16,6 +15,7 @@ YOUNG_FEATURES = [478, 1533, 1403]    # Negative coef for age
 
 DemographicType = Literal['male', 'female', 'old', 'young']
 
+
 def clamp_sae_features(
     sae_out: torch.Tensor,
     demographic: DemographicType,
@@ -24,6 +24,10 @@ def clamp_sae_features(
 ) -> torch.Tensor:
     """
     Clamp SAE features for a given demographic by multiplying their value by `extent`.
+
+    Example usage:
+        clamped = clamp_sae_features(sae_out, demographic='male', extent=5.0)
+
     Args:
         sae_out: SAE output tensor (1, num_features) or (num_features,)
         demographic: 'male', 'female', 'old', or 'young'
@@ -44,6 +48,3 @@ def clamp_sae_features(
     for f in features:
         sae_out[..., f] *= extent
     return sae_out
-
-# Example usage:
-# clamped = clamp_sae_features(sae_out, demographic='male', extent=5.0)

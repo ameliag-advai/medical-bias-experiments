@@ -1,7 +1,4 @@
-"""
-clampinganalysis.py
-
-Compares diagnoses and SAE feature activations for 5 cases across 3 settings:
+"""Compares diagnoses and SAE feature activations for 5 cases across 3 settings:
 1. With demographic info
 2. Without demographic info
 3. Without demo info + input feature clamped 5x
@@ -9,22 +6,22 @@ Compares diagnoses and SAE feature activations for 5 cases across 3 settings:
 Assumes you have run your analysis pipeline and have saved results and activations for each case.
 Uses clamping.py for feature intervention.
 """
+import argparse
+import csv
 import torch
 import numpy as np
 import os
-import json
+from typing import Set
+
 from advai.analysis.clamping import clamp_sae_features
-from advai.data.io import load_patient_data, extract_cases_from_dataframe, load_conditions_mapping
-from advai.data.build_prompts import build_prompts
-from advai.analysis.analyse import analyse_case_for_bias
-import csv
+from advai.data.io import load_conditions_mapping
+
 
 # Directory where previous analysis results and activations are saved
 RESULTS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../activations'))
 
-# Find all available case ids in the activations directory
-from typing import Set
 
+# Find all available case ids in the activations directory
 def get_case_ids() -> Set[str]:
     files = os.listdir(RESULTS_DIR)
     case_ids: Set[str] = set()
@@ -36,18 +33,21 @@ def get_case_ids() -> Set[str]:
     case_ids = sorted(case_ids, key=lambda x: int(x) if x.isdigit() else x)
     return set(case_ids)
 
+
 # Helper to load a single case's saved result
 def load_case(case_id, group, demographic=None, extent=None, diagnosis_mapping=None):
     # group: 'with_demo', 'no_demo', or 'clamped'
     fname = os.path.join(RESULTS_DIR, f"case_{case_id}_activations.pt")
     d = torch.load(fname)
-    # For 'clamped', clamp the SAE output with user-specified demographic and extent
+
+
 def get_top_dxs_and_diagnoses(sae_out, diagnosis_mapping):
     top_dxs = torch.topk(sae_out[0], 5).indices.tolist()
     top_diagnoses = [diagnosis_mapping.get(str(idx), f"Diagnosis {idx}") for idx in top_dxs]
     return top_dxs, top_diagnoses
 
 
+# For 'clamped', clamp the SAE output with user-specified demographic and extent
 def get_clamped_sae_and_diagnoses(sae_out_without, demographic, extent, diagnosis_mapping):
     clamped_sae = clamp_sae_features(torch.unsqueeze(sae_out_without, 0), demographic=demographic, extent=extent)
     top_dxs, top_diagnoses = get_top_dxs_and_diagnoses(clamped_sae, diagnosis_mapping)
@@ -73,7 +73,6 @@ def get_clamped_sae_and_diagnoses(sae_out_without, demographic, extent, diagnosi
         'case_id': case_id
     }
 
-import argparse
 
 def main():
     parser = argparse.ArgumentParser(description="Clamping analysis for SAE features.")
@@ -87,6 +86,7 @@ def main():
     if not os.path.exists(RELEASE_CONDITIONS_PATH):
         raise FileNotFoundError(f"release_conditions.json not found at {RELEASE_CONDITIONS_PATH}")
     release_conditions = load_conditions_mapping(RELEASE_CONDITIONS_PATH)
+    
     # Map feature index (as string) to natural language diagnosis
     # (Assume the mapping is {str(idx): 'diagnosis name'})
     diagnosis_mapping = {str(idx): v['cond-name-eng'] if 'cond-name-eng' in v else k for idx, (k, v) in enumerate(release_conditions.items())}
