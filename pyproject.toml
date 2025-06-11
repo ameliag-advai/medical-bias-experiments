@@ -50,8 +50,3 @@ repository = "https://github.com/Advai-Ltd/"
 # changelog = ""
 
 [project.optional-dependencies]
-
-[dependency-groups]
-dev = [
-    "pre-commit>=4.2.0",
-]

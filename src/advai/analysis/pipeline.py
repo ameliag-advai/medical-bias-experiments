@@ -147,6 +147,7 @@ def run_analysis_pipeline(
     print(f"[INFO] Saving master prompt file at: {os.path.join(prompts_dir, 'all_prompts.txt')}")
     print(f"[INFO] Visualization will be saved as: feature_overlap.html in {os.getcwd()}")
 
+    # Run through each case and generate prompts
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
         # Calculate demographic combinations
         case_demographic_combinations = prompt_builder.get_demographic_combinations(case)
@@ -200,8 +201,6 @@ def run_analysis_pipeline(
     base_name = f"{output_name or 'analysis'}_{now}"
     feature_path = os.path.join(outputs_dir, f"{base_name}_feature_overlap")
     analysis_path = os.path.join(outputs_dir, f"{base_name}_analysis_output.txt")
-
-    print(f"Results: {results}")
 
     # Generate results summaries and visualizations
     summary_text = generate_summary(results, pairs_to_compare)

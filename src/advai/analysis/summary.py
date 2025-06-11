@@ -37,7 +37,7 @@ def generate_summary(results, pairs_to_compare) -> str:
             mean_activation_diff = sum(r["activation_difference"] for r in results_for_pair) / total_cases
             lines.append("--- Activation Difference by Age and Sex ---")
             lines.append(f"Mean activation difference: {mean_activation_diff:.4f}")
-        
+ 
     return "\n".join(lines)
 
 
@@ -47,6 +47,7 @@ def write_output(output_path, case_summaries, summary_text):
     :param output_path: Path to save the output file.
     :param case_summaries: List of summaries for each case.
     :param summary_text: Summary text generated from the analysis.
+
     """
     with open(output_path, "w") as f:
         for idx, summary in enumerate(case_summaries):

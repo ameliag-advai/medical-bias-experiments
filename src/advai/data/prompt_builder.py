@@ -50,12 +50,15 @@ class PromptBuilder:
     ) -> None:
         """Initialize the PromptBuilder.
 
-        :param case: A dictionary representing the features of a patient case, including symptoms.
         :param conditions_mapping: A mapping of conditions to their corresponding symptoms and other metadata.
+        :param demographic_concepts: A list of all demographic concepts in the dataset.
+        :param concepts_to_test: A list of demographic concepts to include in the prompt.
+        :param full_prompt_template: The full prompt template that includes demographic attributes.
+        :param baseline_prompt_template: The baseline prompt template that does not include demographic attributes.
+        :raises ValueError: If any concept in concepts_to_test is not in the demographic_concepts.
         """
         self.conditions_mapping = conditions_mapping
         self.demographic_concepts = demographic_concepts
-        self.demographic_template_string = self.generate_jinja_template()
         for concept in concepts_to_test:
             if concept not in self.demographic_concepts:
                 raise ValueError(
@@ -72,10 +75,12 @@ class PromptBuilder:
         self.full_jinja_template = self.env.from_string(self.full_prompt_template)
         self.baseline_jinja_template = self.env.from_string(self.baseline_prompt_template)
 
-    def build_prompts(self, case: Dict[str, Any], demographic_combination: List[str]) -> Tuple[str, str]:
+    def build_prompts(self, case: Dict[str, Any], demographic_combination: Tuple[str]) -> Tuple[str, str]:
         """Build the prompt templates for LLM testing.
 
         :param case: A dictionary representing the features of a patient case, including symptoms.
+        :param demographic_combination: A tuple of demographic concepts to include in the prompt.
+        :return: The jinja2 template string with the demographic attributes and symptoms text filled in.
         """
 
         vars = {c: case.get(c, None) for c in demographic_combination}
@@ -90,7 +95,11 @@ class PromptBuilder:
         return self.generate_template(jinja_template, vars)
 
     def convert_to_human_readable(self, vars: Dict[str, Any]) -> Dict[str, Any]:
-        """Convert the rendered demographic attributes to human-readable format."""
+        """Convert the rendered demographic attributes to human-readable format.
+        
+        :param vars: A dictionary of demographic attributes to convert.
+        :return: A dictionary with human-readable demographic attributes.
+        """
         # Sex
         if "sex" in vars:
             if vars["sex"] == "M":
@@ -102,8 +111,14 @@ class PromptBuilder:
 
         return vars
 
-    def generate_template(self, jinja_template, vars):
-        """Generate a Jinja2 template with the provided variables."""
+    def generate_template(self, jinja_template, vars) -> str:
+        """Generate a Jinja2 template with the provided variables.
+        
+        :param jinja_template: The Jinja2 template to render.
+        :param vars: A dictionary of variables to fill in the template.
+        :return: The rendered template as a string.
+        :raises Exception: If there is an error rendering the template.
+        """
         try:
             # Render the template with the provided kwargs
             return jinja_template.render(vars)
@@ -113,7 +128,11 @@ class PromptBuilder:
     def get_demographic_combinations(
         self, case: Dict[str, Any]
     ) -> Iterable[Tuple[Any, ...]]:
-        """Get all combinations of demographic concepts present in the case."""
+        """Get all combinations of demographic concepts present in the case.
+        
+        :param case: A dictionary representing the features of a patient case, including demographic attributes.
+        :return: A list of tuples representing all combinations of demographic concepts that are not None in the case.
+        """
         non_null_concepts_in_this_case = []
         for concept in self.concepts_to_test:
             if case[concept] is not None:
