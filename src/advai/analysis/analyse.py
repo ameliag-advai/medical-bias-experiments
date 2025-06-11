@@ -161,7 +161,7 @@ def compile_results(prompt_output_1, prompt_output_2, pair, case_id=None, case_i
         'sae_out_with': activations_1.cpu().numpy(),
         'sae_out_without': activations_2.cpu().numpy(),
         'case_id': case_id,
-        #'case_info': case_info
+        'case_info': case_info
     }
     
     return result

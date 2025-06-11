@@ -181,7 +181,7 @@ def run_analysis_pipeline(
 
     # Generate results summaries and visualizations
     summary_text = generate_summary(results, pairs_to_compare)
-    #visualize_feature_overlaps(results, pairs_to_compare, save_path=feature_path)
+    visualize_feature_overlaps(results, pairs_to_compare, save_path=feature_path)
     write_output(analysis_path, case_summaries, summary_text)
 
     return analysis_path
