@@ -1,8 +1,13 @@
 """Generate a summary of the analysis results."""
 
 
-def generate_summary(results, pairs_to_compare):
-    """Generate a human-readable summary of the analysis."""
+def generate_summary(results, pairs_to_compare) -> str:
+    """Generate a human-readable summary of the analysis.
+    
+    :param results: List of dictionaries containing results for each case.
+    :param pairs_to_compare: List of pairs of demographic combinations to compare.
+    :return: A string containing the summary of the analysis.
+    """
     if len(results) == 0:
         raise ValueError("No results to summarize.")
     
@@ -37,7 +42,12 @@ def generate_summary(results, pairs_to_compare):
 
 
 def write_output(output_path, case_summaries, summary_text):
-    """Write the full analysis results to disk."""
+    """Write the full analysis results to disk.
+    
+    :param output_path: Path to save the output file.
+    :param case_summaries: List of summaries for each case.
+    :param summary_text: Summary text generated from the analysis.
+    """
     with open(output_path, "w") as f:
         for idx, summary in enumerate(case_summaries):
             f.write(f"--- CASE {idx+1} ---\n{summary}\n\n")

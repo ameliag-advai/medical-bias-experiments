@@ -12,7 +12,12 @@ def _get_timestamped_filename(base_name, ext=".html"):
 
 
 def visualize_feature_overlaps(results, pairs_to_compare, save_path="feature_overlap.html"):
-    """Generate a visualization of feature overlap and activation differences."""
+    """Generate a visualization of feature overlap and activation differences.
+    
+    :param results: List of dictionaries containing results for each case.
+    :param pairs_to_compare: List of tuples, each containing two group names to compare.
+    :param save_path: Path to save the generated HTML file. If None, a timestamped filename is created.
+    """
     if save_path is None:
         save_path = _get_timestamped_filename("feature_overlap")
 
@@ -129,10 +134,12 @@ def visualize_feature_overlaps(results, pairs_to_compare, save_path="feature_ove
 
 
 def visualize_clamping_analysis(csv_path, save_path=None):
-    """
-    Visualize the output of clampinganalysis.csv, showing for each case if features or diagnoses changed between groups.
-    Generates an interactive HTML table (plotly) highlighting changes.
-    If save_path is None, a timestamped file is created.
+    """Visualize the output of clampinganalysis.csv, showing for each case if features or diagnoses changed between groups.
+    
+    Generates an interactive HTML table (plotly) highlighting changes. If save_path is None, a timestamped file is created.
+
+    :param csv_path: Path to the CSV file containing clamping analysis results.
+    :param save_path: Path to save the generated HTML file. If None, a timestamped filename is created.
     """
     if save_path is None:
         save_path = _get_timestamped_filename("clamping_feature_diag_changes")

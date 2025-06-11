@@ -3,19 +3,28 @@ import os
 import json
 import csv
 import logging
+from typing import Dict, Any, Tuple, List
 
 logging.basicConfig(level=logging.INFO)  # Set to logging.DEBUG to show debug messages
 logger = logging.getLogger()
 
 
-def load_diagnosis_list(json_path):
+def load_diagnosis_list(json_path) -> List[str]:
+    """Load the list of diagnoses from a JSON file.
+    
+    :param json_path: Path to the JSON file containing diagnoses.
+    :return: List of condition names.
+    """
     with open(json_path, 'r') as f:
         data = json.load(f)
     return [v['condition_name'] for v in data.values()]
 
 
 def debug_info_to_csv(debug_rows):
-    """Save debug information to a CSV file for post-analysis."""
+    """Save debug information to a CSV file for post-analysis.
+    
+    :param debug_rows: List of dictionaries containing debug information for each candidate diagnosis.
+    """
     with open('diagnosis_logit_debug.csv', 'a', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=['case_id', 'group', 'candidate', 'log_probs', 'raw_logits'])
         if csvfile.tell() == 0:
@@ -27,8 +36,14 @@ def debug_info_to_csv(debug_rows):
             writer.writerow(row)
 
 
-def score_candidate(prompt, candidate, model):
-    """Score a candidate diagnosis by computing its log probability in the model's output."""
+def score_candidate(prompt, candidate, model) -> Tuple[float, List[float], List[float]]:
+    """Score a candidate diagnosis by computing its log probability in the model's output.
+    
+    :param prompt: The prompt to be used for scoring the candidate.
+    :param candidate: The candidate diagnosis to be scored.
+    :param model: The model used to score the candidate.
+    :return: A tuple containing the total log probability, a list of log probabilities for each token, and raw logits.
+    """
     # Add the candidate diagnosis to the prompt and run the model.
     prompt = f"{prompt} Diagnosis: {candidate}."
     toks = model.to_tokens(prompt)
@@ -62,8 +77,17 @@ def score_candidate(prompt, candidate, model):
     return sum(log_probs) if log_probs else float('-inf'), log_probs, raw_logits
 
 
-def score_diagnoses(prompt, group, diagnosis_list, model, case_id, debug_rows=None):
-    """Score a list of candidate diagnoses and return their scores along with debug information."""
+def score_diagnoses(prompt, group, diagnosis_list, model, case_id, debug_rows=None) -> Tuple[List, List]:
+    """Score a list of candidate diagnoses and return their scores along with debug information.
+    
+    :param prompt: The prompt to be used for scoring diagnoses.
+    :param group: The demographic group for which the diagnoses are being scored.
+    :param diagnosis_list: List of candidate diagnoses to score.
+    :param model: The model used to score the diagnoses.
+    :param case_id: Optional case identifier for logging/debugging.
+    :param debug_rows: Optional list to collect debug information.
+    :return: A list of tuples containing diagnosis and its score, and the debug rows.
+    """
     if debug_rows is None:
         debug_rows = []
     dx_scores = []
@@ -74,8 +98,15 @@ def score_diagnoses(prompt, group, diagnosis_list, model, case_id, debug_rows=No
     return dx_scores, debug_rows
 
 
-def run_prompt(prompt, model, sae, threshold=1.0):
-    """Run a single prompt and return SAE feature activations."""
+def run_prompt(prompt, model, sae, threshold=1.0) -> Dict[str, Any]:
+    """Run a single prompt and return SAE feature activations.
+    
+    :param prompt: The prompt to be processed by the model.
+    :param model: The model used to generate activations.
+    :param sae: The SAE model used to process the activations.
+    :param threshold: Threshold for determining active features.
+    :return: Dictionary containing SAE activations, active features, and top diagnoses.
+    """
     with torch.no_grad():
         tokenised_prompt = model.to_tokens(prompt)
         model_activations = model.run_with_cache(tokenised_prompt, return_type=None)[1][sae.cfg.hook_name]
@@ -95,10 +126,16 @@ def run_prompt(prompt, model, sae, threshold=1.0):
     return sae_output
 
 
-def extract_top_diagnoses(prompt, model, demo_combination, case_id):
+def extract_top_diagnoses(prompt, model, demo_combination, case_id) -> Dict[str, Any]:
     """Extract top diagnoses from SAE activations.
     
     Candidate-based Top-5 Diagnoses Extraction.
+
+    :param prompt: The prompt to be used for diagnosis extraction.
+    :param model: The model used for scoring diagnoses.
+    :param demo_combination: Demographic combination used for the case.
+    :param case_id: Optional case identifier for logging/debugging.
+    :return: Dictionary containing top diagnoses and debug information.
     """
     with torch.no_grad():
         dx_json_path = os.getcwd() + "/release_conditions.json"
@@ -118,10 +155,18 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id):
     return diagnoses_output
 
 
-def compile_results(prompt_output_1, prompt_output_2, pair, case_id=None, case_info=None, save_dir="activations"):
+def compile_results(prompt_output_1, prompt_output_2, pair, case_id=None, case_info=None, save_dir="activations") -> Dict[str, Any]:
     """Run model and SAE on both prompts, compute active features, activation difference, and overlap.
     
     Save per-case SAE activations to disk for further analysis.
+
+    :param prompt_output_1: Output results from the first prompt.
+    :param prompt_output_2: Output results from the second prompt.
+    :param pair: Tuple containing the names of the two groups being compared.
+    :param case_id: Optional case identifier for saving results.
+    :param case_info: Optional additional information about the case.
+    :param save_dir: Directory where results will be saved.
+    :return: Dictionary containing the results of the comparison.
     """
     os.makedirs(save_dir, exist_ok=True)
     group1_name = pair[0]

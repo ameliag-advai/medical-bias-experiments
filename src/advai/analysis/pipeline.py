@@ -26,7 +26,13 @@ def get_templates(demographic_concepts: list[str]):
 def data_preprocessing(
     patient_data_path: str, conditions_json_path: str, num_cases: int = 1
 ):
-    """Load and preprocess patient data and conditions mapping."""
+    """Load and preprocess patient data and conditions mapping.
+    
+    :param patient_data_path: Path to the patient data CSV file.
+    :param conditions_json_path: Path to the conditions mapping JSON file.
+    :param num_cases: Number of cases to analyze from the dataset.
+    :return: A tuple containing the cases and conditions mapping.
+    """
     df = load_patient_data(patient_data_path)
     cases = extract_cases_from_dataframe(df)
     if num_cases:
@@ -37,7 +43,14 @@ def data_preprocessing(
 
 
 def process_case_result(prompt_outputs, pairs_to_compare, case_id=None, case_info=None):
-    """Process the activations and compare them for each pair."""
+    """Process the activations and compare them for each pair.
+    
+    :param prompt_outputs: Dictionary of prompt outputs for each demographic combination.
+    :param pairs_to_compare: List of pairs of demographic combinations to compare.
+    :param case_id: Optional identifier for the case.
+    :param case_info: Optional additional information about the case.
+    :return: A dictionary with the results of the comparisons for each pair.
+    """
     case_result = {}
     for pair in pairs_to_compare:
         prompt_output_1 = prompt_outputs[pair[0]]
@@ -62,6 +75,17 @@ def run_analysis_pipeline(
 ) -> str:
     """Run the full analysis pipeline including loading data, generating prompts,
     analyzing bias, and writing results to disk.
+
+    :param patient_data_path: Path to the patient data CSV file.
+    :param conditions_json_path: Path to the conditions mapping JSON file.
+    :param model: The model to use for generating activations.
+    :param sae: The SAE model to use for generating activations.
+    :param num_cases: Number of cases to analyze from the dataset.
+    :param demographic_concepts: List of demographic concepts to include in the prompts.
+    :param concepts_to_test: List of concepts to test for bias.
+    :param save_dir: Directory to save the generated prompts and results.
+    :param output_name: Optional name for the output files.
+    :return: Path to the analysis output file.
     """
     # Setup outputs directory at project level
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
