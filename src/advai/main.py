@@ -33,8 +33,8 @@ def main():
     os.environ["HF_TOKEN"] = os.getenv("HF_TOKEN")
 
     model, sae = load_model_and_sae(model_scope=args.model, device=args.device)
-    conditions_path = "release_conditions.json"
-    patient_path = args.patient_file or "release_test_patients_mini_version.txt"
+    conditions_path = "release_conditions.json" # "/mnt/advai_scratch/shared/data/ddxdataset/release_conditions.json"
+    patient_path = args.patient_file or "release_test_patients" # "/mnt/advai_scratch/shared/data/ddxdataset/release_test_patients"
 
     run_analysis_pipeline(
         patient_data_path=patient_path,
