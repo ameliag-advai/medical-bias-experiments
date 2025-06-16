@@ -102,7 +102,7 @@ def run_analysis_pipeline(
         "Enter the full prompt template. Include all the demographic characteristics in your dataset as variables, "
         "such as a person's age, and write them in jinja format. Include all other relevant variables, such as the person's symptoms. "
         "For example: 'Patient has the following symptoms: {{ symptoms }}. Age: {{ age }}. Sex: {{ sex }}. Race: {{ race }}'."
-        "The prompt should be written such that removing any combination of the demographic attributes leaves the remaining"
+        "The prompt should be written such that removing any combination of the demographic attributes leaves the remaining "
         "phrase grammatically accurate.: "
     )
     full_prompt_structure = input(user_instruction)
@@ -141,14 +141,15 @@ def run_analysis_pipeline(
   
     # Redirect stdout to capture all debug/print output
     debug_log_path = os.path.join(save_dir, "debug_log.txt")
-    old_stdout = sys.stdout
-    sys.stdout = io.StringIO()
+    #old_stdout = sys.stdout
+    #sys.stdout = io.StringIO()
     print(f"[INFO] Saving all prompts for each case in: {prompts_dir}")
     print(f"[INFO] Saving master prompt file at: {os.path.join(prompts_dir, 'all_prompts.txt')}")
     print(f"[INFO] Visualization will be saved as: feature_overlap.html in {os.getcwd()}")
 
     # Run through each case and generate prompts
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
+        print(f"Case {idx}: \n{case}")
         # Calculate demographic combinations
         case_demographic_combinations = prompt_builder.get_demographic_combinations(case)
 
@@ -159,10 +160,8 @@ def run_analysis_pipeline(
         prompts_for_this_case = []
         for demo_combination in all_combinations:
             if demo_combination in case_demographic_combinations:
-                print("Hello")
-                prompt = prompt_builder.build_prompts(case, demo_combination)
+                prompt = prompt_builder.build_prompts(case, idx, demo_combination)
                 prompts_for_this_case.append(prompt)
-                print(f"{prompt=}")
                 # Get activations and store in a dictionary
                 sae_output = run_prompt(prompt, model, sae)
                 diagnoses_output = extract_top_diagnoses(prompt, model, demo_combination, case_id=idx)
@@ -191,11 +190,11 @@ def run_analysis_pipeline(
         f.write("\n\n".join(all_prompts_text))
     
     # Write debug log
-    debug_out = sys.stdout.getvalue()
-    with open(debug_log_path, "w", encoding="utf-8") as dbg:
-        dbg.write(debug_out)
-    sys.stdout = old_stdout
-    print(f"[INFO] Debug log for this run written to: {debug_log_path}")
+    # debug_out = sys.stdout.getvalue()
+    # with open(debug_log_path, "w", encoding="utf-8") as dbg:
+    #     dbg.write(debug_out)
+    #sys.stdout = old_stdout
+    #print(f"[INFO] Debug log for this run written to: {debug_log_path}")
 
     # Construct timestamped filenames using output_name
     now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")

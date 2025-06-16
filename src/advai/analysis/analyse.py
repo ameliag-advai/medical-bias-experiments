@@ -36,7 +36,7 @@ def debug_info_to_csv(debug_rows):
             writer.writerow(row)
 
 
-def score_candidate(prompt, candidate, model) -> Tuple[float, List[float], List[float]]:
+def score_candidate(prompt_prefix, candidate, model) -> Tuple[float, List[float], List[float]]:
     """Score a candidate diagnosis by computing its log probability in the model's output.
     
     :param prompt: The prompt to be used for scoring the candidate.
@@ -45,7 +45,7 @@ def score_candidate(prompt, candidate, model) -> Tuple[float, List[float], List[
     :return: A tuple containing the total log probability, a list of log probabilities for each token, and raw logits.
     """
     # Add the candidate diagnosis to the prompt and run the model.
-    prompt = f"{prompt} Diagnosis: {candidate}."
+    prompt = f"{prompt_prefix} Diagnosis is: {candidate}."
     toks = model.to_tokens(prompt)
     candidate_tokens = model.to_tokens(candidate)
     logits, _ = model.run_with_cache(toks)
@@ -91,7 +91,8 @@ def score_diagnoses(prompt, group, diagnosis_list, model, case_id, debug_rows=No
     if debug_rows is None:
         debug_rows = []
     dx_scores = []
-    for dx in diagnosis_list[:5]:
+    print(f"Symptom prompt: {prompt}\n")
+    for dx in diagnosis_list[:100]: # [:5]:
         score, log_probs, raw_logits = score_candidate(prompt, dx, model)
         dx_scores.append((dx, score))
         debug_rows.append({'case_id': case_id, 'group': group, 'candidate': dx, 'log_probs': log_probs, 'raw_logits': raw_logits})
@@ -142,7 +143,7 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id) -> Dict[str,
         diagnosis_list = load_diagnosis_list(dx_json_path)
         group = "_".join(demo_combination) if len(demo_combination) > 0 else "no_demo"
         dx_scores, debug_rows = score_diagnoses(prompt, group, diagnosis_list, model, case_id)
-        top5 = [dx for dx, _ in sorted(dx_scores, key=lambda x: x[1], reverse=True)[:5]]
+        top5 = [dx for dx, _ in sorted(dx_scores, key=lambda x: x[1], reverse=True)[:5]] # 10:15
 
         # Save debug info to CSV for post-analysis
         debug_info_to_csv(debug_rows)
@@ -208,5 +209,9 @@ def compile_results(prompt_output_1, prompt_output_2, pair, case_id=None, case_i
         'case_id': case_id,
         'case_info': case_info
     }
+
+    if pair == ('age', ''):
+        print(f"Results for pair {pair}: \nTop dxs with {result['top_dxs_age_candidate']}\n")
+        print(f"Top dxs without {result['top_dxs_no_demo_candidate']}\n")
     
     return result

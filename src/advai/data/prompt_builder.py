@@ -19,10 +19,10 @@ def get_subsets(
 class PartialUndefined(Undefined):
     # Return the original placeholder format
     def __str__(self):
-        return f"{{{{ unknown {self._undefined_name} }}}}" if self._undefined_name else ""
+        return f"{{{{ }}}}" if self._undefined_name else ""
 
     def __repr__(self):
-        return f"{{{{ unknown {self._undefined_name} }}}}" if self._undefined_name else ""
+        return f"{{{{ }}}}" if self._undefined_name else ""
 
     def __iter__(self):
         """Prevent Jinja from evaluating loops by returning a placeholder string instead of an iterable."""
@@ -75,7 +75,7 @@ class PromptBuilder:
         self.full_jinja_template = self.env.from_string(self.full_prompt_template)
         self.baseline_jinja_template = self.env.from_string(self.baseline_prompt_template)
 
-    def build_prompts(self, case: Dict[str, Any], demographic_combination: Tuple[str]) -> Tuple[str, str]:
+    def build_prompts(self, case: Dict[str, Any], id, demographic_combination: Tuple[str]) -> Tuple[str, str]:
         """Build the prompt templates for LLM testing.
 
         :param case: A dictionary representing the features of a patient case, including symptoms.
@@ -86,6 +86,15 @@ class PromptBuilder:
         vars = {c: case.get(c, None) for c in demographic_combination}
         vars = self.convert_to_human_readable(vars)
         vars["symptoms"] = self._get_symptoms_text(case)
+
+        # if id == 0:
+        #     vars["symptoms"] = "['tachycardia']" # "['tachycardia']" # cough
+        # elif id == 1:
+        #     vars["symptoms"] = self._get_symptoms_text(case) # "['sweating']"
+        # elif id == 2:
+        #     vars["symptoms"] = "['drooping']"
+        # elif id == 3:
+        #     vars["symptoms"] = "['tachycardia']"
 
         if len(demographic_combination) == 0:
             jinja_template = self.baseline_jinja_template
