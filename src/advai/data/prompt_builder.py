@@ -109,11 +109,11 @@ class PromptBuilder:
         else:
             jinja_template = self.full_jinja_template
 
-        return self.generate_template(jinja_template, vars)
+        return self.generate_template(jinja_template, vars), vars["symptoms"]
 
     def convert_to_human_readable(self, vars: Dict[str, Any]) -> Dict[str, Any]:
         """Convert the rendered demographic attributes to human-readable format.
-        
+
         :param vars: A dictionary of demographic attributes to convert.
         :return: A dictionary with human-readable demographic attributes.
         """
@@ -130,7 +130,7 @@ class PromptBuilder:
 
     def generate_template(self, jinja_template, vars) -> str:
         """Generate a Jinja2 template with the provided variables.
-        
+
         :param jinja_template: The Jinja2 template to render.
         :param vars: A dictionary of variables to fill in the template.
         :return: The rendered template as a string.
@@ -146,7 +146,7 @@ class PromptBuilder:
         self, case: Dict[str, Any]
     ) -> Iterable[Tuple[Any, ...]]:
         """Get all combinations of demographic concepts present in the case.
-        
+
         :param case: A dictionary representing the features of a patient case, including demographic attributes.
         :return: A list of tuples representing all combinations of demographic concepts that are not None in the case.
         """

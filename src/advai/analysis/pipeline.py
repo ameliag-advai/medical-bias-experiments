@@ -1,13 +1,18 @@
 """This module provides a pipeline for analyzing bias in AI models for a given dataset."""
+import csv
 import datetime
 import io
 import json
 import os
 import sys
-
 from tqdm import tqdm
+from typing import Tuple
 
-from src.advai.analysis.analyse import run_prompt, compile_results, extract_top_diagnoses
+from src.advai.analysis.analyse import (
+    run_prompt,
+    compile_results,
+    extract_top_diagnoses,
+)
 from src.advai.analysis.summary import generate_summary, write_output
 from src.advai.data.io import (
     extract_cases_from_dataframe,
@@ -18,17 +23,53 @@ from src.advai.data.example_templates import TEMPLATE_SETS
 from src.advai.data.prompt_builder import PromptBuilder, get_subsets
 from src.advai.visuals.plots import visualize_feature_overlaps
 
+# Setup global outputs directory and timestamped CSV path
+PROJECT_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "..", "..")
+)
+OUTPUTS_DIR = os.path.join(PROJECT_ROOT, "outputs")
+os.makedirs(OUTPUTS_DIR, exist_ok=True)
+RUN_TIMESTAMP = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+os.makedirs(OUTPUTS_DIR + f"/{RUN_TIMESTAMP}", exist_ok=True)
+
 
 def get_templates(demographic_concepts: list[str]):
     key = frozenset(demographic_concepts)
     return TEMPLATE_SETS.get(key)
 
 
+def save_to_csv(all_prompt_outputs, concepts_to_test) -> None:
+    """Save the results of the analysis to a CSV file.
+
+    :param all_prompt_outputs: Dictionary containing the outputs for each case and demographic group.
+    """
+    demos = "_".join(concepts_to_test) if len(concepts_to_test) > 0 else "no_demo"
+    results_csv_base_bath = f"{RUN_TIMESTAMP}_{demos}/results_database.csv"
+    results_csv_path = os.path.join(OUTPUTS_DIR, results_csv_base_bath)
+
+    with open(results_csv_path, "a", newline="") as csvfile:
+        writer = csv.DictWriter(
+            csvfile, fieldnames=list(all_prompt_outputs[0][""].keys())
+        )
+        for case_id in all_prompt_outputs:
+            for group in all_prompt_outputs[case_id]:
+                output = all_prompt_outputs[case_id][group]
+                if output is not None:
+                    if csvfile.tell() == 0:
+                        writer.writeheader()
+                    writer.writerow(output)
+
+    return results_csv_path
+
+
 def data_preprocessing(
-    patient_data_path: str, conditions_json_path: str, evidences_json_path: str, num_cases: int = 1
-):
+    patient_data_path: str,
+    conditions_json_path: str,
+    evidences_json_path: str,
+    num_cases: int = 1,
+) -> Tuple:
     """Load and preprocess patient data and conditions mapping.
-    
+
     :param patient_data_path: Path to the patient data CSV file.
     :param conditions_json_path: Path to the conditions mapping JSON file.
     :param num_cases: Number of cases to analyze from the dataset.
@@ -40,7 +81,7 @@ def data_preprocessing(
         cases = cases[:num_cases]
     conditions_mapping = load_conditions_mapping(conditions_json_path)
 
-    with open(evidences_json_path, 'r') as f:
+    with open(evidences_json_path, "r") as f:
         evidences = json.load(f)
 
     return cases, conditions_mapping, evidences
@@ -48,7 +89,7 @@ def data_preprocessing(
 
 def process_case_result(prompt_outputs, pairs_to_compare, case_id=None, case_info=None):
     """Process the activations and compare them for each pair.
-    
+
     :param prompt_outputs: Dictionary of prompt outputs for each demographic combination.
     :param pairs_to_compare: List of pairs of demographic combinations to compare.
     :param case_id: Optional identifier for the case.
@@ -62,7 +103,13 @@ def process_case_result(prompt_outputs, pairs_to_compare, case_id=None, case_inf
         if prompt_output_1 is None or prompt_output_2 is None:
             case_result[pair] = None
         else:
-            case_result[pair] = compile_results(prompt_output_1, prompt_output_2, pair, case_id=case_id, case_info=case_info)
+            case_result[pair] = compile_results(
+                prompt_output_1,
+                prompt_output_2,
+                pair,
+                case_id=case_id,
+                case_info=case_info,
+            )
     return case_result
 
 
@@ -73,6 +120,7 @@ def run_analysis_pipeline(
     model,
     sae,
     num_cases: int = 1,
+    topk: int = 5,
     demographic_concepts: list[str] = ["age", "sex"],
     concepts_to_test: list[str] = ["age", "sex"],
     save_dir: str = "activations",
@@ -92,14 +140,12 @@ def run_analysis_pipeline(
     :param output_name: Optional name for the output files.
     :return: Path to the analysis output file.
     """
-    # Setup outputs directory at project level
-    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
-    outputs_dir = os.path.join(project_root, "outputs")
-    os.makedirs(outputs_dir, exist_ok=True)
-
     # Get the patient data and conditions mapping
     cases, conditions_mapping, evidences = data_preprocessing(
-        patient_data_path, conditions_json_path, evidences_json_path, num_cases=num_cases
+        patient_data_path,
+        conditions_json_path,
+        evidences_json_path,
+        num_cases=num_cases,
     )
 
     # Ask user to enter a prompt structure or use a default one
@@ -134,8 +180,10 @@ def run_analysis_pipeline(
         baseline_prompt_template=baseline_prompt_structure,
     )
     all_combinations = get_subsets(concepts_to_test, lower=-1)
-    pairs_to_compare = [("_".join(all_combinations[i]), "_".join(all_combinations[-1])) 
-                        for i in range(len(all_combinations) - 1)]
+    pairs_to_compare = [
+        ("_".join(all_combinations[i]), "_".join(all_combinations[-1]))
+        for i in range(len(all_combinations) - 1)
+    ]
 
     results = []
     case_summaries = []
@@ -144,75 +192,90 @@ def run_analysis_pipeline(
     prompts_dir = os.path.join(save_dir, "prompts")
     os.makedirs(prompts_dir, exist_ok=True)
     all_prompts_text = []
-  
+    all_prompt_outputs = {}
+
     # Redirect stdout to capture all debug/print output
     debug_log_path = os.path.join(save_dir, "debug_log.txt")
-    #old_stdout = sys.stdout
-    #sys.stdout = io.StringIO()
-    print(f"[INFO] Saving all prompts for each case in: {prompts_dir}")
-    print(f"[INFO] Saving master prompt file at: {os.path.join(prompts_dir, 'all_prompts.txt')}")
-    print(f"[INFO] Visualization will be saved as: feature_overlap.html in {os.getcwd()}")
+    # old_stdout = sys.stdout
+    # sys.stdout = io.StringIO()
+    # print(f"[INFO] Saving all prompts for each case in: {prompts_dir}")
+    # print(f"[INFO] Saving master prompt file at: {os.path.join(prompts_dir, 'all_prompts.txt')}")
+    # print(f"[INFO] Visualization will be saved as: feature_overlap.html in {os.getcwd()}")
 
     # Run through each case and generate prompts
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
-        #print(f"Case {idx}: \n{case}")
+        # print(f"Case {idx}: \n{case}")
         # Calculate demographic combinations
-        case_demographic_combinations = prompt_builder.get_demographic_combinations(case)
+        case_demographic_combinations = prompt_builder.get_demographic_combinations(
+            case
+        )
 
-        # Save prompts for this case
-        prompt_file = os.path.join(prompts_dir, f"case_{idx}_prompts.txt")
-        
         prompt_outputs = {}
         prompts_for_this_case = []
         for demo_combination in all_combinations:
             if demo_combination in case_demographic_combinations:
-                prompt = prompt_builder.build_prompts(case, idx, demo_combination)
+                group = "_".join(demo_combination)
+                prompt, symptoms = prompt_builder.build_prompts(
+                    case, idx, demo_combination
+                )
                 prompts_for_this_case.append(prompt)
+
                 # Get activations and store in a dictionary
                 sae_output = run_prompt(prompt, model, sae)
-                diagnoses_output = extract_top_diagnoses(prompt, model, demo_combination, case_id=idx)
-                prompt_outputs["_".join(demo_combination)] = {**sae_output, **diagnoses_output}
-            
+                diagnoses_output = extract_top_diagnoses(
+                    prompt, model, demo_combination, case_id=idx
+                )
+                prompt_outputs[group] = {**sae_output, **diagnoses_output}
+
+                # Add dataset-level fields to the output
+                age = case.get("age", None)
+                sex = "male" if case.get("sex") == "M" else "female"
+                prompt_outputs[group]["case_id"] = idx
+                prompt_outputs[group]["dataset_age"] = age
+                prompt_outputs[group]["dataset_sex"] = sex
+                prompt_outputs[group]["dataset_symptoms"] = symptoms
+                prompt_outputs[group]["diagnosis"] = case.get("diagnosis", None)
+
+                # Add prompt-level fields to the output
+                prompt_outputs[group]["prompt"] = prompt
+                prompt_outputs[group]["prompt_age"] = age if "age" in group else ""
+                prompt_outputs[group]["prompt_sex"] = sex if "sex" in group else ""
+                prompt_outputs[group]["features_clamped"] = None
+                prompt_outputs[group]["clamping_levels"] = None
+                for i in range(topk):
+                    prompt_outputs[group][f"diagnosis_feature{i+1}"] = sae_output[
+                        "top_dxs"
+                    ][i]
+                for i in range(topk):
+                    prompt_outputs[group][f"diagnosis_{i+1}"] = diagnoses_output[
+                        "top5"
+                    ][i]
+
             # If this combination is not in the case, set to None
             else:
-                prompt_outputs["_".join(demo_combination)] = None
+                prompt_outputs[group] = None
+
+        all_prompt_outputs[idx] = prompt_outputs
 
         # Now compare relevant pairs of activations for this case
-        case_result = process_case_result(prompt_outputs, pairs_to_compare, case_id=idx, case_info=case)
-        results.append(case_result)
-        case_summaries.append(str(case_result))
-        
-        # Save all prompts for this case
-        case_prompts = f"CASE {idx}\n"
-        with open(prompt_file, "w", encoding="utf-8") as f:
-            for demo_combination, prompt in zip(case_demographic_combinations, prompts_for_this_case):
-                f.write(f"Demographic combination: {demo_combination}\nPrompt: {prompt}\n")
-                case_prompts = case_prompts + f"Demographic combination: {demo_combination}\nPrompt: {prompt}\n"
-        all_prompts_text.append(case_prompts)
+        # @TODO: Move this to analysis capability
+        # case_result = process_case_result(prompt_outputs, pairs_to_compare, case_id=idx, case_info=case)
+        # results.append(case_result)
+        # case_summaries.append(str(case_result))
 
-    # Save all prompts as a master text file
-    master_prompt_file = os.path.join(prompts_dir, "all_prompts.txt")
-    with open(master_prompt_file, "w", encoding="utf-8") as f:
-        f.write("\n\n".join(all_prompts_text))
-    
+    # Save to csv here.
+    results_csv_path = save_to_csv(all_prompt_outputs, concepts_to_test)
+
     # Write debug log
     # debug_out = sys.stdout.getvalue()
     # with open(debug_log_path, "w", encoding="utf-8") as dbg:
     #     dbg.write(debug_out)
-    #sys.stdout = old_stdout
-    #print(f"[INFO] Debug log for this run written to: {debug_log_path}")
-
-    # Construct timestamped filenames using output_name
-    now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    os.makedirs(outputs_dir + f"/{now}", exist_ok=True)
-    #base_name = f"{output_name or 'analysis'}_{now}"
-    base_name = f"{now}/{output_name or 'analysis'}"
-    feature_path = os.path.join(outputs_dir, f"{base_name}_feature_overlap")
-    analysis_path = os.path.join(outputs_dir, f"{base_name}_analysis_output.txt")
+    # sys.stdout = old_stdout
+    # print(f"[INFO] Debug log for this run written to: {debug_log_path}")
 
     # Generate results summaries and visualizations
-    summary_text = generate_summary(results, pairs_to_compare)
-    visualize_feature_overlaps(results, pairs_to_compare, save_path=feature_path)
-    write_output(analysis_path, case_summaries, summary_text)
+    # summary_text = generate_summary(results, pairs_to_compare)
+    # visualize_feature_overlaps(results, pairs_to_compare, save_path=feature_path)
+    # write_output(analysis_path, case_summaries, summary_text)
 
-    return analysis_path
+    return results_csv_path
