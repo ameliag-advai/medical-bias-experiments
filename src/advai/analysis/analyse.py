@@ -92,7 +92,7 @@ def score_diagnoses(prompt, group, diagnosis_list, model, case_id, debug_rows=No
         debug_rows = []
     dx_scores = []
     print(f"Symptom prompt: {prompt}\n")
-    for dx in diagnosis_list[:100]: # [:5]:
+    for dx in diagnosis_list[:49]: # [:5]:
         score, log_probs, raw_logits = score_candidate(prompt, dx, model)
         dx_scores.append((dx, score))
         debug_rows.append({'case_id': case_id, 'group': group, 'candidate': dx, 'log_probs': log_probs, 'raw_logits': raw_logits})
@@ -143,7 +143,7 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id) -> Dict[str,
         diagnosis_list = load_diagnosis_list(dx_json_path)
         group = "_".join(demo_combination) if len(demo_combination) > 0 else "no_demo"
         dx_scores, debug_rows = score_diagnoses(prompt, group, diagnosis_list, model, case_id)
-        top5 = [dx for dx, _ in sorted(dx_scores, key=lambda x: x[1], reverse=True)[30:35]] # 10:15
+        top5 = [dx for dx, _ in sorted(dx_scores, key=lambda x: x[1], reverse=True)[10:15]] # 10:15
 
         # Save debug info to CSV for post-analysis
         debug_info_to_csv(debug_rows)
@@ -185,12 +185,6 @@ def compile_results(prompt_output_1, prompt_output_2, pair, case_id=None, case_i
 
     activation_difference = torch.norm(activations_1 - activations_2).item()
     overlap = ((active_features_1) & (active_features_2)).nonzero(as_tuple=True)[0].tolist()
-
-    # Save activations
-    torch.save(
-        {'sae_activations_' + group1_name: activations_1.cpu(), 'sae_activations_' + group2_name: activations_2.cpu()}, 
-        os.path.join(save_dir, f"case_{case_id}_activations.pt")
-    )
 
     # Optionally, save more details if needed
     result = {
