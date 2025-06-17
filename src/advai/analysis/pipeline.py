@@ -30,7 +30,6 @@ PROJECT_ROOT = os.path.abspath(
 OUTPUTS_DIR = os.path.join(PROJECT_ROOT, "outputs")
 os.makedirs(OUTPUTS_DIR, exist_ok=True)
 RUN_TIMESTAMP = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-os.makedirs(OUTPUTS_DIR + f"/{RUN_TIMESTAMP}", exist_ok=True)
 
 
 def get_templates(demographic_concepts: list[str]):
@@ -44,6 +43,7 @@ def save_to_csv(all_prompt_outputs, concepts_to_test) -> None:
     :param all_prompt_outputs: Dictionary containing the outputs for each case and demographic group.
     """
     demos = "_".join(concepts_to_test) if len(concepts_to_test) > 0 else "no_demo"
+    os.makedirs(OUTPUTS_DIR + f"/{RUN_TIMESTAMP}_{demos}", exist_ok=True)
     results_csv_base_bath = f"{RUN_TIMESTAMP}_{demos}/results_database.csv"
     results_csv_path = os.path.join(OUTPUTS_DIR, results_csv_base_bath)
 
