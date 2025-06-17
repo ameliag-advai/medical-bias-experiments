@@ -225,11 +225,31 @@ class PromptBuilder:
         :param symptoms_codes: A list of symptom codes.
         :return: A string representation of the symptoms.
         """
-        code_to_name = {}
-        for cond in self.conditions_mapping.values():
-            symptoms = cond.get("symptoms", {})
-            if isinstance(symptoms, dict):
-                for code, name in symptoms.items():
-                    code_to_name[code] = name or code
+        natural_language_symptoms = []
+        max_symptoms = 7 if len(symptoms_codes) > 7 else len(symptoms_codes)
+        symptoms_codes = symptoms_codes[:max_symptoms]
+        for c in symptoms_codes:
+            if "@" not in c:
+                name = c
+                value = ""
+            else:
+                name, value = c.split("_@_")
 
-        return ", ".join(code_to_name.get(c, c) for c in symptoms_codes)
+            # Yes/No symptoms
+            if self.evidences[name]["data_type"] == "B":
+                natural_language_value = "Yes."
+            # Multiple choice symptoms
+            elif self.evidences[name]["data_type"] == "M":
+                natural_language_value = self.evidences[name]["value_meaning"][value]["en"]
+            # Numeric symptoms
+            elif self.evidences[name]["data_type"] == "C":
+                natural_language_value = f"{value} out of {self.evidences[name]["possible-values"][-1]}."
+
+            question = "Q: " + self.evidences[name]["question_en"]
+            answer = "A: " + natural_language_value
+            symptom = f"({question} {answer})"
+            natural_language_symptoms.append(symptom)
+
+        natural_language_symptoms_text = str(natural_language_symptoms).replace("'", "")
+
+        return natural_language_symptoms_text

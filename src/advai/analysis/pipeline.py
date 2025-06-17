@@ -1,6 +1,7 @@
 """This module provides a pipeline for analyzing bias in AI models for a given dataset."""
 import datetime
 import io
+import json
 import os
 import sys
 
@@ -24,7 +25,7 @@ def get_templates(demographic_concepts: list[str]):
 
 
 def data_preprocessing(
-    patient_data_path: str, conditions_json_path: str, num_cases: int = 1
+    patient_data_path: str, conditions_json_path: str, evidences_json_path: str, num_cases: int = 1
 ):
     """Load and preprocess patient data and conditions mapping.
     
@@ -39,7 +40,10 @@ def data_preprocessing(
         cases = cases[:num_cases]
     conditions_mapping = load_conditions_mapping(conditions_json_path)
 
-    return cases, conditions_mapping
+    with open(evidences_json_path, 'r') as f:
+        evidences = json.load(f)
+
+    return cases, conditions_mapping, evidences
 
 
 def process_case_result(prompt_outputs, pairs_to_compare, case_id=None, case_info=None):
@@ -65,6 +69,7 @@ def process_case_result(prompt_outputs, pairs_to_compare, case_id=None, case_inf
 def run_analysis_pipeline(
     patient_data_path,
     conditions_json_path,
+    evidences_json_path,
     model,
     sae,
     num_cases: int = 1,
@@ -93,8 +98,8 @@ def run_analysis_pipeline(
     os.makedirs(outputs_dir, exist_ok=True)
 
     # Get the patient data and conditions mapping
-    cases, conditions_mapping = data_preprocessing(
-        patient_data_path, conditions_json_path, num_cases=num_cases
+    cases, conditions_mapping, evidences = data_preprocessing(
+        patient_data_path, conditions_json_path, evidences_json_path, num_cases=num_cases
     )
 
     # Ask user to enter a prompt structure or use a default one
@@ -123,6 +128,7 @@ def run_analysis_pipeline(
     prompt_builder = PromptBuilder(
         conditions_mapping,
         demographic_concepts=demographic_concepts,
+        evidences=evidences,
         concepts_to_test=concepts_to_test,
         full_prompt_template=full_prompt_structure,
         baseline_prompt_template=baseline_prompt_structure,
@@ -149,7 +155,7 @@ def run_analysis_pipeline(
 
     # Run through each case and generate prompts
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
-        print(f"Case {idx}: \n{case}")
+        #print(f"Case {idx}: \n{case}")
         # Calculate demographic combinations
         case_demographic_combinations = prompt_builder.get_demographic_combinations(case)
 
@@ -198,7 +204,9 @@ def run_analysis_pipeline(
 
     # Construct timestamped filenames using output_name
     now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    base_name = f"{output_name or 'analysis'}_{now}"
+    os.makedirs(outputs_dir + f"/{now}", exist_ok=True)
+    #base_name = f"{output_name or 'analysis'}_{now}"
+    base_name = f"{now}/{output_name or 'analysis'}"
     feature_path = os.path.join(outputs_dir, f"{base_name}_feature_overlap")
     analysis_path = os.path.join(outputs_dir, f"{base_name}_analysis_output.txt")
 

@@ -143,7 +143,7 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id) -> Dict[str,
         diagnosis_list = load_diagnosis_list(dx_json_path)
         group = "_".join(demo_combination) if len(demo_combination) > 0 else "no_demo"
         dx_scores, debug_rows = score_diagnoses(prompt, group, diagnosis_list, model, case_id)
-        top5 = [dx for dx, _ in sorted(dx_scores, key=lambda x: x[1], reverse=True)[:5]] # 10:15
+        top5 = [dx for dx, _ in sorted(dx_scores, key=lambda x: x[1], reverse=True)[30:35]] # 10:15
 
         # Save debug info to CSV for post-analysis
         debug_info_to_csv(debug_rows)
@@ -211,7 +211,7 @@ def compile_results(prompt_output_1, prompt_output_2, pair, case_id=None, case_i
     }
 
     if pair == ('age', ''):
-        print(f"Results for pair {pair}: \nTop dxs with {result['top_dxs_age_candidate']}\n")
-        print(f"Top dxs without {result['top_dxs_no_demo_candidate']}\n")
+        print(f"Results for pair {pair}: \n{result}\n")
+        #print(f"Top dxs without {result['top_dxs_no_demo_candidate']}\n")
     
     return result

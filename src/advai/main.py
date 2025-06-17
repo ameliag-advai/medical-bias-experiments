@@ -34,11 +34,13 @@ def main():
 
     model, sae = load_model_and_sae(model_scope=args.model, device=args.device)
     conditions_path = "release_conditions.json" # "/mnt/advai_scratch/shared/data/ddxdataset/release_conditions.json"
+    evidences_path = "release_evidences.json" # "/mnt/advai_scratch/shared/data/ddxdataset/release_evidences.json"
     patient_path = args.patient_file or "release_test_patients" # "/mnt/advai_scratch/shared/data/ddxdataset/release_test_patients"
 
     run_analysis_pipeline(
         patient_data_path=patient_path,
         conditions_json_path=conditions_path,
+        evidences_json_path=evidences_path,
         model=model,
         sae=sae,
         num_cases=args.num_cases,
