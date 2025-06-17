@@ -1,6 +1,7 @@
 """This module contains the PromptBuilder class, which generates prompts for LLM testing."""
 
 import ast
+import re
 from itertools import chain, combinations
 from typing import Any, Dict, Iterable, List, Tuple
 
@@ -16,13 +17,17 @@ def get_subsets(
     ))
 
 
+def clean_whitespace(text):
+    return re.sub(r'\s+', ' ', text).strip()
+
+
 class PartialUndefined(Undefined):
     # Return the original placeholder format
     def __str__(self):
-        return f"{{{{ }}}}" if self._undefined_name else ""
+        return f"" if self._undefined_name else ""
 
     def __repr__(self):
-        return f"{{{{ }}}}" if self._undefined_name else ""
+        return f"" if self._undefined_name else ""
 
     def __iter__(self):
         """Prevent Jinja from evaluating loops by returning a placeholder string instead of an iterable."""
@@ -44,6 +49,7 @@ class PromptBuilder:
         self,
         conditions_mapping,
         demographic_concepts: List[str],
+        evidences: Dict[str, Any],
         concepts_to_test: List[str],
         full_prompt_template: str,
         baseline_prompt_template: str,
@@ -59,6 +65,7 @@ class PromptBuilder:
         """
         self.conditions_mapping = conditions_mapping
         self.demographic_concepts = demographic_concepts
+        self.evidences = evidences
         for concept in concepts_to_test:
             if concept not in self.demographic_concepts:
                 raise ValueError(
@@ -72,6 +79,7 @@ class PromptBuilder:
     def create_jinja_template(self) -> None:
         """Create a Jinja2 template from the demographic concepts."""
         self.env = Environment(undefined=PartialUndefined)
+        self.env.filters["clean"] = lambda value: "" if value is None else value
         self.full_jinja_template = self.env.from_string(self.full_prompt_template)
         self.baseline_jinja_template = self.env.from_string(self.baseline_prompt_template)
 
@@ -129,8 +137,8 @@ class PromptBuilder:
         :raises Exception: If there is an error rendering the template.
         """
         try:
-            # Render the template with the provided kwargs
-            return jinja_template.render(vars)
+            rendered_template = clean_whitespace(jinja_template.render(vars))
+            return rendered_template
         except Exception as e:
             raise RuntimeError(f"Error rendering template: {e}")
 
