@@ -234,7 +234,7 @@ class PromptBuilder:
                 natural_language_value = self.evidences[name]["value_meaning"][value]["en"]
             # Numeric symptoms
             elif self.evidences[name]["data_type"] == "C":
-                natural_language_value = f"{value} out of {self.evidences[name]["possible-values"][-1]}."
+                natural_language_value = f"{value} out of {self.evidences[name]['possible-values'][-1]}."
 
             question = "Q: " + self.evidences[name]["question_en"]
             answer = "A: " + natural_language_value
