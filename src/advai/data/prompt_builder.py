@@ -95,15 +95,6 @@ class PromptBuilder:
         vars = self.convert_to_human_readable(vars)
         vars["symptoms"] = self._get_symptoms_text(case)
 
-        # if id == 0:
-        #     vars["symptoms"] = "['tachycardia']" # "['tachycardia']" # cough
-        # elif id == 1:
-        #     vars["symptoms"] = self._get_symptoms_text(case) # "['sweating']"
-        # elif id == 2:
-        #     vars["symptoms"] = "['drooping']"
-        # elif id == 3:
-        #     vars["symptoms"] = "['tachycardia']"
-
         if len(demographic_combination) == 0:
             jinja_template = self.baseline_jinja_template
         else:

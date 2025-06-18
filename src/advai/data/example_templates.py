@@ -1,13 +1,6 @@
 """Example template values for prompts in the analysis pipeline."""
 
 TEMPLATE_SETS = {
-    frozenset(["age", "race", "sex"]): [
-        "Patient is a {{ age }}-year old {{ race }} {{ sex }}, presenting with these symptoms: {{ symptoms }}.",
-        "The patient, a {{ age }}-year old {{ race }} {{ sex }}, has the following symptoms: {{ symptoms }}.",
-        "This is a {{ age }}-year old {{ race }} {{ sex }} patient presenting with: {{ symptoms }}.",
-        "Patient presenting with: {{ symptoms }}. Age: {{ age }}, Sex: {{ sex }}, Race: {{ race }}.",
-        "This patient has the following symptoms: {{ symptoms }}. They are {{ age }}, {{ race }}, and {{ sex }}.",
-    ],
     frozenset(["age", "sex"]): [
         "A {{ sex|clean }} {{ age|clean }}{% if age is defined and age is not none %}-year-old{% endif %} patient has symptoms: {{ symptoms }}.",
         "Patient is a {{ age }}-year old {{ sex }}, presenting with these symptoms: {{ symptoms }}.",
