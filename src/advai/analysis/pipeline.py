@@ -26,10 +26,10 @@ from src.advai.data.prompt_builder import PromptBuilder, get_subsets
 from src.advai.visuals.plots import visualize_feature_overlaps
 
 # Setup global outputs directory and timestamped CSV path
-PROJECT_ROOT = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..", "..", "..")
-)
-#PROJECT_ROOT = "/mnt/advai_scratch/shared/alethia"
+# PROJECT_ROOT = os.path.abspath(
+#     os.path.join(os.path.dirname(__file__), "..", "..", "..")
+# )
+PROJECT_ROOT = "/mnt/advai_scratch/shared/alethia"
 OUTPUTS_DIR = os.path.join(PROJECT_ROOT, "outputs")
 os.makedirs(OUTPUTS_DIR, exist_ok=True)
 RUN_TIMESTAMP = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -54,8 +54,6 @@ FIELD_NAMES = [
         "diagnosis_3_logits",
         "diagnosis_4_logits",
         "diagnosis_5_logits",
-        #"activations",
-        #"active_features",
         "top5",
         "top5_logits",
         "n_active_features",
