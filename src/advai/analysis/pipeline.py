@@ -250,6 +250,7 @@ def run_analysis_pipeline(
                     prompt_outputs[group][f"diagnosis_{i+1}"] = diagnoses_output[
                         "top5"
                     ][i]
+                    prompt_outputs[group][f"diagnosis_{i+1}_logits"] = diagnoses_output["top5_logits"][i]
 
             # If this combination is not in the case, set to None
             else:

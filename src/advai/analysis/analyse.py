@@ -65,7 +65,7 @@ def score_candidate(
     for i, token_id in enumerate(candidate_tokens):
         idx = int(token_id)
         pos = -len(candidate_tokens) - 1 + i  # position of each candidate token
-        logit = logits[0, pos, :]
+        logit = logits[0, pos, :]  # logit for each candidate token
         log_prob = torch.log_softmax(logit, dim=-1)[idx]
 
         # Ensure log_prob is a scalar
@@ -87,7 +87,10 @@ def score_candidate(
         f"[LOGITS] Candidate: '{candidate}' | Log probs (scalar): {log_probs} | Raw logits: {raw_logits}"
     )
 
-    return sum(log_probs) if log_probs else float("-inf"), log_probs, raw_logits
+    score = sum(log_probs) if log_probs else float("-inf")
+    normalised_score = score / len(candidate_tokens) if candidate_tokens else float("-inf")
+
+    return normalised_score, log_probs, raw_logits
 
 
 def score_diagnoses(
@@ -109,7 +112,7 @@ def score_diagnoses(
     print(f"Symptom prompt: {prompt}\n")
     for dx in diagnosis_list[:49]:  # [:5]:
         score, log_probs, raw_logits = score_candidate(prompt, dx, model)
-        dx_scores.append((dx, score))
+        dx_scores.append((dx, score, raw_logits))
         debug_rows.append(
             {
                 "case_id": case_id,
@@ -170,14 +173,17 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id) -> Dict[str,
         dx_scores, debug_rows = score_diagnoses(
             prompt, group, diagnosis_list, model, case_id
         )
-        top5 = [
-            dx for dx, _ in sorted(dx_scores, key=lambda x: x[1], reverse=True)[10:15]
-        ]  # 10:15
+        top5 = []
+        top5_logits = []
+        sorted_dx_scores = sorted(dx_scores, key=lambda x: x[1], reverse=True)[10:15]  # 10:15
+        for dx in sorted_dx_scores:
+            top5.append(dx[0])
+            top5_logits.append(dx[2])
 
         # Save debug info to CSV for post-analysis
         debug_info_to_csv(debug_rows)
 
-        diagnoses_output = {"top5": top5, "debug_rows": debug_rows}
+        diagnoses_output = {"top5": top5, "top5_logits": top5_logits, "debug_rows": debug_rows}
 
     return diagnoses_output
 
