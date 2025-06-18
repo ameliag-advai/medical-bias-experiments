@@ -9,8 +9,6 @@ def load_model_and_sae(model_scope="gemma", device=None):
         device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
-    if model_scope != "gemma":
-        raise NotImplementedError(f"Only 'gemma' scope is supported, got {model_scope}")
     model = HookedTransformer.from_pretrained("google/gemma-2b-it", device=device)
     sae, *_ = SAE.from_pretrained(
         release="jbloom/Gemma-2b-IT-Residual-Stream-SAEs",
