@@ -27,6 +27,7 @@ def main():
         default=["age", "sex"],
         help="Concepts to analyze",
     )
+    parser.add_argument("--start-case", type=int, default=0, help="Start case index for analysis")
     args = parser.parse_args()
 
     load_dotenv()
@@ -44,6 +45,7 @@ def main():
         model=model,
         sae=sae,
         num_cases=args.num_cases,
+        start_case=args.start_case,
         concepts_to_test=args.concepts,
         output_name=args.output,
     )

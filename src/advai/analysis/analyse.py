@@ -50,7 +50,7 @@ def score_candidate(
     :return: A tuple containing the total log probability, a list of log probabilities for each token, and raw logits.
     """
     # Add the candidate diagnosis to the prompt and run the model.
-    prompt = f"{prompt_prefix} Diagnosis is: {candidate}."
+    prompt = f"{prompt_prefix} Diagnosis is: {candidate}"
     toks = model.to_tokens(prompt)
     candidate_tokens = model.to_tokens(candidate)
     logits, _ = model.run_with_cache(toks)
@@ -109,8 +109,7 @@ def score_diagnoses(
     if debug_rows is None:
         debug_rows = []
     dx_scores = []
-    print(f"Symptom prompt: {prompt}\n")
-    for dx in diagnosis_list[:49]:  # [:5]:
+    for dx in diagnosis_list:
         score, log_probs, raw_logits = score_candidate(prompt, dx, model)
         dx_scores.append((dx, score, raw_logits))
         debug_rows.append(
@@ -175,7 +174,7 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id) -> Dict[str,
         )
         top5 = []
         top5_logits = []
-        sorted_dx_scores = sorted(dx_scores, key=lambda x: x[1], reverse=True)[10:15]  # 10:15
+        sorted_dx_scores = sorted(dx_scores, key=lambda x: x[1], reverse=True)[:5]  # 10:15
         for dx in sorted_dx_scores:
             top5.append(dx[0])
             top5_logits.append(dx[2])

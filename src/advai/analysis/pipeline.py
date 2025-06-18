@@ -30,41 +30,7 @@ PROJECT_ROOT = os.path.abspath(
 OUTPUTS_DIR = os.path.join(PROJECT_ROOT, "outputs")
 os.makedirs(OUTPUTS_DIR, exist_ok=True)
 RUN_TIMESTAMP = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-
-
-def get_templates(demographic_concepts: list[str]):
-    key = frozenset(demographic_concepts)
-    return TEMPLATE_SETS.get(key)
-
-
-def save_to_csv(all_prompt_outputs, concepts_to_test) -> None:
-    """Save the results of the analysis to a CSV file.
-
-    :param all_prompt_outputs: Dictionary containing the outputs for each case and demographic group.
-    """
-    demos = "_".join(concepts_to_test) if len(concepts_to_test) > 0 else "no_demo"
-    os.makedirs(OUTPUTS_DIR + f"/{RUN_TIMESTAMP}_{demos}", exist_ok=True)
-    results_csv_base_bath = f"{RUN_TIMESTAMP}_{demos}/results_database.csv"
-    results_csv_path = os.path.join(OUTPUTS_DIR, results_csv_base_bath)
-
-    with open(results_csv_path, "a", newline="") as csvfile:
-        writer = csv.DictWriter(
-            csvfile, fieldnames=list(all_prompt_outputs[0][""].keys())
-        )
-        for case_id in all_prompt_outputs:
-            for group in all_prompt_outputs[case_id]:
-                output = all_prompt_outputs[case_id][group]
-                if output is not None:
-                    if csvfile.tell() == 0:
-                        writer.writeheader()
-                    writer.writerow(output)
-
-    return results_csv_path
-
-
-class CSVLogger:
-
-    FIELD_NAMES = [
+FIELD_NAMES = [
         "case_id",
         "dataset_age",
         "dataset_sex",
@@ -98,23 +64,9 @@ class CSVLogger:
         "top5_logits",
     ]
 
-    def __init__(self, concepts_to_test, field_names = None):
-        demos = "_".join(concepts_to_test) if concepts_to_test else "no_demo"
-        self.folder = os.path.join(OUTPUTS_DIR, f"{RUN_TIMESTAMP}_{demos}")
-        os.makedirs(self.folder, exist_ok=True)
-        self.filepath = os.path.join(self.folder, "results_database.csv")
-        self.fieldnames = field_names or self.FIELD_NAMES
-        self.csvfile = open(self.filepath, "a", newline="")
-        self.writer: csv.DictWriter = csv.DictWriter(self.csvfile, fieldnames=self.fieldnames)
-
-    def write_row(self, output):
-        if output is not None:
-            if self.csvfile.tell() == 0:
-                self.writer.writeheader()
-        self.writer.writerow(output)
-
-    def close(self):
-        self.csvfile.close()
+def get_templates(demographic_concepts: list[str]):
+    key = frozenset(demographic_concepts)
+    return TEMPLATE_SETS.get(key)
 
 
 def data_preprocessing(
@@ -122,6 +74,7 @@ def data_preprocessing(
     conditions_json_path: str,
     evidences_json_path: str,
     num_cases: int = 1,
+    start_case: int = 0,
 ) -> Tuple:
     """Load and preprocess patient data and conditions mapping.
 
@@ -133,7 +86,7 @@ def data_preprocessing(
     df = load_patient_data(patient_data_path)
     cases = extract_cases_from_dataframe(df)
     if num_cases:
-        cases = cases[:num_cases]
+        cases = cases[start_case : num_cases]
     conditions_mapping = load_conditions_mapping(conditions_json_path)
 
     with open(evidences_json_path, "r") as f:
@@ -175,6 +128,7 @@ def run_analysis_pipeline(
     model,
     sae,
     num_cases: int = 1,
+    start_case: int = 0,
     topk: int = 5,
     demographic_concepts: list[str] = ["age", "sex"],
     concepts_to_test: list[str] = ["age", "sex"],
@@ -201,6 +155,7 @@ def run_analysis_pipeline(
         conditions_json_path,
         evidences_json_path,
         num_cases=num_cases,
+        start_case=start_case,
     )
 
     # Ask user to enter a prompt structure or use a default one
@@ -256,8 +211,13 @@ def run_analysis_pipeline(
     # print(f"[INFO] Saving master prompt file at: {os.path.join(prompts_dir, 'all_prompts.txt')}")
     # print(f"[INFO] Visualization will be saved as: feature_overlap.html in {os.getcwd()}")
 
-    # Initialize a CSV logger to save results
-    csv_logger = CSVLogger(concepts_to_test)
+    # Initialize csv dirs
+    demos = "_".join(concepts_to_test) if len(concepts_to_test) > 0 else "no_demo"
+    os.makedirs(OUTPUTS_DIR + f"/{RUN_TIMESTAMP}_{demos}", exist_ok=True)
+    results_csv_base_bath = f"{RUN_TIMESTAMP}_{demos}/results_database.csv"
+    results_csv_path = os.path.join(OUTPUTS_DIR, results_csv_base_bath)
+    write_header = not os.path.exists(results_csv_path) or os.stat(results_csv_path).st_size == 0
+    #csv_logger = CSVLogger(concepts_to_test)
 
     # Run through each case and generate prompts
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
@@ -283,7 +243,12 @@ def run_analysis_pipeline(
                     prompt, model, demo_combination, case_id=idx
                 )
 
+                # Add model and SAE outputs
                 prompt_outputs[group] = {}
+                #prompt_outputs[group] = {
+                #    **sae_output, 
+                #    **{k: v for k, v in diagnoses_output.items() if k != "debug_rows"}
+                #}
 
                 # Add dataset-level fields to the output
                 age = case.get("age", None)
@@ -310,18 +275,23 @@ def run_analysis_pipeline(
                     ][i]
                     prompt_outputs[group][f"diagnosis_{i+1}_logits"] = diagnoses_output["top5_logits"][i]
 
-                # Add model and SAE outputs
-                prompt_outputs[group] = {
-                    **sae_output, 
-                    **{k: v for k, v in diagnoses_output.items() if k != "debug_rows"}
-                }
+                # Add SAE activations and active features
+                prompt_outputs[group].update(sae_output)
+                prompt_outputs[group].update({k: v for k, v in diagnoses_output.items() if k != "debug_rows"})
 
             # If this combination is not in the case, set to None
             else:
                 prompt_outputs[group] = None
 
             # Save to csv here.
-            csv_logger.write_row(prompt_outputs[group])
+            #csv_logger.write_row(prompt_outputs[group])
+            # @TODO: Fix csv logger later: csv_logger.write_row(prompt_outputs[group])
+            with open(results_csv_path, "a", newline="") as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=FIELD_NAMES)
+                if write_header:  # Check if file is empty
+                    writer.writeheader()
+                if prompt_outputs[group] is not None:
+                    writer.writerow(prompt_outputs[group])
 
         # Now compare relevant pairs of activations for this case
         # @TODO: Move this to analysis capability
@@ -330,7 +300,7 @@ def run_analysis_pipeline(
         # case_summaries.append(str(case_result))
 
     # Close the CSV file after writing all results
-    csv_logger.close()
+    #csv_logger.close()
 
     # Write debug log
     # debug_out = sys.stdout.getvalue()
@@ -344,4 +314,4 @@ def run_analysis_pipeline(
     # visualize_feature_overlaps(results, pairs_to_compare, save_path=feature_path)
     # write_output(analysis_path, case_summaries, summary_text)
 
-    return csv_logger.filepath
+    return results_csv_path
