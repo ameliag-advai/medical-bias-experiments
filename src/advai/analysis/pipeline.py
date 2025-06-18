@@ -214,11 +214,15 @@ def run_analysis_pipeline(
     os.makedirs(OUTPUTS_DIR + f"/{RUN_TIMESTAMP}_{demos}", exist_ok=True)
     results_csv_base_bath = f"{RUN_TIMESTAMP}_{demos}/results_database.csv"
     activations_base_path = f"{OUTPUTS_DIR}/{RUN_TIMESTAMP}_{demos}/activations/"
-    os.makedirs(activations_base_path, exist_ok=True)
     results_csv_path = os.path.join(OUTPUTS_DIR, results_csv_base_bath)
     write_header = not os.path.exists(results_csv_path) or os.stat(results_csv_path).st_size == 0
     #csv_logger = CSVLogger(concepts_to_test)
-    fieldnames = FIELD_NAMES + [f"activation_{i}" for i in range(2048)] + [f"active_feature_{i}" for i in range(2048)]
+
+    # Get the activations (output of the encoder) and new field names
+    n_features = sae.W_enc.shape[0]
+    print(f"Number of features in SAE: {n_features}")
+
+    fieldnames = FIELD_NAMES + [f"activation_{i}" for i in range(n_features)] + [f"active_feature_{i}" for i in range(n_features)]
 
     # Run through each case and generate prompts
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
