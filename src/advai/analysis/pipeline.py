@@ -27,6 +27,7 @@ from src.advai.visuals.plots import visualize_feature_overlaps
 PROJECT_ROOT = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..", "..", "..")
 )
+#PROJECT_ROOT = "/mnt/advai_scratch/shared/alethia"
 OUTPUTS_DIR = os.path.join(PROJECT_ROOT, "outputs")
 os.makedirs(OUTPUTS_DIR, exist_ok=True)
 RUN_TIMESTAMP = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -59,7 +60,6 @@ FIELD_NAMES = [
         "activations",
         "active_features",
         "n_active_features",
-        "top_dxs",
         "top5",
         "top5_logits",
     ]
@@ -202,6 +202,7 @@ def run_analysis_pipeline(
     prompts_dir = os.path.join(save_dir, "prompts")
     os.makedirs(prompts_dir, exist_ok=True)
     all_prompts_text = []
+    all_prompts_outputs = {}
 
     # Redirect stdout to capture all debug/print output
     debug_log_path = os.path.join(save_dir, "debug_log.txt")
@@ -215,13 +216,14 @@ def run_analysis_pipeline(
     demos = "_".join(concepts_to_test) if len(concepts_to_test) > 0 else "no_demo"
     os.makedirs(OUTPUTS_DIR + f"/{RUN_TIMESTAMP}_{demos}", exist_ok=True)
     results_csv_base_bath = f"{RUN_TIMESTAMP}_{demos}/results_database.csv"
+    activations_base_path = f"{RUN_TIMESTAMP}_{demos}/activations.json"
     results_csv_path = os.path.join(OUTPUTS_DIR, results_csv_base_bath)
+    activations_path = os.path.join(OUTPUTS_DIR, activations_base_path)
     write_header = not os.path.exists(results_csv_path) or os.stat(results_csv_path).st_size == 0
     #csv_logger = CSVLogger(concepts_to_test)
 
     # Run through each case and generate prompts
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
-        # print(f"Case {idx}: \n{case}")
         # Calculate demographic combinations
         case_demographic_combinations = prompt_builder.get_demographic_combinations(
             case
@@ -245,10 +247,6 @@ def run_analysis_pipeline(
 
                 # Add model and SAE outputs
                 prompt_outputs[group] = {}
-                #prompt_outputs[group] = {
-                #    **sae_output, 
-                #    **{k: v for k, v in diagnoses_output.items() if k != "debug_rows"}
-                #}
 
                 # Add dataset-level fields to the output
                 age = case.get("age", None)
@@ -265,10 +263,6 @@ def run_analysis_pipeline(
                 prompt_outputs[group]["prompt_sex"] = sex if "sex" in group else ""
                 prompt_outputs[group]["features_clamped"] = None
                 prompt_outputs[group]["clamping_levels"] = None
-                for i in range(topk):
-                    prompt_outputs[group][f"diagnosis_feature{i+1}"] = sae_output[
-                        "top_dxs"
-                    ][i]
                 for i in range(topk):
                     prompt_outputs[group][f"diagnosis_{i+1}"] = diagnoses_output[
                         "top5"
@@ -288,11 +282,14 @@ def run_analysis_pipeline(
             # @TODO: Fix csv logger later: csv_logger.write_row(prompt_outputs[group])
             with open(results_csv_path, "a", newline="") as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=FIELD_NAMES)
-                if write_header:  # Check if file is empty
+                if write_header:
                     writer.writeheader()
+                    write_header = False
                 if prompt_outputs[group] is not None:
                     writer.writerow(prompt_outputs[group])
 
+        #all_prompts_outputs[idx] = prompt_outputs
+        
         # Now compare relevant pairs of activations for this case
         # @TODO: Move this to analysis capability
         # case_result = process_case_result(prompt_outputs, pairs_to_compare, case_id=idx, case_info=case)
@@ -301,6 +298,9 @@ def run_analysis_pipeline(
 
     # Close the CSV file after writing all results
     #csv_logger.close()
+    #Save all_prompts_outputs to json
+    #with open(activations_path, "w", encoding="utf-8") as f:
+    #    json.dump(all_prompts_outputs, f, indent=4)
 
     # Write debug log
     # debug_out = sys.stdout.getvalue()

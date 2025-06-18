@@ -27,7 +27,7 @@ def main():
         default=["age", "sex"],
         help="Concepts to analyze",
     )
-    parser.add_argument("--start-case", type=int, default=0, help="Start case index for analysis")
+    parser.add_argument("--start-case", type=int, default=0, help="Start case index for analysis. Enter an integer value between 0 and 134529.")
     args = parser.parse_args()
 
     load_dotenv()

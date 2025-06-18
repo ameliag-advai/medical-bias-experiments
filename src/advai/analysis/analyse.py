@@ -39,58 +39,46 @@ def debug_info_to_csv(debug_rows):
             writer.writerow(row)
 
 
-def score_candidate(
-    prompt_prefix, candidate, model
-) -> Tuple[float, List[float], List[float]]:
-    """Score a candidate diagnosis by computing its log probability in the model's output.
-
-    :param prompt: The prompt to be used for scoring the candidate.
-    :param candidate: The candidate diagnosis to be scored.
-    :param model: The model used to score the candidate.
-    :return: A tuple containing the total log probability, a list of log probabilities for each token, and raw logits.
+def score_candidate(prompt_prefix: str, candidate: str, model) -> Tuple[float, List[float], List[float]]:
     """
-    # Add the candidate diagnosis to the prompt and run the model.
-    prompt = f"{prompt_prefix} Diagnosis is: {candidate}"
-    toks = model.to_tokens(prompt)
-    candidate_tokens = model.to_tokens(candidate)
-    logits, _ = model.run_with_cache(toks)
+    Score a candidate diagnosis by computing its log-probability under the model.
+
+    :param prompt_prefix: Text prompt without diagnosis.
+    :param candidate: Diagnosis string.
+    :param model: The language model.
+    :return: Total log-probability, list of per-token log-probs, list of raw logits.
+    """
+    # Full prompt with and without diagnosis
+    prompt_with_candidate = f"{prompt_prefix} Diagnosis is: {candidate} "
+    prompt_without_candidate = f"{prompt_prefix} Diagnosis is: "
+
+    # Tokenise both
+    toks_full = model.to_tokens(prompt_with_candidate)
+    toks_prefix = model.to_tokens(prompt_without_candidate)
+
+    # Adjust prefix length to exclude trailing shared token (e.g., whitespace or EOS)
+    true_prefix_len = toks_prefix.shape[-1] - 1
+
+    # Diagnosis tokens are those after the true prefix
+    diagnosis_token_ids = toks_full[0, true_prefix_len:-1]
+
+    # Run model
+    logits, _ = model.run_with_cache(toks_full)
 
     log_probs = []
     raw_logits = []
-    candidate_tokens = (
-        candidate_tokens.flatten().tolist()
-        if hasattr(candidate_tokens, "flatten")
-        else list(candidate_tokens)
-    )
-    for i, token_id in enumerate(candidate_tokens):
-        idx = int(token_id)
-        pos = -len(candidate_tokens) - 1 + i  # position of each candidate token
-        logit = logits[0, pos, :]  # logit for each candidate token
-        log_prob = torch.log_softmax(logit, dim=-1)[idx]
 
-        # Ensure log_prob is a scalar
-        if hasattr(log_prob, "item") and log_prob.numel() == 1:
-            log_probs.append(log_prob.item())
-        elif hasattr(log_prob, "tolist"):
-            val = log_prob.tolist()
-            if isinstance(val, list):
-                log_probs.append(
-                    val[0] if val and isinstance(val[0], (int, float)) else float("nan")
-                )
-            else:
-                log_probs.append(float(val))
-        else:
-            log_probs.append(float(log_prob))
-        raw_logits.append(logit[idx].item())
+    for i, token_id in enumerate(diagnosis_token_ids):
+        token_id = int(token_id)
+        pos = true_prefix_len - 1 + i  # predict token i from this position
+        logit = logits[0, pos, :]
+        log_prob = torch.nn.functional.log_softmax(logit, dim=-1)[token_id]
 
-    logger.debug(
-        f"[LOGITS] Candidate: '{candidate}' | Log probs (scalar): {log_probs} | Raw logits: {raw_logits}"
-    )
-
-    score = sum(log_probs) if log_probs else float("-inf")
-    normalised_score = score / len(candidate_tokens) if candidate_tokens else float("-inf")
-
-    return normalised_score, log_probs, raw_logits
+        log_probs.append(log_prob.item())
+        raw_logits.append(logit[token_id].item())
+    logger.debug(f"[LOGITS] Candidate: '{candidate}' | Log probs (scalar): {log_probs} | Raw logits: {raw_logits}")
+    
+    return sum(log_probs), log_probs, raw_logits
 
 
 def score_diagnoses(
@@ -124,6 +112,10 @@ def score_diagnoses(
     return dx_scores, debug_rows
 
 
+def tensor_to_json(tensor):
+    return json.dumps(tensor.cpu().tolist())
+
+
 def run_prompt(prompt, model, sae, threshold=1.0) -> Dict[str, Any]:
     """Run a single prompt and return SAE feature activations.
 
@@ -142,13 +134,11 @@ def run_prompt(prompt, model, sae, threshold=1.0) -> Dict[str, Any]:
         sae_activations = sae(vectorised)[0]
         active_features = (sae_activations.abs() > threshold).squeeze(0)
         n_active_features = active_features.sum().item()
-        top_dxs = torch.topk(sae_activations, 5).indices.tolist()
 
         sae_output = {
-            "activations": sae_activations,
-            "active_features": active_features,
+            "activations": sae_activations, #tensor_to_json(sae_activations),
+            "active_features": active_features, #tensor_to_json(active_features),
             "n_active_features": n_active_features,
-            "top_dxs": top_dxs,
         }
 
     return sae_output
@@ -174,7 +164,7 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id) -> Dict[str,
         )
         top5 = []
         top5_logits = []
-        sorted_dx_scores = sorted(dx_scores, key=lambda x: x[1], reverse=True)[:5]  # 10:15
+        sorted_dx_scores = sorted(dx_scores, key=lambda x: x[1], reverse=True)[:5]
         for dx in sorted_dx_scores:
             top5.append(dx[0])
             top5_logits.append(dx[2])

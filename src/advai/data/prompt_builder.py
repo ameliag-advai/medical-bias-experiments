@@ -226,8 +226,8 @@ class PromptBuilder:
         :return: A string representation of the symptoms.
         """
         natural_language_symptoms = []
-        max_symptoms = 7 if len(symptoms_codes) > 7 else len(symptoms_codes)
-        symptoms_codes = symptoms_codes[:max_symptoms]
+        #max_symptoms = len(symptoms_codes)  # 7 if len(symptoms_codes) > 7 else len(symptoms_codes)
+        #symptoms_codes = symptoms_codes[:max_symptoms]
         for c in symptoms_codes:
             if "@" not in c:
                 name = c
