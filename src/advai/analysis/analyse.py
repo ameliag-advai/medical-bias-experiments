@@ -113,7 +113,7 @@ def score_diagnoses(
 
 
 def tensor_to_json(tensor):
-    return json.dumps(tensor.cpu().tolist())
+    return json.dumps(tensor.cpu().numpy().tolist())
 
 
 def run_prompt(prompt, model, sae, threshold=1.0) -> Dict[str, Any]:
@@ -135,11 +135,18 @@ def run_prompt(prompt, model, sae, threshold=1.0) -> Dict[str, Any]:
         active_features = (sae_activations.abs() > threshold).squeeze(0)
         n_active_features = active_features.sum().item()
 
-        sae_output = {
-            "activations": sae_activations, #tensor_to_json(sae_activations),
-            "active_features": active_features, #tensor_to_json(active_features),
-            "n_active_features": n_active_features,
-        }
+        sae_output = {"n_active_features" : n_active_features}
+        for i in range(sae_activations.shape[0]):
+            sae_output[f"activation_{i}"] = sae_activations[i].item()
+
+        for i in range(active_features.shape[0]):
+            sae_output[f"active_feature_{i}"] = active_features[i].item()
+
+        #sae_output = {
+            #"activations": json.dumps(sae_activations.cpu().numpy().tolist()),  # tensor_to_json(sae_activations),
+            #"active_features": json.dumps(active_features.cpu().numpy().astype(bool).tolist()),  # tensor_to_json(active_features),
+            #"n_active_features": n_active_features,
+        #}
 
     return sae_output
 

@@ -8,6 +8,8 @@ import sys
 from tqdm import tqdm
 from typing import Tuple
 
+import torch
+
 from src.advai.analysis.analyse import (
     run_prompt,
     compile_results,
@@ -52,11 +54,11 @@ FIELD_NAMES = [
         "diagnosis_3_logits",
         "diagnosis_4_logits",
         "diagnosis_5_logits",
-        "activations",
-        "active_features",
-        "n_active_features",
+        #"activations",
+        #"active_features",
         "top5",
         "top5_logits",
+        "n_active_features",
     ]
 
 def get_templates(demographic_concepts: list[str]):
@@ -211,11 +213,12 @@ def run_analysis_pipeline(
     demos = "_".join(concepts_to_test) if len(concepts_to_test) > 0 else "no_demo"
     os.makedirs(OUTPUTS_DIR + f"/{RUN_TIMESTAMP}_{demos}", exist_ok=True)
     results_csv_base_bath = f"{RUN_TIMESTAMP}_{demos}/results_database.csv"
-    activations_base_path = f"{RUN_TIMESTAMP}_{demos}/activations.json"
+    activations_base_path = f"{OUTPUTS_DIR}/{RUN_TIMESTAMP}_{demos}/activations/"
+    os.makedirs(activations_base_path, exist_ok=True)
     results_csv_path = os.path.join(OUTPUTS_DIR, results_csv_base_bath)
-    activations_path = os.path.join(OUTPUTS_DIR, activations_base_path)
     write_header = not os.path.exists(results_csv_path) or os.stat(results_csv_path).st_size == 0
     #csv_logger = CSVLogger(concepts_to_test)
+    fieldnames = FIELD_NAMES + [f"activation_{i}" for i in range(2048)] + [f"active_feature_{i}" for i in range(2048)]
 
     # Run through each case and generate prompts
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
@@ -265,8 +268,8 @@ def run_analysis_pipeline(
                     prompt_outputs[group][f"diagnosis_{i+1}_logits"] = diagnoses_output["top5_logits"][i]
 
                 # Add SAE activations and active features
-                prompt_outputs[group].update(sae_output)
                 prompt_outputs[group].update({k: v for k, v in diagnoses_output.items() if k != "debug_rows"})
+                prompt_outputs[group].update(sae_output)
 
             # If this combination is not in the case, set to None
             else:
@@ -276,37 +279,11 @@ def run_analysis_pipeline(
             #csv_logger.write_row(prompt_outputs[group])
             # @TODO: Fix csv logger later: csv_logger.write_row(prompt_outputs[group])
             with open(results_csv_path, "a", newline="") as csvfile:
-                writer = csv.DictWriter(csvfile, fieldnames=FIELD_NAMES)
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                 if write_header:
                     writer.writeheader()
                     write_header = False
                 if prompt_outputs[group] is not None:
                     writer.writerow(prompt_outputs[group])
-
-        #all_prompts_outputs[idx] = prompt_outputs
-        
-        # Now compare relevant pairs of activations for this case
-        # @TODO: Move this to analysis capability
-        # case_result = process_case_result(prompt_outputs, pairs_to_compare, case_id=idx, case_info=case)
-        # results.append(case_result)
-        # case_summaries.append(str(case_result))
-
-    # Close the CSV file after writing all results
-    #csv_logger.close()
-    #Save all_prompts_outputs to json
-    #with open(activations_path, "w", encoding="utf-8") as f:
-    #    json.dump(all_prompts_outputs, f, indent=4)
-
-    # Write debug log
-    # debug_out = sys.stdout.getvalue()
-    # with open(debug_log_path, "w", encoding="utf-8") as dbg:
-    #     dbg.write(debug_out)
-    # sys.stdout = old_stdout
-    # print(f"[INFO] Debug log for this run written to: {debug_log_path}")
-
-    # Generate results summaries and visualizations
-    # summary_text = generate_summary(results, pairs_to_compare)
-    # visualize_feature_overlaps(results, pairs_to_compare, save_path=feature_path)
-    # write_output(analysis_path, case_summaries, summary_text)
 
     return results_csv_path
