@@ -62,6 +62,61 @@ def save_to_csv(all_prompt_outputs, concepts_to_test) -> None:
     return results_csv_path
 
 
+class CSVLogger:
+
+    FIELD_NAMES = [
+        "case_id",
+        "dataset_age",
+        "dataset_sex",
+        "dataset_symptoms",
+        "diagnosis",
+        "prompt",
+        "prompt_age",
+        "prompt_sex",
+        "features_clamped",
+        "clamping_levels",
+        "diagnosis_feature1",
+        "diagnosis_feature2",
+        "diagnosis_feature3",
+        "diagnosis_feature4",
+        "diagnosis_feature5",
+        "diagnosis_1",
+        "diagnosis_2",
+        "diagnosis_3",
+        "diagnosis_4",
+        "diagnosis_5",
+        "diagnosis_1_logits",
+        "diagnosis_2_logits",
+        "diagnosis_3_logits",
+        "diagnosis_4_logits",
+        "diagnosis_5_logits",
+        "activations",
+        "active_features",
+        "n_active_features",
+        "top_dxs",
+        "top5",
+        "top5_logits",
+    ]
+
+    def __init__(self, concepts_to_test, field_names = None):
+        demos = "_".join(concepts_to_test) if concepts_to_test else "no_demo"
+        self.folder = os.path.join(OUTPUTS_DIR, f"{RUN_TIMESTAMP}_{demos}")
+        os.makedirs(self.folder, exist_ok=True)
+        self.filepath = os.path.join(self.folder, "results_database.csv")
+        self.fieldnames = field_names or self.FIELD_NAMES
+        self.csvfile = open(self.filepath, "a", newline="")
+        self.writer: csv.DictWriter = csv.DictWriter(self.csvfile, fieldnames=self.fieldnames)
+
+    def write_row(self, output):
+        if output is not None:
+            if self.csvfile.tell() == 0:
+                self.writer.writeheader()
+        self.writer.writerow(output)
+
+    def close(self):
+        self.csvfile.close()
+
+
 def data_preprocessing(
     patient_data_path: str,
     conditions_json_path: str,
@@ -192,7 +247,6 @@ def run_analysis_pipeline(
     prompts_dir = os.path.join(save_dir, "prompts")
     os.makedirs(prompts_dir, exist_ok=True)
     all_prompts_text = []
-    all_prompt_outputs = {}
 
     # Redirect stdout to capture all debug/print output
     debug_log_path = os.path.join(save_dir, "debug_log.txt")
@@ -201,6 +255,9 @@ def run_analysis_pipeline(
     # print(f"[INFO] Saving all prompts for each case in: {prompts_dir}")
     # print(f"[INFO] Saving master prompt file at: {os.path.join(prompts_dir, 'all_prompts.txt')}")
     # print(f"[INFO] Visualization will be saved as: feature_overlap.html in {os.getcwd()}")
+
+    # Initialize a CSV logger to save results
+    csv_logger = CSVLogger(concepts_to_test)
 
     # Run through each case and generate prompts
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
@@ -225,7 +282,8 @@ def run_analysis_pipeline(
                 diagnoses_output = extract_top_diagnoses(
                     prompt, model, demo_combination, case_id=idx
                 )
-                prompt_outputs[group] = {**sae_output, **diagnoses_output}
+
+                prompt_outputs[group] = {}
 
                 # Add dataset-level fields to the output
                 age = case.get("age", None)
@@ -252,11 +310,18 @@ def run_analysis_pipeline(
                     ][i]
                     prompt_outputs[group][f"diagnosis_{i+1}_logits"] = diagnoses_output["top5_logits"][i]
 
+                # Add model and SAE outputs
+                prompt_outputs[group] = {
+                    **sae_output, 
+                    **{k: v for k, v in diagnoses_output.items() if k != "debug_rows"}
+                }
+
             # If this combination is not in the case, set to None
             else:
                 prompt_outputs[group] = None
 
-        all_prompt_outputs[idx] = prompt_outputs
+            # Save to csv here.
+            csv_logger.write_row(prompt_outputs[group])
 
         # Now compare relevant pairs of activations for this case
         # @TODO: Move this to analysis capability
@@ -264,8 +329,8 @@ def run_analysis_pipeline(
         # results.append(case_result)
         # case_summaries.append(str(case_result))
 
-    # Save to csv here.
-    results_csv_path = save_to_csv(all_prompt_outputs, concepts_to_test)
+    # Close the CSV file after writing all results
+    csv_logger.close()
 
     # Write debug log
     # debug_out = sys.stdout.getvalue()
@@ -279,4 +344,4 @@ def run_analysis_pipeline(
     # visualize_feature_overlaps(results, pairs_to_compare, save_path=feature_path)
     # write_output(analysis_path, case_summaries, summary_text)
 
-    return results_csv_path
+    return csv_logger.filepath
