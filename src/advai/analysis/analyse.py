@@ -2,11 +2,10 @@ import torch
 import csv
 import os
 import json
-import csv
 import logging
 from typing import Dict, Any, Tuple, List
 
-logging.basicConfig(level=logging.INFO)  # Set to logging.DEBUG to show debug messages
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
 
@@ -24,56 +23,46 @@ def load_diagnosis_list(json_path) -> List[str]:
 def debug_info_to_csv(debug_rows):
     """Save debug information to a CSV file for post-analysis."""
     with open("diagnosis_logit_debug.csv", "a", newline="") as csvfile:
-        fieldnames = ["case_id", "group", "candidate", "log_probs", "raw_logits", "correct"]
+        # Include all fields that are being added to the rows
+        fieldnames = ["case_id", "group", "candidate", "log_probs", "raw_logits", "correct", "correct_top1", "correct_top5"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        
+        # Write header if file is empty
         if csvfile.tell() == 0:
             writer.writeheader()
+        
         for row in debug_rows:
+            # Convert lists to strings for CSV writing
             row["log_probs"] = str(row["log_probs"])
             row["raw_logits"] = str(row["raw_logits"])
             row["correct"] = str(row.get("correct", False))
-            # Remove all keys not in fieldnames
-            filtered_row = {k: row[k] if k in row else "" for k in fieldnames}
+            row["correct_top1"] = str(row.get("correct_top1", False))
+            row["correct_top5"] = str(row.get("correct_top5", False))
+            
+            # Filter row to only include fields in fieldnames
+            filtered_row = {k: row.get(k, "") for k in fieldnames}
             writer.writerow(filtered_row)
 
 
-    """Save debug information to a CSV file for post-analysis."""
-    with open("diagnosis_logit_debug.csv", "a", newline="") as csvfile:
-        fieldnames = ["case_id", "group", "candidate", "log_probs", "raw_logits", "correct"]
+def summary_info_to_csv(summary_rows):
+    """Save summary information to a CSV file for post-analysis."""
+    with open("diagnosis_summary.csv", "a", newline="") as csvfile:
+        fieldnames = ["case_id", "group", "top1", "top5", "correct_top1", "correct_top5"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        
+        # Write header if file is empty
         if csvfile.tell() == 0:
             writer.writeheader()
-        for row in debug_rows:
-            row["log_probs"] = str(row["log_probs"])
-            row["raw_logits"] = str(row["raw_logits"])
-            row["correct"] = str(row.get("correct", False))
-            writer.writerow(row)
-
+        
         for row in summary_rows:
+            # Convert lists to strings
             row["top5"] = str(row["top5"])
-            writer.writerow(row)
-
-    """Save debug information to a CSV file for post-analysis.
-
-    :param debug_rows: List of dictionaries containing debug information for each candidate diagnosis.
-    """
-    with open("diagnosis_logit_debug.csv", "a", newline="") as csvfile:
-        # ensure correct column in rows
-        # debug_rows should have 'correct' key
-        fieldnames=["case_id", "group", "candidate", "log_probs", "raw_logits", "correct"]
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer = csv.DictWriter(
-            csvfile,
-            fieldnames=["case_id", "group", "candidate", "log_probs", "raw_logits"],
-        )
-        if csvfile.tell() == 0:
-            writer.writeheader()
-        for row in debug_rows:
-            # Write as string for list fields
-            row["log_probs"] = str(row["log_probs"])
-            row["raw_logits"] = str(row["raw_logits"])
-            row["correct"] = str(row.get("correct", False))
-            writer.writerow(row)
+            row["correct_top1"] = str(row.get("correct_top1", False))
+            row["correct_top5"] = str(row.get("correct_top5", False))
+            
+            # Filter row to only include fields in fieldnames
+            filtered_row = {k: row.get(k, "") for k in fieldnames}
+            writer.writerow(filtered_row)
 
 
 def score_candidate(prompt_prefix: str, candidate: str, model, baseline_prefix: str = "", alpha: float = 1.0, length_penalty: float = 0.0) -> Tuple[float, List[float], List[float]]:
@@ -113,6 +102,7 @@ def score_candidate(prompt_prefix: str, candidate: str, model, baseline_prefix: 
 
         log_probs.append(log_prob.item())
         raw_logits.append(logit[token_id].item())
+    
     logger.debug(f"[LOGITS] Candidate: '{candidate}' | Log probs (scalar): {log_probs} | Raw logits: {raw_logits}")
     
     # Compute base average log-prob (average per token)
@@ -144,8 +134,6 @@ def score_candidate(prompt_prefix: str, candidate: str, model, baseline_prefix: 
         score -= length_penalty * (1 / len(log_probs))
 
     return score, log_probs, raw_logits
-    avg_log_prob = sum(log_probs) / len(log_probs) if log_probs else float('-inf')
-    return avg_log_prob, log_probs, raw_logits
 
 
 def score_diagnoses(
@@ -202,18 +190,12 @@ def run_prompt(prompt, model, sae, threshold=1.0) -> Dict[str, Any]:
         active_features = (sae_activations.abs() > threshold).squeeze(0)
         n_active_features = active_features.sum().item()
 
-        sae_output = {"n_active_features" : n_active_features}
+        sae_output = {"n_active_features": n_active_features}
         for i in range(sae_activations.shape[0]):
             sae_output[f"activation_{i}"] = sae_activations[i].item()
 
         for i in range(active_features.shape[0]):
             sae_output[f"active_feature_{i}"] = active_features[i].item()
-
-        #sae_output = {
-            #"activations": json.dumps(sae_activations.cpu().numpy().tolist()),  # tensor_to_json(sae_activations),
-            #"active_features": json.dumps(active_features.cpu().numpy().astype(bool).tolist()),  # tensor_to_json(active_features),
-            #"n_active_features": n_active_features,
-        #}
 
     return sae_output
 
@@ -227,6 +209,7 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id, true_dx: str
     :param model: The model used for scoring diagnoses.
     :param demo_combination: Demographic combination used for the case.
     :param case_id: Optional case identifier for logging/debugging.
+    :param true_dx: True diagnosis for calculating correctness.
     :return: Dictionary containing top diagnoses and debug information.
     """
     with torch.no_grad():
@@ -243,7 +226,6 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id, true_dx: str
             top5.append(dx[0])
             top5_logits.append(dx[2])
 
-        # Annotate correct flag and save debug info to CSV for post-analysis
         # Robustly define correctness flags
         if true_dx and top5:
             correct_top1 = top5[0].lower() == true_dx.lower()
@@ -251,11 +233,14 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id, true_dx: str
         else:
             correct_top1 = False
             correct_top5 = False
-        # mark each candidate row
+        
+        # Mark each candidate row
         for row in debug_rows:
             row["correct"] = row["candidate"].lower() == true_dx.lower() if true_dx else False
             row["correct_top1"] = correct_top1
             row["correct_top5"] = correct_top5
+        
+        # Save debug info to CSV
         debug_info_to_csv(debug_rows)
 
         diagnoses_output = {
@@ -270,13 +255,14 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id, true_dx: str
         summary_info_to_csv([
             {
                 "case_id": case_id,
-            "group": group,
-            "top1": top5[0] if top5 else None,
-            "top5": top5,
-            "correct_top1": correct_top1,
-            "correct_top5": correct_top5,
-        }
-    ])
+                "group": group,
+                "top1": top5[0] if top5 else None,
+                "top5": top5,
+                "correct_top1": correct_top1,
+                "correct_top5": correct_top5,
+            }
+        ])
+    
     return diagnoses_output
 
 
@@ -292,7 +278,6 @@ def compile_results(
     :param pair: Tuple containing the names of the two groups being compared.
     :param case_id: Optional case identifier for saving results.
     :param case_info: Optional additional information about the case.
-    :param save_dir: Directory where results will be saved.
     :return: Dictionary containing the results of the comparison.
     """
     group1_name = pair[0]
@@ -338,13 +323,12 @@ def compile_results(
 
     if pair == ("age", ""):
         print(f"Results for pair {pair}: \n{result}\n")
-        # print(f"Top dxs without {result['top_dxs_no_demo_candidate']}\n")
 
     return result
 
 
-# @TODO: Implement the main function to run the analysis. Optionally, do this in a notebook.
 def run_analysis():
+    """Main function to run the analysis."""
     pass
 
 
