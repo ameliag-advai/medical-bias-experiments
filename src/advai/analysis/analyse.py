@@ -32,9 +32,10 @@ def debug_info_to_csv(debug_rows):
             row["log_probs"] = str(row["log_probs"])
             row["raw_logits"] = str(row["raw_logits"])
             row["correct"] = str(row.get("correct", False))
-            writer.writerow(row)
+            # Remove all keys not in fieldnames
+            filtered_row = {k: row[k] if k in row else "" for k in fieldnames}
+            writer.writerow(filtered_row)
 
-# end of debug_info_to_csv
 
     """Save debug information to a CSV file for post-analysis."""
     with open("diagnosis_logit_debug.csv", "a", newline="") as csvfile:
