@@ -1,4 +1,5 @@
 import torch
+import csv
 import os
 import json
 import csv
@@ -21,11 +22,45 @@ def load_diagnosis_list(json_path) -> List[str]:
 
 
 def debug_info_to_csv(debug_rows):
+    """Save debug information to a CSV file for post-analysis."""
+    with open("diagnosis_logit_debug.csv", "a", newline="") as csvfile:
+        fieldnames = ["case_id", "group", "candidate", "log_probs", "raw_logits", "correct"]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        if csvfile.tell() == 0:
+            writer.writeheader()
+        for row in debug_rows:
+            row["log_probs"] = str(row["log_probs"])
+            row["raw_logits"] = str(row["raw_logits"])
+            row["correct"] = str(row.get("correct", False))
+            writer.writerow(row)
+
+# end of debug_info_to_csv
+
+    """Save debug information to a CSV file for post-analysis."""
+    with open("diagnosis_logit_debug.csv", "a", newline="") as csvfile:
+        fieldnames = ["case_id", "group", "candidate", "log_probs", "raw_logits", "correct"]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        if csvfile.tell() == 0:
+            writer.writeheader()
+        for row in debug_rows:
+            row["log_probs"] = str(row["log_probs"])
+            row["raw_logits"] = str(row["raw_logits"])
+            row["correct"] = str(row.get("correct", False))
+            writer.writerow(row)
+
+        for row in summary_rows:
+            row["top5"] = str(row["top5"])
+            writer.writerow(row)
+
     """Save debug information to a CSV file for post-analysis.
 
     :param debug_rows: List of dictionaries containing debug information for each candidate diagnosis.
     """
     with open("diagnosis_logit_debug.csv", "a", newline="") as csvfile:
+        # ensure correct column in rows
+        # debug_rows should have 'correct' key
+        fieldnames=["case_id", "group", "candidate", "log_probs", "raw_logits", "correct"]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer = csv.DictWriter(
             csvfile,
             fieldnames=["case_id", "group", "candidate", "log_probs", "raw_logits"],
@@ -36,6 +71,7 @@ def debug_info_to_csv(debug_rows):
             # Write as string for list fields
             row["log_probs"] = str(row["log_probs"])
             row["raw_logits"] = str(row["raw_logits"])
+            row["correct"] = str(row.get("correct", False))
             writer.writerow(row)
 
 
@@ -181,7 +217,7 @@ def run_prompt(prompt, model, sae, threshold=1.0) -> Dict[str, Any]:
     return sae_output
 
 
-def extract_top_diagnoses(prompt, model, demo_combination, case_id) -> Dict[str, Any]:
+def extract_top_diagnoses(prompt, model, demo_combination, case_id, true_dx: str = None) -> Dict[str, Any]:
     """Extract top diagnoses from SAE activations.
 
     Candidate-based Top-5 Diagnoses Extraction.
@@ -206,11 +242,37 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id) -> Dict[str,
             top5.append(dx[0])
             top5_logits.append(dx[2])
 
-        # Save debug info to CSV for post-analysis
+        # Annotate correct flag and save debug info to CSV for post-analysis
+        # mark each candidate row
+        for row in debug_rows:
+            row["correct"] = row["candidate"].lower() == true_dx.lower() if true_dx else False
+            row["correct_top1"] = correct_top1
+            row["correct_top5"] = correct_top5
         debug_info_to_csv(debug_rows)
 
-        diagnoses_output = {"top5": top5, "top5_logits": top5_logits, "debug_rows": debug_rows}
+        # Compare to known true diagnosis
+    correct_top1 = top5[0].lower() == true_dx.lower() if true_dx else False
+    correct_top5 = any(dx.lower() == true_dx.lower() for dx in top5) if true_dx else False
 
+    diagnoses_output = {
+        "top5": top5,
+        "top5_logits": top5_logits,
+        "correct_top1": correct_top1,
+        "correct_top5": correct_top5,
+        "debug_rows": debug_rows,
+    }
+
+        # Write summary of top1/top5 correctness to CSV
+    summary_info_to_csv([
+        {
+            "case_id": case_id,
+            "group": group,
+            "top1": top5[0] if top5 else None,
+            "top5": top5,
+            "correct_top1": correct_top1,
+            "correct_top5": correct_top5,
+        }
+    ])
     return diagnoses_output
 
 
@@ -263,6 +325,11 @@ def compile_results(
         "sae_out_without": activations_2.cpu().numpy(),
         "case_id": case_id,
         "case_info": case_info,
+        # Top-1/Top-5 correctness flags per group
+        f"correct_top1_{group1_name}": prompt_output_1.get("correct_top1"),
+        f"correct_top5_{group1_name}": prompt_output_1.get("correct_top5"),
+        f"correct_top1_{group2_name}": prompt_output_2.get("correct_top1"),
+        f"correct_top5_{group2_name}": prompt_output_2.get("correct_top5"),
     }
 
     if pair == ("age", ""):

@@ -57,6 +57,8 @@ FIELD_NAMES = [
         "top5",
         "top5_logits",
         "n_active_features",
+        "correct_top1",
+        "correct_top5",
     ]
 
 def get_templates(demographic_concepts: list[str]):
@@ -286,6 +288,9 @@ def run_analysis_pipeline(
                     writer.writeheader()
                     write_header = False
                 if prompt_outputs[group] is not None:
+                    # Format correctness flags as Yes/No
+                    prompt_outputs[group]["correct_top1"] = "Yes" if prompt_outputs[group].get("correct_top1") else "No"
+                    prompt_outputs[group]["correct_top5"] = "Yes" if prompt_outputs[group].get("correct_top5") else "No"
                     writer.writerow(prompt_outputs[group])
 
     return results_csv_path
