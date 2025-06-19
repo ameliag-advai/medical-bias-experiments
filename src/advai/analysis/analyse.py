@@ -243,6 +243,13 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id, true_dx: str
             top5_logits.append(dx[2])
 
         # Annotate correct flag and save debug info to CSV for post-analysis
+        # Robustly define correctness flags
+        if true_dx and top5:
+            correct_top1 = top5[0].lower() == true_dx.lower()
+            correct_top5 = any(dx.lower() == true_dx.lower() for dx in top5)
+        else:
+            correct_top1 = False
+            correct_top5 = False
         # mark each candidate row
         for row in debug_rows:
             row["correct"] = row["candidate"].lower() == true_dx.lower() if true_dx else False
@@ -250,22 +257,18 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id, true_dx: str
             row["correct_top5"] = correct_top5
         debug_info_to_csv(debug_rows)
 
-        # Compare to known true diagnosis
-    correct_top1 = top5[0].lower() == true_dx.lower() if true_dx else False
-    correct_top5 = any(dx.lower() == true_dx.lower() for dx in top5) if true_dx else False
-
-    diagnoses_output = {
-        "top5": top5,
-        "top5_logits": top5_logits,
-        "correct_top1": correct_top1,
-        "correct_top5": correct_top5,
-        "debug_rows": debug_rows,
-    }
+        diagnoses_output = {
+            "top5": top5,
+            "top5_logits": top5_logits,
+            "correct_top1": correct_top1,
+            "correct_top5": correct_top5,
+            "debug_rows": debug_rows,
+        }
 
         # Write summary of top1/top5 correctness to CSV
-    summary_info_to_csv([
-        {
-            "case_id": case_id,
+        summary_info_to_csv([
+            {
+                "case_id": case_id,
             "group": group,
             "top1": top5[0] if top5 else None,
             "top5": top5,

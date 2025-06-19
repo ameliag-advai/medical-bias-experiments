@@ -244,7 +244,7 @@ def run_analysis_pipeline(
                 # Get activations and store in a dictionary
                 sae_output = run_prompt(prompt, model, sae)
                 diagnoses_output = extract_top_diagnoses(
-                    prompt, model, demo_combination, case_id=idx
+                    prompt, model, demo_combination, case_id=idx, true_dx=case.get("diagnosis")
                 )
 
                 # Add model and SAE outputs
