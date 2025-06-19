@@ -83,7 +83,8 @@ def data_preprocessing(
     df = load_patient_data(patient_data_path)
     cases = extract_cases_from_dataframe(df)
     if num_cases:
-        cases = cases[start_case : num_cases]
+    cases = cases[start_case : start_case + num_cases]
+
     conditions_mapping = load_conditions_mapping(conditions_json_path)
 
     with open(evidences_json_path, "r") as f:
