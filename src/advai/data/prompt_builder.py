@@ -1,6 +1,7 @@
 """This module contains the PromptBuilder class, which generates prompts for LLM testing."""
 
 import ast
+import re
 from itertools import chain, combinations
 from typing import Any, Dict, Iterable, List, Tuple
 
@@ -16,13 +17,17 @@ def get_subsets(
     ))
 
 
+def clean_whitespace(text):
+    return re.sub(r'\s+', ' ', text).strip()
+
+
 class PartialUndefined(Undefined):
     # Return the original placeholder format
     def __str__(self):
-        return f"{{{{ unknown {self._undefined_name} }}}}" if self._undefined_name else ""
+        return f"" if self._undefined_name else ""
 
     def __repr__(self):
-        return f"{{{{ unknown {self._undefined_name} }}}}" if self._undefined_name else ""
+        return f"" if self._undefined_name else ""
 
     def __iter__(self):
         """Prevent Jinja from evaluating loops by returning a placeholder string instead of an iterable."""
@@ -44,6 +49,7 @@ class PromptBuilder:
         self,
         conditions_mapping,
         demographic_concepts: List[str],
+        evidences: Dict[str, Any],
         concepts_to_test: List[str],
         full_prompt_template: str,
         baseline_prompt_template: str,
@@ -59,6 +65,7 @@ class PromptBuilder:
         """
         self.conditions_mapping = conditions_mapping
         self.demographic_concepts = demographic_concepts
+        self.evidences = evidences
         for concept in concepts_to_test:
             if concept not in self.demographic_concepts:
                 raise ValueError(
@@ -72,10 +79,11 @@ class PromptBuilder:
     def create_jinja_template(self) -> None:
         """Create a Jinja2 template from the demographic concepts."""
         self.env = Environment(undefined=PartialUndefined)
+        self.env.filters["clean"] = lambda value: "" if value is None else value
         self.full_jinja_template = self.env.from_string(self.full_prompt_template)
         self.baseline_jinja_template = self.env.from_string(self.baseline_prompt_template)
 
-    def build_prompts(self, case: Dict[str, Any], demographic_combination: Tuple[str]) -> Tuple[str, str]:
+    def build_prompts(self, case: Dict[str, Any], id, demographic_combination: Tuple[str]) -> Tuple[str, str]:
         """Build the prompt templates for LLM testing.
 
         :param case: A dictionary representing the features of a patient case, including symptoms.
@@ -92,11 +100,11 @@ class PromptBuilder:
         else:
             jinja_template = self.full_jinja_template
 
-        return self.generate_template(jinja_template, vars)
+        return self.generate_template(jinja_template, vars), vars["symptoms"]
 
     def convert_to_human_readable(self, vars: Dict[str, Any]) -> Dict[str, Any]:
         """Convert the rendered demographic attributes to human-readable format.
-        
+
         :param vars: A dictionary of demographic attributes to convert.
         :return: A dictionary with human-readable demographic attributes.
         """
@@ -113,15 +121,15 @@ class PromptBuilder:
 
     def generate_template(self, jinja_template, vars) -> str:
         """Generate a Jinja2 template with the provided variables.
-        
+
         :param jinja_template: The Jinja2 template to render.
         :param vars: A dictionary of variables to fill in the template.
         :return: The rendered template as a string.
         :raises Exception: If there is an error rendering the template.
         """
         try:
-            # Render the template with the provided kwargs
-            return jinja_template.render(vars)
+            rendered_template = clean_whitespace(jinja_template.render(vars))
+            return rendered_template
         except Exception as e:
             raise RuntimeError(f"Error rendering template: {e}")
 
@@ -129,7 +137,7 @@ class PromptBuilder:
         self, case: Dict[str, Any]
     ) -> Iterable[Tuple[Any, ...]]:
         """Get all combinations of demographic concepts present in the case.
-        
+
         :param case: A dictionary representing the features of a patient case, including demographic attributes.
         :return: A list of tuples representing all combinations of demographic concepts that are not None in the case.
         """
@@ -208,11 +216,31 @@ class PromptBuilder:
         :param symptoms_codes: A list of symptom codes.
         :return: A string representation of the symptoms.
         """
-        code_to_name = {}
-        for cond in self.conditions_mapping.values():
-            symptoms = cond.get("symptoms", {})
-            if isinstance(symptoms, dict):
-                for code, name in symptoms.items():
-                    code_to_name[code] = name or code
+        natural_language_symptoms = []
+        #max_symptoms = len(symptoms_codes)  # 7 if len(symptoms_codes) > 7 else len(symptoms_codes)
+        #symptoms_codes = symptoms_codes[:max_symptoms]
+        for c in symptoms_codes:
+            if "@" not in c:
+                name = c
+                value = ""
+            else:
+                name, value = c.split("_@_")
 
-        return ", ".join(code_to_name.get(c, c) for c in symptoms_codes)
+            # Yes/No symptoms
+            if self.evidences[name]["data_type"] == "B":
+                natural_language_value = "Yes."
+            # Multiple choice symptoms
+            elif self.evidences[name]["data_type"] == "M":
+                natural_language_value = self.evidences[name]["value_meaning"][value]["en"]
+            # Numeric symptoms
+            elif self.evidences[name]["data_type"] == "C":
+                natural_language_value = f"{value} out of {self.evidences[name]['possible-values'][-1]}."
+
+            question = "Q: " + self.evidences[name]["question_en"]
+            answer = "A: " + natural_language_value
+            symptom = f"({question} {answer})"
+            natural_language_symptoms.append(symptom)
+
+        natural_language_symptoms_text = str(natural_language_symptoms).replace("'", "")
+
+        return natural_language_symptoms_text

@@ -16,11 +16,11 @@ def extract_cases_from_dataframe(df):
     cases = []
     for _, row in df.iterrows():
         cases.append({
-            'age': row.get('age'),
-            'sex': row.get('sex'),
-            'diagnosis': row.get('diagnosis'),
-            'features': row.get('features'),
-            'diffdx': row.get('top5_diagnoses', '[]')
+            'age': row.get('AGE'), # age
+            'sex': row.get('SEX'), # sex
+            'diagnosis': row.get('PATHOLOGY'), # diagnosis
+            'features': row.get('EVIDENCES'), # features
+            'diffdx': row.get('DIFFERENTIAL_DIAGNOSIS', '[]') # top5_diagnoses
         })
     return cases
 
