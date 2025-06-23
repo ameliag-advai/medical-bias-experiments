@@ -65,7 +65,7 @@ def summary_info_to_csv(summary_rows):
             writer.writerow(filtered_row)
 
 
-def score_candidate(prompt_prefix: str, candidate: str, model, baseline_prefix: str = "", alpha: float = 1.0, length_penalty: float = 0.0) -> Tuple[float, List[float], List[float]]:
+def score_candidate(prompt_prefix: str, candidate: str, model, alpha: float = 1.0, length_penalty: float = 0.0) -> Tuple[float, List[float], List[float]]:
     """
     Score a candidate diagnosis by computing its log-probability under the model.
 
@@ -107,25 +107,6 @@ def score_candidate(prompt_prefix: str, candidate: str, model, baseline_prefix: 
     
     # Compute base average log-prob (average per token)
     score = sum(log_probs) / len(log_probs) if log_probs else float('-inf')
-
-    # Baseline correction (subtract model prior on candidate)
-    if baseline_prefix:
-        bpref = f"{baseline_prefix} Diagnosis is: "
-        bfull = f"{bpref}{candidate} "
-        toks_bfull = model.to_tokens(bfull)
-        toks_bpref = model.to_tokens(bpref)
-        bpref_len = toks_bpref.shape[-1] - 1
-        diag_bids = toks_bfull[0, bpref_len:-1]
-        logits_b, _ = model.run_with_cache(toks_bfull)
-        base_lp = []
-        for i, tid in enumerate(diag_bids):
-            tid = int(tid)
-            pos = bpref_len - 1 + i
-            logit_b = logits_b[0, pos, :]
-            lp_b = torch.nn.functional.log_softmax(logit_b, dim=-1)[tid]
-            base_lp.append(lp_b.item())
-        avg_base = sum(base_lp) / len(base_lp)
-        score -= avg_base
 
     # Length normalization and penalty
     if alpha != 1.0 and log_probs:
