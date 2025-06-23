@@ -67,7 +67,17 @@ def summary_info_to_csv(summary_rows):
             writer.writerow(filtered_row)
 
 
-def score_candidate(prompt_prefix: str, candidate: str, model, baseline_prefix: str = "", alpha: float = 1.0, length_penalty: float = 0.0) -> Tuple[float, List[float], List[float]]:
+def score_candidate(
+    prompt_prefix: str,
+    candidate: str,
+    model,
+    sae,
+    clamping,
+    clamp_features,
+    clamp_value,
+    alpha: float = 1.0,
+    length_penalty: float = 0.0
+) -> Tuple[float, List[float], List[float]]:
     """
     Score a candidate diagnosis by computing its log-probability under the model.
 
@@ -91,7 +101,23 @@ def score_candidate(prompt_prefix: str, candidate: str, model, baseline_prefix: 
     diagnosis_token_ids = toks_full[0, true_prefix_len:-1]
 
     # Run model
-    logits, _ = model.run_with_cache(toks_full)
+    logits, cache = model.run_with_cache(toks_full)
+
+    if clamping:
+        model_activations = cache[sae.cfg.hook_name]
+        vectorised = model_activations[0, -1, :].unsqueeze(0)
+        sae_activations = sae.encode(vectorised)
+        clamped_sae_activations = clamp_sae_features(sae_activations, clamp_features, clamp_value)
+        reconstructed_model_activations = sae.decode(clamped_sae_activations)
+
+        def clamp_hook(value):
+            # Replace the final token's activation only
+            value[0, -1, :] = reconstructed_model_activations
+            return value
+
+        # Run the model with the activation override
+        with model.hooks(fwd_hooks=[(sae.cfg.hook_name, clamp_hook)]):
+            logits, cache = model.run_with_cache(toks_full)
 
     log_probs = []
     raw_logits = []
@@ -120,7 +146,7 @@ def score_candidate(prompt_prefix: str, candidate: str, model, baseline_prefix: 
 
 
 def score_diagnoses(
-    prompt, group, diagnosis_list, model, case_id, debug_rows=None
+    prompt, group, diagnosis_list, model, sae, clamping, clamp_features, clamp_value, case_id, debug_rows=None
 ) -> Tuple[List, List]:
     """Score a list of candidate diagnoses and return their scores along with debug information.
 
@@ -136,7 +162,7 @@ def score_diagnoses(
         debug_rows = []
     dx_scores = []
     for dx in diagnosis_list:
-        score, log_probs, raw_logits = score_candidate(prompt, dx, model)
+        score, log_probs, raw_logits = score_candidate(prompt, dx, model, sae, clamping, clamp_features, clamp_value)
         dx_scores.append((dx, score, raw_logits))
         debug_rows.append(
             {
@@ -169,7 +195,8 @@ def run_prompt(prompt, model, sae, clamping, clamp_features, clamp_value, thresh
             sae.cfg.hook_name
         ]
         vectorised = model_activations[0, -1, :].unsqueeze(0)
-        sae_activations = sae(vectorised)[0]
+        sae_activations = sae(vectorised)[0] # @TODO: Shouldn't this be sae.encode(vectorised)?!?
+        #sae_activations = sae.encode(vectorised)
 
         # Do clamping here if requested
         if clamping:
@@ -193,7 +220,7 @@ def run_prompt(prompt, model, sae, clamping, clamp_features, clamp_value, thresh
     return sae_output
 
 
-def extract_top_diagnoses(prompt, model, demo_combination, case_id, true_dx: str = None) -> Dict[str, Any]:
+def extract_top_diagnoses(prompt, model, sae, demo_combination, clamping, clamp_features, clamp_value, case_id, true_dx: str = None) -> Dict[str, Any]:
     """Extract top diagnoses from SAE activations.
 
     Candidate-based Top-5 Diagnoses Extraction.
@@ -210,7 +237,7 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id, true_dx: str
         diagnosis_list = load_diagnosis_list(dx_json_path)
         group = "_".join(demo_combination) if len(demo_combination) > 0 else "no_demo"
         dx_scores, debug_rows = score_diagnoses(
-            prompt, group, diagnosis_list, model, case_id
+            prompt, group, diagnosis_list, model, sae, clamping, clamp_features, clamp_value, case_id
         )
         top5 = []
         top5_logits = []

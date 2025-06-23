@@ -249,7 +249,7 @@ def run_analysis_pipeline(
 
                 if not clamping:
                     diagnoses_output = extract_top_diagnoses(
-                        prompt, model, demo_combination, case_id=idx, true_dx=case.get("diagnosis")
+                        prompt, model, sae, demo_combination, clamping, clamp_features, clamp_value, case_id=idx, true_dx=case.get("diagnosis")
                     )
                     prompt_outputs[group].update({k: v for k, v in diagnoses_output.items() if k != "debug_rows"})
                     for i in range(topk):
