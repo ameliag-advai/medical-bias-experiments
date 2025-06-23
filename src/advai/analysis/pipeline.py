@@ -132,6 +132,8 @@ def run_analysis_pipeline(
     concepts_to_test: list[str] = ["age", "sex"],
     save_dir: str = "activations",
     output_name: str = None,
+    clamp_feature: str = None,
+    clamp_value: float = None,
 ) -> str:
     """Run the full analysis pipeline including loading data, generating prompts,
     analyzing bias, and writing results to disk.
@@ -245,6 +247,16 @@ def run_analysis_pipeline(
 
                 # Add model and SAE outputs
                 prompt_outputs[group] = {}
+
+                # Apply clamping if requested and this is the "no demographics" case
+                if clamp_feature and clamp_value is not None and "_".join(demo_combination) == "":
+                    # Clamp the SAE activations
+                    clamped = clamp_sae_features(sae_output['activations'].unsqueeze(0), clamp_feature, clamp_value).squeeze(0)
+                    sae_output['activations'] = clamped
+                    # Recompute active features and top indices
+                    sae_output['active_features'] = (clamped.abs() > 1.0)
+                    sae_output['n_active_features'] = sae_output['active_features'].sum().item()
+                    sae_output['top_dxs'] = torch.topk(clamped, 5).indices.tolist()
 
                 # Add dataset-level fields to the output
                 age = case.get("age", None)

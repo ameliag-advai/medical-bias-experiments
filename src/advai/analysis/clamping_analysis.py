@@ -13,8 +13,8 @@ import numpy as np
 import os
 from typing import Set
 
-from advai.analysis.clamping import clamp_sae_features
-from advai.data.io import load_conditions_mapping
+from src.advai.analysis.clamping import clamp_sae_features
+from src.advai.data.io import load_conditions_mapping
 
 
 # Directory where previous analysis results and activations are saved
@@ -34,13 +34,6 @@ def get_case_ids() -> Set[str]:
     return set(case_ids)
 
 
-# Helper to load a single case's saved result
-def load_case(case_id, group, demographic=None, extent=None, diagnosis_mapping=None):
-    # group: 'with_demo', 'no_demo', or 'clamped'
-    fname = os.path.join(RESULTS_DIR, f"case_{case_id}_activations.pt")
-    d = torch.load(fname)
-
-
 def get_top_dxs_and_diagnoses(sae_out, diagnosis_mapping):
     top_dxs = torch.topk(sae_out[0], 5).indices.tolist()
     top_diagnoses = [diagnosis_mapping.get(str(idx), f"Diagnosis {idx}") for idx in top_dxs]
@@ -53,18 +46,37 @@ def get_clamped_sae_and_diagnoses(sae_out_without, demographic, extent, diagnosi
     top_dxs, top_diagnoses = get_top_dxs_and_diagnoses(clamped_sae, diagnosis_mapping)
     return clamped_sae, top_dxs, top_diagnoses
 
+
+# Helper to load a single case's saved result
+def load_case(case_id, group, demographic=None, extent=None, diagnosis_mapping=None):
+    # group: 'with_demo', 'no_demo', or 'clamped'
+    fname = os.path.join(RESULTS_DIR, f"case_{case_id}_activations.pt")
+    d = torch.load(fname)
+
     if group == 'clamped':
         if demographic is None or extent is None:
             raise ValueError('Demographic and extent must be specified for clamped group.')
-        sae_out, top_dxs, top_diagnoses = get_clamped_sae_and_diagnoses(d['sae_out_without'], demographic, extent, diagnosis_mapping)
+        # Get SAE activations for the "no demo" case and clamp them
+        sae_out_without = d.get('sae_activations_', d.get('sae_activations_no_demo'))
+        if sae_out_without is None:
+            raise KeyError(f"Could not find 'sae_activations_' or 'sae_activations_no_demo' in {fname}")
+        sae_out, top_dxs, top_diagnoses = get_clamped_sae_and_diagnoses(sae_out_without, demographic, extent, diagnosis_mapping)
     elif group == 'with_demo':
-        sae_out = torch.unsqueeze(d['sae_out_with'], 0)
+        # Find the appropriate key for "with demo" activations
+        # Look for keys that are not just 'sae_activations_' (empty suffix means no demo)
+        keys = [k for k in d.keys() if k.startswith('sae_activations_') and k != 'sae_activations_']
+        if not keys:
+            raise KeyError(f"Could not find any 'with demo' activations in {fname}")
+        sae_out = torch.unsqueeze(d[keys[0]], 0)  # Use the first non-empty demographic key
         top_dxs, top_diagnoses = get_top_dxs_and_diagnoses(sae_out, diagnosis_mapping)
     elif group == 'no_demo':
-        sae_out = torch.unsqueeze(d['sae_out_without'], 0)
+        sae_out = torch.unsqueeze(d.get('sae_activations_', d.get('sae_activations_no_demo')), 0)
+        if sae_out is None:
+            raise KeyError(f"Could not find 'sae_activations_' or 'sae_activations_no_demo' in {fname}")
         top_dxs, top_diagnoses = get_top_dxs_and_diagnoses(sae_out, diagnosis_mapping)
     else:
         raise ValueError('Unknown group')
+
     # Convert tensors to lists for JSON serialization
     return {
         'sae_out': sae_out.cpu().numpy().tolist(),
@@ -86,7 +98,7 @@ def main():
     if not os.path.exists(RELEASE_CONDITIONS_PATH):
         raise FileNotFoundError(f"release_conditions.json not found at {RELEASE_CONDITIONS_PATH}")
     release_conditions = load_conditions_mapping(RELEASE_CONDITIONS_PATH)
-    
+
     # Map feature index (as string) to natural language diagnosis
     # (Assume the mapping is {str(idx): 'diagnosis name'})
     diagnosis_mapping = {str(idx): v['cond-name-eng'] if 'cond-name-eng' in v else k for idx, (k, v) in enumerate(release_conditions.items())}
@@ -100,9 +112,20 @@ def main():
     for case_id in case_ids:
         case_result = {'case_id': case_id}
         for group in ['with_demo', 'no_demo', 'clamped']:
-            r = load_case(case_id, group, demographic=demographic, extent=extent, diagnosis_mapping=diagnosis_mapping)
-            case_result[group] = r
-        results.append(case_result)
+            try:
+                r = load_case(case_id, group, demographic=demographic, extent=extent, diagnosis_mapping=diagnosis_mapping)
+                case_result[group] = r
+            except Exception as e:
+                print(f"Warning: Could not load {group} for case {case_id}: {e}")
+                case_result[group] = None
+
+        # Only add to results if we have all three groups
+        if all(case_result.get(g) is not None for g in ['with_demo', 'no_demo', 'clamped']):
+            results.append(case_result)
+
+    if not results:
+        print("No complete cases found for analysis. Make sure you've run the pipeline first.")
+        return
 
     # Write results to CSV file
     csv_path = 'clamping_comparison_results.csv'
@@ -126,10 +149,9 @@ def main():
                     str(diagnoses_changed)
                 ])
 
-    # Visualization step skipped: visualize_clamping_analysis(csv_path) does not exist
-    # To visualize, implement or call a valid plotting function here.
-
     # Print a summary with highlights
+    print(f"\nClamping Analysis Results ({demographic} x{extent})")
+    print("=" * 60)
     for case in results:
         print(f"\n=== Case {case['case_id']} ===")
         base_features = case['with_demo']['top_dxs']
@@ -144,7 +166,12 @@ def main():
                 change_note.append('FEATURES CHANGED')
             if diagnoses_changed:
                 change_note.append('DIAGNOSES CHANGED')
-            print(f"  {group}: Top 5 SAE features: {features} | Top 5 Diagnoses: {diagnoses} {'; '.join(change_note) if change_note else ''}")
+            print(f"  {group}: Top 5 SAE features: {features}")
+            print(f"          Top 5 Diagnoses: {diagnoses}")
+            if change_note:
+                print(f"          *** {'; '.join(change_note)} ***")
+
+    print(f"\nResults saved to: {csv_path}")
 
 
 if __name__ == "__main__":
