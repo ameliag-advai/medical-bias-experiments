@@ -206,9 +206,6 @@ def run_analysis_pipeline(
     debug_log_path = os.path.join(save_dir, "debug_log.txt")
     # old_stdout = sys.stdout
     # sys.stdout = io.StringIO()
-    # print(f"[INFO] Saving all prompts for each case in: {prompts_dir}")
-    # print(f"[INFO] Saving master prompt file at: {os.path.join(prompts_dir, 'all_prompts.txt')}")
-    # print(f"[INFO] Visualization will be saved as: feature_overlap.html in {os.getcwd()}")
 
     # Initialize csv dirs
     demos = "_".join(concepts_to_test) if len(concepts_to_test) > 0 else "no_demo"
@@ -221,8 +218,6 @@ def run_analysis_pipeline(
 
     # Get the activations (output of the encoder) and new field names
     n_features = sae.W_enc.shape[0]
-    print(f"Number of features in SAE: {n_features}")
-
     fieldnames = FIELD_NAMES + [f"activation_{i}" for i in range(n_features)] + [f"active_feature_{i}" for i in range(n_features)]
 
     # Run through each case and generate prompts
@@ -281,7 +276,6 @@ def run_analysis_pipeline(
                 prompt_outputs[group] = None
 
             # Save to csv here.
-            #csv_logger.write_row(prompt_outputs[group])
             # @TODO: Fix csv logger later: csv_logger.write_row(prompt_outputs[group])
             with open(results_csv_path, "a", newline="") as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
