@@ -6,19 +6,19 @@ Features were identified in previous analysis; update the indices below if new a
 import torch
 from typing import List, Literal
 
-
-# Indices of features most predictive for each demographic
-MALE_FEATURES = [198, 845, 678]       # Positive coef for sex (male)
-FEMALE_FEATURES = [1577, 1343, 1699, 856, 382, 184, 507]  # Negative coef for sex (female)
-OLD_FEATURES = [184, 394, 137, 674, 110, 1577, 1667]      # Positive coef for age
-YOUNG_FEATURES = [478, 1533, 1403]    # Negative coef for age
+from src.advai.analysis.constants import (
+    MALE_FEATURES,
+    FEMALE_FEATURES,
+    OLD_FEATURES,
+    YOUNG_FEATURES
+)
 
 DemographicType = Literal['male', 'female', 'old', 'young']
 
 
 def clamp_sae_features(
     sae_out: torch.Tensor,
-    demographic: DemographicType,
+    demographics: DemographicType,
     extent: float = 5.0,
     inplace: bool = False
 ) -> torch.Tensor:
@@ -42,7 +42,12 @@ def clamp_sae_features(
         'old': OLD_FEATURES,
         'young': YOUNG_FEATURES,
     }
-    features = feature_map[demographic]
+
+    # Get the features for the specified demographics
+    features = []
+    for demographic in demographics:
+        features = features + feature_map[demographic]
+
     if not inplace:
         sae_out = sae_out.clone()
     for f in features:

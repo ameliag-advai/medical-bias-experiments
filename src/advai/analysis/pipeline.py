@@ -5,6 +5,7 @@ import io
 import json
 import os
 import sys
+from itertools import product
 from tqdm import tqdm
 from typing import Tuple
 
@@ -15,6 +16,8 @@ from src.advai.analysis.analyse import (
     compile_results,
     extract_top_diagnoses,
 )
+from src.advai.analysis.clamping import clamp_sae_features
+from src.advai.analysis.constants import FIELD_NAMES, CLAMPING_FIELD_NAMES
 from src.advai.analysis.summary import generate_summary, write_output
 from src.advai.data.io import (
     extract_cases_from_dataframe,
@@ -33,33 +36,7 @@ PROJECT_ROOT = "/mnt/advai_scratch/shared/alethia"
 OUTPUTS_DIR = os.path.join(PROJECT_ROOT, "outputs")
 os.makedirs(OUTPUTS_DIR, exist_ok=True)
 RUN_TIMESTAMP = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-FIELD_NAMES = [
-        "case_id",
-        "dataset_age",
-        "dataset_sex",
-        "dataset_symptoms",
-        "diagnosis",
-        "prompt",
-        "prompt_age",
-        "prompt_sex",
-        "features_clamped",
-        "clamping_levels",
-        "diagnosis_1",
-        "diagnosis_2",
-        "diagnosis_3",
-        "diagnosis_4",
-        "diagnosis_5",
-        "diagnosis_1_logits",
-        "diagnosis_2_logits",
-        "diagnosis_3_logits",
-        "diagnosis_4_logits",
-        "diagnosis_5_logits",
-        "top5",
-        "top5_logits",
-        "n_active_features",
-        "correct_top1",
-        "correct_top5",
-    ]
+
 
 def get_templates(demographic_concepts: list[str]):
     key = frozenset(demographic_concepts)
@@ -132,8 +109,9 @@ def run_analysis_pipeline(
     concepts_to_test: list[str] = ["age", "sex"],
     save_dir: str = "activations",
     output_name: str = None,
-    clamp_feature: str = None,
-    clamp_value: float = None,
+    clamping: bool = False,
+    clamp_features: list[str] = ['old', 'young', 'male', 'female'],
+    clamp_values: list[int] = [0, 5, 10],
 ) -> str:
     """Run the full analysis pipeline including loading data, generating prompts,
     analyzing bias, and writing results to disk.
@@ -189,20 +167,17 @@ def run_analysis_pipeline(
         full_prompt_template=full_prompt_structure,
         baseline_prompt_template=baseline_prompt_structure,
     )
-    all_combinations = get_subsets(concepts_to_test, lower=-1)
-    pairs_to_compare = [
-        ("_".join(all_combinations[i]), "_".join(all_combinations[-1]))
-        for i in range(len(all_combinations) - 1)
-    ]
 
-    results = []
-    case_summaries = []
+    # Get groups to iterate over in pipeline loop
+    all_combinations = get_subsets(concepts_to_test, lower=-1)
+    if clamping:
+        clamping_combinations = list(product(clamp_features, clamp_values))
+    else:
+        clamping_combinations = [None]
 
     # Setup directory for saving prompts
     prompts_dir = os.path.join(save_dir, "prompts")
     os.makedirs(prompts_dir, exist_ok=True)
-    all_prompts_text = []
-    all_prompts_outputs = {}
 
     # Redirect stdout to capture all debug/print output
     debug_log_path = os.path.join(save_dir, "debug_log.txt")
@@ -212,51 +187,49 @@ def run_analysis_pipeline(
     # Initialize csv dirs
     demos = "_".join(concepts_to_test) if len(concepts_to_test) > 0 else "no_demo"
     os.makedirs(OUTPUTS_DIR + f"/{RUN_TIMESTAMP}_{demos}", exist_ok=True)
-    results_csv_base_bath = f"{RUN_TIMESTAMP}_{demos}/results_database.csv"
-    activations_base_path = f"{OUTPUTS_DIR}/{RUN_TIMESTAMP}_{demos}/activations/"
+    base_path = f"{RUN_TIMESTAMP}_{demos}"
+    if clamping:
+        base_path += "_clamping"
+    results_csv_base_bath = f"{base_path}/results_database.csv"
     results_csv_path = os.path.join(OUTPUTS_DIR, results_csv_base_bath)
     write_header = not os.path.exists(results_csv_path) or os.stat(results_csv_path).st_size == 0
     #csv_logger = CSVLogger(concepts_to_test)
 
     # Get the activations (output of the encoder) and new field names
     n_features = sae.W_enc.shape[0]
-    fieldnames = FIELD_NAMES + [f"activation_{i}" for i in range(n_features)] + [f"active_feature_{i}" for i in range(n_features)]
+    fieldnames_base = FIELD_NAMES if not clamping else CLAMPING_FIELD_NAMES
+    fieldnames = fieldnames_base + [f"activation_{i}" for i in range(n_features)] + [f"active_feature_{i}" for i in range(n_features)]
 
     # Run through each case and generate prompts
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
         # Calculate demographic combinations
-        case_demographic_combinations = prompt_builder.get_demographic_combinations(
-            case
-        )
+        case_demographic_combinations = prompt_builder.get_demographic_combinations(case)
 
         prompt_outputs = {}
         prompts_for_this_case = []
         for demo_combination in all_combinations:
-            if demo_combination in case_demographic_combinations:
+            if demo_combination not in case_demographic_combinations:
+                continue
+
+            prompt, symptoms = prompt_builder.build_prompts(
+                case, idx, demo_combination
+            )
+            prompts_for_this_case.append(prompt)
+
+            for clamping_combination in clamping_combinations:
                 group = "_".join(demo_combination)
-                prompt, symptoms = prompt_builder.build_prompts(
-                    case, idx, demo_combination
-                )
-                prompts_for_this_case.append(prompt)
+
+                # Get clamping parameters if clamping is enabled
+                clamp_features, clamp_value = None, None
+                if clamping_combination is not None:
+                    clamp_features, clamp_value = clamping_combination
+                    group += f"_clamped_{'_'.join(clamp_features)}_{clamp_value}"
 
                 # Get activations and store in a dictionary
-                sae_output = run_prompt(prompt, model, sae)
-                diagnoses_output = extract_top_diagnoses(
-                    prompt, model, demo_combination, case_id=idx, true_dx=case.get("diagnosis")
-                )
+                sae_output = run_prompt(prompt, model, sae, clamping, clamp_features, clamp_value)
 
                 # Add model and SAE outputs
                 prompt_outputs[group] = {}
-
-                # Apply clamping if requested and this is the "no demographics" case
-                if clamp_feature and clamp_value is not None and "_".join(demo_combination) == "":
-                    # Clamp the SAE activations
-                    clamped = clamp_sae_features(sae_output['activations'].unsqueeze(0), clamp_feature, clamp_value).squeeze(0)
-                    sae_output['activations'] = clamped
-                    # Recompute active features and top indices
-                    sae_output['active_features'] = (clamped.abs() > 1.0)
-                    sae_output['n_active_features'] = sae_output['active_features'].sum().item()
-                    sae_output['top_dxs'] = torch.topk(clamped, 5).indices.tolist()
 
                 # Add dataset-level fields to the output
                 age = case.get("age", None)
@@ -271,33 +244,33 @@ def run_analysis_pipeline(
                 prompt_outputs[group]["prompt"] = prompt
                 prompt_outputs[group]["prompt_age"] = age if "age" in group else ""
                 prompt_outputs[group]["prompt_sex"] = sex if "sex" in group else ""
-                prompt_outputs[group]["features_clamped"] = None
-                prompt_outputs[group]["clamping_levels"] = None
-                for i in range(topk):
-                    prompt_outputs[group][f"diagnosis_{i+1}"] = diagnoses_output[
-                        "top5"
-                    ][i]
-                    prompt_outputs[group][f"diagnosis_{i+1}_logits"] = diagnoses_output["top5_logits"][i]
+                prompt_outputs[group]["features_clamped"] = clamp_features if clamping else None
+                prompt_outputs[group]["clamping_levels"] = clamp_value if clamping else None
+
+                if not clamping:
+                    diagnoses_output = extract_top_diagnoses(
+                        prompt, model, demo_combination, case_id=idx, true_dx=case.get("diagnosis")
+                    )
+                    prompt_outputs[group].update({k: v for k, v in diagnoses_output.items() if k != "debug_rows"})
+                    for i in range(topk):
+                        prompt_outputs[group][f"diagnosis_{i+1}"] = diagnoses_output["top5"][i]
+                        prompt_outputs[group][f"diagnosis_{i+1}_logits"] = diagnoses_output["top5_logits"][i]
 
                 # Add SAE activations and active features
-                prompt_outputs[group].update({k: v for k, v in diagnoses_output.items() if k != "debug_rows"})
                 prompt_outputs[group].update(sae_output)
 
-            # If this combination is not in the case, set to None
-            else:
-                prompt_outputs[group] = None
-
-            # Save to csv here.
-            # @TODO: Fix csv logger later: csv_logger.write_row(prompt_outputs[group])
-            with open(results_csv_path, "a", newline="") as csvfile:
-                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-                if write_header:
-                    writer.writeheader()
-                    write_header = False
-                if prompt_outputs[group] is not None:
-                    # Format correctness flags as Yes/No
-                    prompt_outputs[group]["correct_top1"] = "Yes" if prompt_outputs[group].get("correct_top1") else "No"
-                    prompt_outputs[group]["correct_top5"] = "Yes" if prompt_outputs[group].get("correct_top5") else "No"
-                    writer.writerow(prompt_outputs[group])
+                # Save to csv here.
+                # @TODO: Fix csv logger later: csv_logger.write_row(prompt_outputs[group])
+                with open(results_csv_path, "a", newline="") as csvfile:
+                    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                    if write_header:
+                        writer.writeheader()
+                        write_header = False
+                    if prompt_outputs[group] is not None:
+                        if not clamping:
+                            # Format correctness flags as Yes/No
+                            prompt_outputs[group]["correct_top1"] = "Yes" if prompt_outputs[group].get("correct_top1") else "No"
+                            prompt_outputs[group]["correct_top5"] = "Yes" if prompt_outputs[group].get("correct_top5") else "No"
+                        writer.writerow(prompt_outputs[group])
 
     return results_csv_path

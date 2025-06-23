@@ -22,13 +22,18 @@ def validate_device(device_str):
         )
 
 
+def parse_feature_group(group_str):
+    """Parse a feature group from the command line."""
+    return group_str.lower().strip().split()
+
+
 def main():
     parser = argparse.ArgumentParser(description="Bias Analysis Pipeline")
     parser.add_argument("--output", type=str, help="Path to write output file")
     parser.add_argument(
         "--model",
         type=str,
-        choices=["gemma", "gpt2"],
+        choices=["gemma"],
         default="gemma",
         help="Model to use",
     )
@@ -49,8 +54,27 @@ def main():
     )
     parser.add_argument("--start-case", type=int, default=0, help="Start case index for analysis. Enter an integer value between 0 and 134529.")
     parser.add_argument('--clamp', action='store_true', help='Enable clamping feature')
-    parser.add_argument('--clamp-feature', type=str, choices=['male','female','old','young'], help='Feature to clamp')
-    parser.add_argument('--clamp-value', type=float, help='Value to clamp the feature at')
+    parser.add_argument(
+        '--clamp-features',
+        type=parse_feature_group,
+        nargs='+',
+        choices=[
+            ['male'],
+            ['female'],
+            ['old'],
+            ['young'],
+            ['old', 'male'],
+            ['old', 'female'],
+            ['young', 'male'],
+            ['young', 'female']
+        ],
+        help=(
+            "Groups of features to clamp. Ensure to separate groups containing more than one feature with spaces. \
+            For example: --clamp-features 'male old' 'female young' 'old'. The choice ['male'] corresponds to 'male' in \
+            the terminal command. The choice ['old', 'male'] corresponds to 'old male' in the terminal command."
+        )
+    )
+    parser.add_argument('--clamp-values', type=int, nargs="+", choices=[0, 5, 10], help='Values to clamp the feature at')
     parser.add_argument('--post-hoc-analysis', action='store_true', help='Run post-hoc clamping analysis on existing results')
     args = parser.parse_args()
 
@@ -64,12 +88,16 @@ def main():
 
     # If post-hoc analysis requested, invoke clamping_analysis
     if args.post_hoc_analysis:
-        if not args.clamp_feature or args.clamp_value is None:
+        if not args.clamp_features or args.clamp_values is None:
             raise ValueError("Clamp feature and value must be specified when post-hoc analysis is enabled.")
         import sys as _sys
-        _sys.argv = [_sys.argv[0], '--demographic', args.clamp_feature, '--extent', str(args.clamp_value)]
+        _sys.argv = [_sys.argv[0], '--demographic', args.clamp_features, '--extent', str(args.clamp_values)]
         clamping_main()
         return
+
+    # Validate clamping
+    if args.clamp and (not args.clamp_features or not args.clamp_values):
+        raise ValueError("When clamping is enabled, both --clamp-features and --clamp-value must be specified.")
 
     model, sae = load_model_and_sae(model_scope=args.model, device=args.device)
     conditions_path = "release_conditions.json"
@@ -86,8 +114,9 @@ def main():
         start_case=args.start_case,
         concepts_to_test=args.concepts,
         output_name=args.output,
-        clamp_feature=args.clamp_feature if args.clamp else None,
-        clamp_value=args.clamp_value if args.clamp else None,
+        clamping=args.clamp,
+        clamp_features=args.clamp_features if args.clamp else None,
+        clamp_values=args.clamp_values if args.clamp else None,
     )
 
 

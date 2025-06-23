@@ -5,6 +5,8 @@ import json
 import logging
 from typing import Dict, Any, Tuple, List
 
+from src.advai.analysis.clamping import clamp_sae_features
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
@@ -26,11 +28,11 @@ def debug_info_to_csv(debug_rows):
         # Include all fields that are being added to the rows
         fieldnames = ["case_id", "group", "candidate", "log_probs", "raw_logits", "correct", "correct_top1", "correct_top5"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        
+
         # Write header if file is empty
         if csvfile.tell() == 0:
             writer.writeheader()
-        
+
         for row in debug_rows:
             # Convert lists to strings for CSV writing
             row["log_probs"] = str(row["log_probs"])
@@ -38,7 +40,7 @@ def debug_info_to_csv(debug_rows):
             row["correct"] = str(row.get("correct", False))
             row["correct_top1"] = str(row.get("correct_top1", False))
             row["correct_top5"] = str(row.get("correct_top5", False))
-            
+
             # Filter row to only include fields in fieldnames
             filtered_row = {k: row.get(k, "") for k in fieldnames}
             writer.writerow(filtered_row)
@@ -49,17 +51,17 @@ def summary_info_to_csv(summary_rows):
     with open("diagnosis_summary.csv", "a", newline="") as csvfile:
         fieldnames = ["case_id", "group", "top1", "top5", "correct_top1", "correct_top5"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        
+
         # Write header if file is empty
         if csvfile.tell() == 0:
             writer.writeheader()
-        
+
         for row in summary_rows:
             # Convert lists to strings
             row["top5"] = str(row["top5"])
             row["correct_top1"] = str(row.get("correct_top1", False))
             row["correct_top5"] = str(row.get("correct_top5", False))
-            
+
             # Filter row to only include fields in fieldnames
             filtered_row = {k: row.get(k, "") for k in fieldnames}
             writer.writerow(filtered_row)
@@ -102,30 +104,11 @@ def score_candidate(prompt_prefix: str, candidate: str, model, baseline_prefix: 
 
         log_probs.append(log_prob.item())
         raw_logits.append(logit[token_id].item())
-    
+
     logger.debug(f"[LOGITS] Candidate: '{candidate}' | Log probs (scalar): {log_probs} | Raw logits: {raw_logits}")
-    
+
     # Compute base average log-prob (average per token)
     score = sum(log_probs) / len(log_probs) if log_probs else float('-inf')
-
-    # Baseline correction (subtract model prior on candidate)
-    if baseline_prefix:
-        bpref = f"{baseline_prefix} Diagnosis is: "
-        bfull = f"{bpref}{candidate} "
-        toks_bfull = model.to_tokens(bfull)
-        toks_bpref = model.to_tokens(bpref)
-        bpref_len = toks_bpref.shape[-1] - 1
-        diag_bids = toks_bfull[0, bpref_len:-1]
-        logits_b, _ = model.run_with_cache(toks_bfull)
-        base_lp = []
-        for i, tid in enumerate(diag_bids):
-            tid = int(tid)
-            pos = bpref_len - 1 + i
-            logit_b = logits_b[0, pos, :]
-            lp_b = torch.nn.functional.log_softmax(logit_b, dim=-1)[tid]
-            base_lp.append(lp_b.item())
-        avg_base = sum(base_lp) / len(base_lp)
-        score -= avg_base
 
     # Length normalization and penalty
     if alpha != 1.0 and log_probs:
@@ -171,7 +154,7 @@ def tensor_to_json(tensor):
     return json.dumps(tensor.cpu().numpy().tolist())
 
 
-def run_prompt(prompt, model, sae, threshold=1.0) -> Dict[str, Any]:
+def run_prompt(prompt, model, sae, clamping, clamp_features, clamp_value, threshold=1.0) -> Dict[str, Any]:
     """Run a single prompt and return SAE feature activations.
 
     :param prompt: The prompt to be processed by the model.
@@ -187,10 +170,20 @@ def run_prompt(prompt, model, sae, threshold=1.0) -> Dict[str, Any]:
         ]
         vectorised = model_activations[0, -1, :].unsqueeze(0)
         sae_activations = sae(vectorised)[0]
+
+        # Do clamping here if requested
+        if clamping:
+            sae_activations = clamp_sae_features(sae_activations, clamp_features, clamp_value)
+
         active_features = (sae_activations.abs() > threshold).squeeze(0)
         n_active_features = active_features.sum().item()
+        top5_active_features = torch.topk(sae_activations, 5).indices.tolist()
 
+        # Add number of active features and top 5 active features to output
         sae_output = {"n_active_features": n_active_features}
+        sae_output["top5_active_features"] = top5_active_features
+
+        # Add activations and active features to output
         for i in range(sae_activations.shape[0]):
             sae_output[f"activation_{i}"] = sae_activations[i].item()
 
@@ -233,13 +226,13 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id, true_dx: str
         else:
             correct_top1 = False
             correct_top5 = False
-        
+
         # Mark each candidate row
         for row in debug_rows:
             row["correct"] = row["candidate"].lower() == true_dx.lower() if true_dx else False
             row["correct_top1"] = correct_top1
             row["correct_top5"] = correct_top5
-        
+
         # Save debug info to CSV
         debug_info_to_csv(debug_rows)
 
@@ -262,7 +255,7 @@ def extract_top_diagnoses(prompt, model, demo_combination, case_id, true_dx: str
                 "correct_top5": correct_top5,
             }
         ])
-    
+
     return diagnoses_output
 
 
