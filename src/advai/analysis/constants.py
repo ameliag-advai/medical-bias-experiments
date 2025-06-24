@@ -58,7 +58,9 @@ CLAMPING_FIELD_NAMES = [
     ]
 
 # Indices of features most predictive for each demographic
-MALE_FEATURES = [198, 845, 678]       # Positive coef for sex (male)
+#MALE_FEATURES = [198, 845, 678]       # Positive coef for sex (male)
+MALE_FEATURES = [17, 222, 374, 1329, 1510, 1538, 1557, 1624, 2210, 2811, 2979, 3184, 3185, 3377, 3523, 3826, 4462] # for testing clamping
 FEMALE_FEATURES = [1577, 1343, 1699, 856, 382, 184, 507]  # Negative coef for sex (female)
-OLD_FEATURES = [184, 394, 137, 674, 110, 1577, 1667]      # Positive coef for age
+#OLD_FEATURES = [184, 394, 137, 674, 110, 1577, 1667]      # Positive coef for age
+OLD_FEATURES = [17, 222, 374, 1329, 1510, 1538, 1557, 1624, 2210, 2811, 2979, 3184, 3185, 3377, 3523, 3826, 4462] # for testing clamping
 YOUNG_FEATURES = [478, 1533, 1403]    # Negative coef for age

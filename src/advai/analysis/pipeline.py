@@ -248,14 +248,14 @@ def run_analysis_pipeline(
                 prompt_outputs[group]["features_clamped"] = clamp_features if clamping else None
                 prompt_outputs[group]["clamping_levels"] = clamp_value if clamping else None
 
-                if not clamping:
-                    diagnoses_output = extract_top_diagnoses(
-                        prompt, model, sae, demo_combination, clamping, clamp_features, clamp_value, case_id=idx, true_dx=case.get("diagnosis")
-                    )
-                    prompt_outputs[group].update({k: v for k, v in diagnoses_output.items() if k != "debug_rows"})
-                    for i in range(topk):
-                        prompt_outputs[group][f"diagnosis_{i+1}"] = diagnoses_output["top5"][i]
-                        prompt_outputs[group][f"diagnosis_{i+1}_logits"] = diagnoses_output["top5_logits"][i]
+                # Add diagnoses
+                diagnoses_output = extract_top_diagnoses(
+                    prompt, model, sae, demo_combination, clamping, clamp_features, clamp_value, case_id=idx, true_dx=case.get("diagnosis")
+                )
+                prompt_outputs[group].update({k: v for k, v in diagnoses_output.items() if k != "debug_rows"})
+                for i in range(topk):
+                    prompt_outputs[group][f"diagnosis_{i+1}"] = diagnoses_output["top5"][i]
+                    prompt_outputs[group][f"diagnosis_{i+1}_logits"] = diagnoses_output["top5_logits"][i]
 
                 # Add SAE activations and active features
                 prompt_outputs[group].update(sae_output)
@@ -268,10 +268,9 @@ def run_analysis_pipeline(
                         writer.writeheader()
                         write_header = False
                     if prompt_outputs[group] is not None:
-                        if not clamping:
-                            # Format correctness flags as Yes/No
-                            prompt_outputs[group]["correct_top1"] = "Yes" if prompt_outputs[group].get("correct_top1") else "No"
-                            prompt_outputs[group]["correct_top5"] = "Yes" if prompt_outputs[group].get("correct_top5") else "No"
+                        # Format correctness flags as Yes/No
+                        prompt_outputs[group]["correct_top1"] = "Yes" if prompt_outputs[group].get("correct_top1") else "No"
+                        prompt_outputs[group]["correct_top5"] = "Yes" if prompt_outputs[group].get("correct_top5") else "No"
                         writer.writerow(prompt_outputs[group])
 
     return results_csv_path

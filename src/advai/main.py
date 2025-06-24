@@ -71,7 +71,8 @@ def main():
         help=(
             "Groups of features to clamp. Ensure to separate groups containing more than one feature with spaces. \
             For example: --clamp-features 'male old' 'female young' 'old'. The choice ['male'] corresponds to 'male' in \
-            the terminal command. The choice ['old', 'male'] corresponds to 'old male' in the terminal command."
+            the terminal command. The choice ['old', 'male'] corresponds to 'old male' in the terminal command. Make sure to \
+            use double quotes around groups. If this doesn't work, try using single quotes instead."
         )
     )
     parser.add_argument('--clamp-values', type=int, nargs="+", choices=[0, 5, 10], help='Values to clamp the feature at')

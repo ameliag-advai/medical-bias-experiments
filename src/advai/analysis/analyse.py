@@ -110,7 +110,7 @@ def score_candidate(
         clamped_sae_activations = clamp_sae_features(sae_activations, clamp_features, clamp_value)
         reconstructed_model_activations = sae.decode(clamped_sae_activations)
 
-        def clamp_hook(value):
+        def clamp_hook(value, hook):
             # Replace the final token's activation only
             value[0, -1, :] = reconstructed_model_activations
             return value
