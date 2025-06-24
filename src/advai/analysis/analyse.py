@@ -195,27 +195,27 @@ def run_prompt(prompt, model, sae, clamping, clamp_features, clamp_value, thresh
             sae.cfg.hook_name
         ]
         vectorised = model_activations[0, -1, :].unsqueeze(0)
-        sae_activations = sae(vectorised)[0] # @TODO: Shouldn't this be sae.encode(vectorised)?!?
-        #sae_activations = sae.encode(vectorised)
+        sae_activations = sae.encode(vectorised)[0]
 
         # Do clamping here if requested
         if clamping:
             sae_activations = clamp_sae_features(sae_activations, clamp_features, clamp_value)
-
-        active_features = (sae_activations.abs() > threshold).squeeze(0)
-        n_active_features = active_features.sum().item()
-        top5_active_features = torch.topk(sae_activations, 5).indices.tolist()
+        
+        #active_features = (sae_activations.abs() > threshold).squeeze(0)
+        #n_active_features = active_features.sum().item()
+        #top5_active_features = torch.topk(sae_activations, 5).indices.tolist()
 
         # Add number of active features and top 5 active features to output
-        sae_output = {"n_active_features": n_active_features}
-        sae_output["top5_active_features"] = top5_active_features
+        #sae_output = {"n_active_features": n_active_features}
+        #sae_output["top5_active_features"] = top5_active_features
 
         # Add activations and active features to output
+        sae_output = {}
         for i in range(sae_activations.shape[0]):
             sae_output[f"activation_{i}"] = sae_activations[i].item()
 
-        for i in range(active_features.shape[0]):
-            sae_output[f"active_feature_{i}"] = active_features[i].item()
+        #for i in range(active_features.shape[0]):
+        #    sae_output[f"active_feature_{i}"] = active_features[i].item()
 
     return sae_output
 
@@ -340,9 +340,6 @@ def compile_results(
         f"correct_top1_{group2_name}": prompt_output_2.get("correct_top1"),
         f"correct_top5_{group2_name}": prompt_output_2.get("correct_top5"),
     }
-
-    if pair == ("age", ""):
-        print(f"Results for pair {pair}: \n{result}\n")
 
     return result
 

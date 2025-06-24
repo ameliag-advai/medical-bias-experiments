@@ -49,7 +49,7 @@ def main():
         "--concepts",
         type=str,
         nargs="+",
-        default=["age", "sex"],
+        default=[],
         help="Concepts to analyze",
     )
     parser.add_argument("--start-case", type=int, default=0, help="Start case index for analysis. Enter an integer value between 0 and 134529.")

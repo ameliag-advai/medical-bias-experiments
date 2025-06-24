@@ -186,19 +186,19 @@ def run_analysis_pipeline(
 
     # Initialize csv dirs
     demos = "_".join(concepts_to_test) if len(concepts_to_test) > 0 else "no_demo"
-    os.makedirs(OUTPUTS_DIR + f"/{RUN_TIMESTAMP}_{demos}", exist_ok=True)
     base_path = f"{RUN_TIMESTAMP}_{demos}"
     if clamping:
         base_path += "_clamping"
+    os.makedirs(OUTPUTS_DIR + f"/{base_path}", exist_ok=True)
     results_csv_base_bath = f"{base_path}/results_database.csv"
     results_csv_path = os.path.join(OUTPUTS_DIR, results_csv_base_bath)
     write_header = not os.path.exists(results_csv_path) or os.stat(results_csv_path).st_size == 0
     #csv_logger = CSVLogger(concepts_to_test)
 
     # Get the activations (output of the encoder) and new field names
-    n_features = sae.W_enc.shape[0]
+    n_features = sae.W_enc.shape[1]
     fieldnames_base = FIELD_NAMES if not clamping else CLAMPING_FIELD_NAMES
-    fieldnames = fieldnames_base + [f"activation_{i}" for i in range(n_features)] + [f"active_feature_{i}" for i in range(n_features)]
+    fieldnames = fieldnames_base + [f"activation_{i}" for i in range(n_features)]
 
     # Run through each case and generate prompts
     for idx, case in enumerate(tqdm(cases, desc="Processing cases")):
@@ -242,6 +242,7 @@ def run_analysis_pipeline(
 
                 # Add prompt-level fields to the output
                 prompt_outputs[group]["prompt"] = prompt
+                prompt_outputs[group]["demographics"] = group
                 prompt_outputs[group]["prompt_age"] = age if "age" in group else ""
                 prompt_outputs[group]["prompt_sex"] = sex if "sex" in group else ""
                 prompt_outputs[group]["features_clamped"] = clamp_features if clamping else None

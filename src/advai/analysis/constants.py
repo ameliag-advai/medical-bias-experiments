@@ -8,6 +8,7 @@ FIELD_NAMES = [
         "dataset_symptoms",
         "diagnosis",
         "prompt",
+        "demographics",
         "prompt_age",
         "prompt_sex",
         "features_clamped",
@@ -24,8 +25,6 @@ FIELD_NAMES = [
         "diagnosis_5_logits",
         "top5",
         "top5_logits",
-        "n_active_features",
-        "top5_active_features"
         "correct_top1",
         "correct_top5",
     ]
@@ -37,12 +36,25 @@ CLAMPING_FIELD_NAMES = [
         "dataset_symptoms",
         "diagnosis",
         "prompt",
+        "demographics",
         "prompt_age",
         "prompt_sex",
         "features_clamped",
         "clamping_levels",
-        "n_active_features",
-        "top5_active_features"
+        "diagnosis_1",
+        "diagnosis_2",
+        "diagnosis_3",
+        "diagnosis_4",
+        "diagnosis_5",
+        "diagnosis_1_logits",
+        "diagnosis_2_logits",
+        "diagnosis_3_logits",
+        "diagnosis_4_logits",
+        "diagnosis_5_logits",
+        "top5",
+        "top5_logits",
+        "correct_top1",
+        "correct_top5",
     ]
 
 # Indices of features most predictive for each demographic
