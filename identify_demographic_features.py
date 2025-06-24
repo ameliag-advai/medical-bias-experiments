@@ -2,6 +2,14 @@
 Identify demographic features in SAE activations using statistical analysis.
 Based on interpretability best practices from Anthropic and other research.
 """
+#Run # For sex features
+#HF_TOKEN=... PYTHONPATH=. python3 identify_demographic_features.py --demographic sex --num-cases 100 --model gemma --device cpu --output sex_features_analysis.csv
+
+# For age features
+#HF_TOKEN=... PYTHONPATH=. python3 identify_demographic_features.py --demographic age --num-cases 100 --model gemma --device cpu --output age_features_analysis.csv
+
+# number of cases defaults to 50 if not specified 
+
 import torch
 import numpy as np
 from scipy import stats
@@ -79,8 +87,8 @@ def analyze_demographic_features(
             continue
             
         # Get prompts with and without demographic
-        prompt_with, _ = prompt_builder.build_prompts(case, (demographic_concept,))
-        prompt_without, _ = prompt_builder.build_prompts(case, ())
+        prompt_with, _ = prompt_builder.build_prompts(case, 0, (demographic_concept,))
+        prompt_without, _ = prompt_builder.build_prompts(case, 0, ())
         
         # Get activations
         act_with = get_activations_for_prompt(prompt_with, model, sae)
