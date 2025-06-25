@@ -31,7 +31,7 @@ def get_activations_for_prompt(prompt, model, sae):
         tokenised_prompt = model.to_tokens(prompt)
         model_activations = model.run_with_cache(tokenised_prompt, return_type=None)[1][sae.cfg.hook_name]
         vectorised = model_activations[0, -1, :].unsqueeze(0)
-        sae_activations = sae(vectorised)[0]
+        sae_activations = sae.encode(vectorised)[0]
     return sae_activations
 
 
