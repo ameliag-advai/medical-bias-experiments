@@ -11,12 +11,12 @@ def get_active_features(model, sae, prompt, threshold=1.0):
         tokenised_prompt = model.to_tokens(prompt)
         model_activations = model.run_with_cache(tokenised_prompt, return_type=None)[1][sae.cfg.hook_name]
         vectorised = model_activations[0, -1, :].unsqueeze(0)
-        sae_activations = sae(vectorised)[0]
-    
+        sae_activations = sae.encode(vectorised)[0]
+
     active_indices = (sae_activations > threshold).nonzero().squeeze().tolist()
     if isinstance(active_indices, int):
         active_indices = [active_indices]
-    
+
     return active_indices, sae_activations
 
 # Load model

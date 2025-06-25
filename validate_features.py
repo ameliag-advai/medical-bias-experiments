@@ -11,8 +11,8 @@ def test_feature_on_prompt(model, sae, prompt, feature_indices):
         tokenised_prompt = model.to_tokens(prompt)
         model_activations = model.run_with_cache(tokenised_prompt, return_type=None)[1][sae.cfg.hook_name]
         vectorised = model_activations[0, -1, :].unsqueeze(0)
-        sae_activations = sae(vectorised)[0]
-        
+        sae_activations = sae.encode(vectorised)[0]
+
     print(f"\nPrompt: {prompt}")
     print(f"Feature activations (threshold > 1.0):")
     for idx in feature_indices:
@@ -21,7 +21,7 @@ def test_feature_on_prompt(model, sae, prompt, feature_indices):
             print(f"  Feature {idx}: {activation:.2f} ✓")
         else:
             print(f"  Feature {idx}: {activation:.2f}")
-    
+
     # Also show any other highly active features
     all_active = (sae_activations > 1.0).nonzero().squeeze().tolist()
     if isinstance(all_active, int):
@@ -29,7 +29,7 @@ def test_feature_on_prompt(model, sae, prompt, feature_indices):
     other_active = [f for f in all_active if f not in feature_indices]
     if other_active:
         print(f"\nOther active features: {other_active[:10]}")
-    
+
     return sae_activations
 
 # Load model
@@ -45,7 +45,7 @@ test_prompts = {
     ],
     "female": [
         "A female patient has symptoms: [fever, cough].",
-        "A woman has symptoms: [headache, fatigue].", 
+        "A woman has symptoms: [headache, fatigue].",
         "A lady presenting with symptoms: [chest pain].",
     ],
     "old": [
