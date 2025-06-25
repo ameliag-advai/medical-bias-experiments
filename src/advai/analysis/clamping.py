@@ -1,19 +1,12 @@
-"""Manual PyTorch clamping utilities for SAE features representing demographic info (sex, age).
-Allows user to clamp features for 'male', 'female', 'old', 'young' to a specified extent (e.g., 5x, 10x).
-
-Features were identified in previous analysis; update the indices below if new analysis is run.
 """
+Clamping functions for SAE features.
+"""
+
 import torch
-from typing import List, Literal
+from typing import List, Union
+from .constants import MALE_FEATURES, FEMALE_FEATURES, OLD_FEATURES, YOUNG_FEATURES
 
-from src.advai.analysis.constants import (
-    MALE_FEATURES,
-    FEMALE_FEATURES,
-    OLD_FEATURES,
-    YOUNG_FEATURES
-)
-
-DemographicType = Literal['male', 'female', 'old', 'young']
+DemographicType = Union[str, List[str]]
 
 
 def clamp_sae_features(
@@ -23,33 +16,36 @@ def clamp_sae_features(
     inplace: bool = False
 ) -> torch.Tensor:
     """
-    Clamp SAE features for a given demographic by multiplying their value by `extent`.
-
-    Example usage:
-        clamped = clamp_sae_features(sae_out, demographic='male', extent=5.0)
-
+    Clamp SAE features associated with demographics.
+    
     Args:
-        sae_out: SAE output tensor (1, num_features) or (num_features,)
-        demographic: 'male', 'female', 'old', or 'young'
-        extent: Factor to multiply the feature by (e.g., 5.0 or 10.0)
-        inplace: If True, modify sae_out in-place. If False, return a new tensor.
+        sae_out: SAE output tensor [..., num_features]
+        demographics: Single demographic or list of demographics
+        extent: Multiplier for feature activations
+        inplace: Whether to modify tensor in place
+        
     Returns:
-        Tensor with clamped features.
+        Tensor with clamped features
     """
+    if isinstance(demographics, str):
+        demographics = [demographics]
+    
     feature_map = {
         'male': MALE_FEATURES,
         'female': FEMALE_FEATURES,
         'old': OLD_FEATURES,
         'young': YOUNG_FEATURES,
     }
-
-    # Get the features for the specified demographics
+    
     features = []
     for demographic in demographics:
-        features = features + feature_map[demographic]
-
+        if demographic in feature_map:
+            features.extend(feature_map[demographic])
+    
     if not inplace:
         sae_out = sae_out.clone()
+    
     for f in features:
         sae_out[..., f] *= extent
+    
     return sae_out
