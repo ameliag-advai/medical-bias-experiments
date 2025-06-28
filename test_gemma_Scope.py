@@ -1,34 +1,35 @@
 import torch
 from functools import partial
 from transformer_lens import HookedTransformer, utils
-from sae_lens import SAE, SAEConfig
-from sae_lens.toolkit.pretrained_sae_loaders import gemma_2_sae_huggingface_loader
+from sae_lens import SAE
 
 
 # === Load Model ===
+print("🤖 Loading Gemma-2b-IT model...")
+device = "cpu"  # Use CPU since CUDA not available
 model = HookedTransformer.from_pretrained(
-    "google/gemma-2-2b",
+    "google/gemma-2b-it",  # ✅ Use instruction-tuned version
     fold_ln=False,
     center_writing_weights=False,
     center_unembed=False,
-    device="cuda",
+    device=device,
     move_to_device=True
 )
 
 # === Load SAE ===
-cfg_dict, state_dict, log_sparsity = gemma_2_sae_huggingface_loader(
-    repo_id="google/gemma-scope-2b-pt-res",
-    folder_name="layer_20/width_16k/average_l0_71",
-    device="cuda"
+print("🧠 Loading matching SAE for Gemma-2b-IT...")
+sae, *_ = SAE.from_pretrained(
+    release="jbloom/Gemma-2b-IT-Residual-Stream-SAEs",  # ✅ IT-specific SAE
+    sae_id="gemma_2b_it_blocks.12.hook_resid_post_16384",  # ✅ Layer 12, correct hook
+    device=device
 )
-cfg = SAEConfig.from_dict(cfg_dict)
-sae = SAE(cfg=cfg)#.load_state_dict(state_dict)
+print(f"SAE hook name: {sae.cfg.hook_name}")
 
 # === Setup Prompt ===
 example_prompt = "When John and Mary went to the shops, John gave the bag to"
 example_answer = " Mary"
 
-tokens = model.to_tokens(example_prompt).to("cuda")
+tokens = model.to_tokens(example_prompt).to(device)
 hook_name = sae.cfg.hook_name
 
 
@@ -84,3 +85,24 @@ print("\n=== 📊 Loss Summary ===")
 print(f"Original Loss:       {orig_loss:.4f}")
 print(f"SAE Reconstruction:  {reconstr_loss:.4f}")
 print(f"Zero Ablation:       {zero_loss:.4f}")
+
+# === Reconstruction Quality Analysis ===
+print("\n=== 🔍 Reconstruction Quality ===")
+reconstruction_error = abs(reconstr_loss - orig_loss)
+zero_ablation_error = abs(zero_loss - orig_loss)
+
+print(f"Reconstruction Error: {reconstruction_error:.4f}")
+print(f"Zero Ablation Error:  {zero_ablation_error:.4f}")
+
+if reconstruction_error < 0.1:
+    print("✅ EXCELLENT reconstruction quality (error < 0.1)")
+elif reconstruction_error < 0.5:
+    print("✅ GOOD reconstruction quality (error < 0.5)")
+elif reconstruction_error < 1.0:
+    print("⚠️  FAIR reconstruction quality (error < 1.0)")
+else:
+    print("❌ POOR reconstruction quality (error >= 1.0)")
+
+reconstruction_ratio = reconstruction_error / zero_ablation_error if zero_ablation_error > 0 else float('inf')
+print(f"\nReconstruction preserves {(1-reconstruction_ratio)*100:.1f}% of original behavior")
+print(f"(Compared to zero ablation baseline)")
