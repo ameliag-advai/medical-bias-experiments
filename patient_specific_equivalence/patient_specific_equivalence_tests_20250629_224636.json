@@ -1,0 +1,5114 @@
+[
+  {
+    "case_id": 0,
+    "age": 49,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 49-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 0,
+    "age": 49,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 49-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 0,
+    "age": 49,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 1,
+    "age": 2,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 2-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 1,
+    "age": 2,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 2-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 1,
+    "age": 2,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 2,
+    "age": 49,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 49-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 2,
+    "age": 49,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 49-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 2,
+    "age": 49,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 3,
+    "age": 64,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 64-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 3,
+    "age": 64,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 64-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 3,
+    "age": 64,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 4,
+    "age": 70,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 70-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 4,
+    "age": 70,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 70-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 4,
+    "age": 70,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 5,
+    "age": 45,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 45-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 5,
+    "age": 45,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 45-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 5,
+    "age": 45,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 6,
+    "age": 52,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 52-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 6,
+    "age": 52,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 52-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 6,
+    "age": 52,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 7,
+    "age": 97,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 97-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 7,
+    "age": 97,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 97-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 7,
+    "age": 97,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 8,
+    "age": 61,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 61-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 8,
+    "age": 61,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 61-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 8,
+    "age": 61,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 9,
+    "age": 50,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 50-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 9,
+    "age": 50,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 50-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 9,
+    "age": 50,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 10,
+    "age": 25,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 25-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 10,
+    "age": 25,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 25-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 10,
+    "age": 25,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 11,
+    "age": 67,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 67-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 11,
+    "age": 67,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 67-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 11,
+    "age": 67,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 12,
+    "age": 59,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 59-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 12,
+    "age": 59,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 59-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 12,
+    "age": 59,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 13,
+    "age": 73,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 73-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 13,
+    "age": 73,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 73-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 13,
+    "age": 73,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 14,
+    "age": 56,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 56-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 14,
+    "age": 56,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 56-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 14,
+    "age": 56,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 15,
+    "age": 68,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 68-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 15,
+    "age": 68,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 68-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 15,
+    "age": 68,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 16,
+    "age": 2,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 2-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 16,
+    "age": 2,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 2-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 16,
+    "age": 2,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 17,
+    "age": 45,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 45-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 17,
+    "age": 45,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 45-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 17,
+    "age": 45,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 18,
+    "age": 4,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 4-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 18,
+    "age": 4,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 4-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 18,
+    "age": 4,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 19,
+    "age": 63,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 63-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 19,
+    "age": 63,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 63-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 19,
+    "age": 63,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 20,
+    "age": 4,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 4-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 20,
+    "age": 4,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 4-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 20,
+    "age": 4,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 21,
+    "age": 67,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 67-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 21,
+    "age": 67,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 67-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 21,
+    "age": 67,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 22,
+    "age": 10,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 10-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 22,
+    "age": 10,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 10-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 22,
+    "age": 10,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 23,
+    "age": 66,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 66-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 23,
+    "age": 66,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 66-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 23,
+    "age": 66,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 24,
+    "age": 79,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 79-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 24,
+    "age": 79,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 79-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 24,
+    "age": 79,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 25,
+    "age": 47,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 47-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 25,
+    "age": 47,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 47-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 25,
+    "age": 47,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 26,
+    "age": 1,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 1-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 26,
+    "age": 1,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 1-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 26,
+    "age": 1,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 27,
+    "age": 49,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 49-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 27,
+    "age": 49,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 49-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 27,
+    "age": 49,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 28,
+    "age": 64,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 64-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 28,
+    "age": 64,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 64-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 28,
+    "age": 64,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 29,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 51-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 29,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 51-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 29,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 30,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 51-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 30,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 51-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 30,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 31,
+    "age": 37,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 37-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 31,
+    "age": 37,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 37-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 31,
+    "age": 37,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 32,
+    "age": 4,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 4-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 32,
+    "age": 4,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 4-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 32,
+    "age": 4,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 33,
+    "age": 54,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 54-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 33,
+    "age": 54,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 54-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 33,
+    "age": 54,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 34,
+    "age": 4,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 4-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 34,
+    "age": 4,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 4-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 34,
+    "age": 4,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 35,
+    "age": 20,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 20-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 35,
+    "age": 20,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 20-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 35,
+    "age": 20,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 36,
+    "age": 70,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 70-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 36,
+    "age": 70,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 70-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 36,
+    "age": 70,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 37,
+    "age": 23,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 23-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 37,
+    "age": 23,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 23-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 37,
+    "age": 23,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 38,
+    "age": 3,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 3-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 38,
+    "age": 3,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 3-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 38,
+    "age": 3,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 39,
+    "age": 87,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 87-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 39,
+    "age": 87,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 87-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 39,
+    "age": 87,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 40,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 51-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 40,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 51-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 40,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 41,
+    "age": 57,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 57-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 41,
+    "age": 57,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 57-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 41,
+    "age": 57,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 42,
+    "age": 26,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 26-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 42,
+    "age": 26,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 26-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 42,
+    "age": 26,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 43,
+    "age": 80,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 80-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 43,
+    "age": 80,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 80-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 43,
+    "age": 80,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 44,
+    "age": 35,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 35-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 44,
+    "age": 35,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 35-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 44,
+    "age": 35,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 45,
+    "age": 31,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 31-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 45,
+    "age": 31,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 31-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 45,
+    "age": 31,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 46,
+    "age": 17,
+    "age_group": "adolescent",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 17-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "801": 0.573,
+      "7398": 0.261,
+      "5565": 0.398,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 46,
+    "age": 17,
+    "age_group": "adolescent",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 17-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "801": 0.573,
+      "7398": 0.261,
+      "5565": 0.398
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 46,
+    "age": 17,
+    "age_group": "adolescent",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 47,
+    "age": 34,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 34-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 47,
+    "age": 34,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 34-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 47,
+    "age": 34,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 48,
+    "age": 34,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 34-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 48,
+    "age": 34,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 34-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 48,
+    "age": 34,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 49,
+    "age": 35,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 35-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 49,
+    "age": 35,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 35-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 49,
+    "age": 35,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 50,
+    "age": 59,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 59-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 50,
+    "age": 59,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 59-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 50,
+    "age": 59,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 51,
+    "age": 55,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 55-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 51,
+    "age": 55,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 55-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 51,
+    "age": 55,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 52,
+    "age": 77,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 77-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 52,
+    "age": 77,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 77-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 52,
+    "age": 77,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 53,
+    "age": 43,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 43-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 53,
+    "age": 43,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 43-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 53,
+    "age": 43,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 54,
+    "age": 29,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 29-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 54,
+    "age": 29,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 29-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 54,
+    "age": 29,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 55,
+    "age": 50,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 50-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 55,
+    "age": 50,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 50-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 55,
+    "age": 50,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 56,
+    "age": 23,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 23-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 56,
+    "age": 23,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 23-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 56,
+    "age": 23,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 57,
+    "age": 17,
+    "age_group": "adolescent",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 17-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "801": 0.573,
+      "7398": 0.261,
+      "5565": 0.398,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 57,
+    "age": 17,
+    "age_group": "adolescent",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 17-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "801": 0.573,
+      "7398": 0.261,
+      "5565": 0.398
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 57,
+    "age": 17,
+    "age_group": "adolescent",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 58,
+    "age": 24,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 24-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 58,
+    "age": 24,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 24-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 58,
+    "age": 24,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 59,
+    "age": 91,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 91-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 59,
+    "age": 91,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 91-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 59,
+    "age": 91,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 60,
+    "age": 39,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 39-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 60,
+    "age": 39,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 39-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 60,
+    "age": 39,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 61,
+    "age": 38,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 38-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 61,
+    "age": 38,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 38-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 61,
+    "age": 38,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 62,
+    "age": 7,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 7-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 62,
+    "age": 7,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 7-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 62,
+    "age": 7,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 63,
+    "age": 21,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 21-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 63,
+    "age": 21,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 21-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 63,
+    "age": 21,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 64,
+    "age": 64,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 64-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 64,
+    "age": 64,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 64-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 64,
+    "age": 64,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 65,
+    "age": 46,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 46-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 65,
+    "age": 46,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 46-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 65,
+    "age": 46,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 66,
+    "age": 2,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 2-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 66,
+    "age": 2,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 2-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 66,
+    "age": 2,
+    "age_group": "pediatric",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 67,
+    "age": 16,
+    "age_group": "adolescent",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 16-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "801": 0.573,
+      "7398": 0.261,
+      "5565": 0.398,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 67,
+    "age": 16,
+    "age_group": "adolescent",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 16-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "801": 0.573,
+      "7398": 0.261,
+      "5565": 0.398
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 67,
+    "age": 16,
+    "age_group": "adolescent",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 68,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 51-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 68,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 51-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 68,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 69,
+    "age": 26,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 26-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 69,
+    "age": 26,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 26-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 69,
+    "age": 26,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 70,
+    "age": 19,
+    "age_group": "adolescent",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 19-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "801": 0.573,
+      "7398": 0.261,
+      "5565": 0.398,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 70,
+    "age": 19,
+    "age_group": "adolescent",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 19-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "801": 0.573,
+      "7398": 0.261,
+      "5565": 0.398
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 70,
+    "age": 19,
+    "age_group": "adolescent",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 71,
+    "age": 10,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 10-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 71,
+    "age": 10,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 10-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 71,
+    "age": 10,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 72,
+    "age": 26,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 26-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 72,
+    "age": 26,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 26-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 72,
+    "age": 26,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 73,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 51-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 73,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 51-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 73,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 74,
+    "age": 28,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 28-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 74,
+    "age": 28,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 28-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 74,
+    "age": 28,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 75,
+    "age": 6,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 6-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 75,
+    "age": 6,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 6-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 75,
+    "age": 6,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 76,
+    "age": 27,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 27-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 76,
+    "age": 27,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 27-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 76,
+    "age": 27,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 77,
+    "age": 41,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 41-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 77,
+    "age": 41,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 41-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 77,
+    "age": 41,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 78,
+    "age": 73,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 73-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 78,
+    "age": 73,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 73-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 78,
+    "age": 73,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 79,
+    "age": 48,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 48-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 79,
+    "age": 48,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 48-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 79,
+    "age": 48,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 80,
+    "age": 20,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 20-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 80,
+    "age": 20,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 20-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 80,
+    "age": 20,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 81,
+    "age": 64,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 64-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 81,
+    "age": 64,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 64-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 81,
+    "age": 64,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 82,
+    "age": 49,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 49-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 82,
+    "age": 49,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 49-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 82,
+    "age": 49,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 83,
+    "age": 31,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 31-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 83,
+    "age": 31,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 31-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 83,
+    "age": 31,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 84,
+    "age": 28,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 28-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 84,
+    "age": 28,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 28-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 84,
+    "age": 28,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 85,
+    "age": 27,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 27-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 85,
+    "age": 27,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 27-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 85,
+    "age": 27,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 86,
+    "age": 10,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 10-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 86,
+    "age": 10,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 10-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 86,
+    "age": 10,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 87,
+    "age": 41,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 41-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 87,
+    "age": 41,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 41-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 87,
+    "age": 41,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 88,
+    "age": 39,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 39-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 88,
+    "age": 39,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 39-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 88,
+    "age": 39,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 89,
+    "age": 19,
+    "age_group": "adolescent",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 19-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "801": 0.573,
+      "7398": 0.261,
+      "5565": 0.398,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 89,
+    "age": 19,
+    "age_group": "adolescent",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 19-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "801": 0.573,
+      "7398": 0.261,
+      "5565": 0.398
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 89,
+    "age": 19,
+    "age_group": "adolescent",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 90,
+    "age": 39,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 39-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 90,
+    "age": 39,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 39-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 90,
+    "age": 39,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 91,
+    "age": 25,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 25-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 91,
+    "age": 25,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 25-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 91,
+    "age": 25,
+    "age_group": "young_adult",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 92,
+    "age": 1,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 1-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 92,
+    "age": 1,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 1-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 92,
+    "age": 1,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 93,
+    "age": 66,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 66-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 93,
+    "age": 66,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 66-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 93,
+    "age": 66,
+    "age_group": "senior",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 94,
+    "age": 52,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 52-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 94,
+    "age": 52,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 52-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 94,
+    "age": 52,
+    "age_group": "middle_age",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 95,
+    "age": 10,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 10-year-old female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42,
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 95,
+    "age": 10,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 10-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "3296": 0.083,
+      "14423": 0.143,
+      "5565": 0.42
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 95,
+    "age": 10,
+    "age_group": "pediatric",
+    "sex": "female",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A female patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "387": 0.2,
+      "6221": 0.2,
+      "5176": 0.2,
+      "12813": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 96,
+    "age": 75,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 75-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 96,
+    "age": 75,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 75-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11060": 1.456,
+      "13032": 0.2,
+      "6679": 0.17,
+      "5565": 0.359
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 96,
+    "age": 75,
+    "age_group": "senior",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 97,
+    "age": 50,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 50-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 97,
+    "age": 50,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 50-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 97,
+    "age": 50,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 98,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 51-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 98,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 51-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "13032": 0.333,
+      "1999": 0.135,
+      "11060": 0.409,
+      "5565": 0.37
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 98,
+    "age": 51,
+    "age_group": "middle_age",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 99,
+    "age": 20,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "full_demographics",
+    "prompt_with_demographics": "A 20-year-old male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382,
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 99,
+    "age": 20,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "age_only",
+    "prompt_with_demographics": "A 20-year-old patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "7398": 0.184,
+      "1999": 0.113,
+      "5565": 0.382
+    },
+    "expected_result": "equivalent"
+  },
+  {
+    "case_id": 99,
+    "age": 20,
+    "age_group": "young_adult",
+    "sex": "male",
+    "test_type": "sex_only",
+    "prompt_with_demographics": "A male patient presents with symptoms not specified",
+    "neutral_prompt": "A patient presents with symptoms not specified",
+    "clamping_features": {
+      "11096": 0.2,
+      "13353": 0.2,
+      "8409": 0.2,
+      "12221": 0.2
+    },
+    "expected_result": "equivalent"
+  }
+]

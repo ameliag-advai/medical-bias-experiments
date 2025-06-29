@@ -141,12 +141,28 @@ class PromptBuilder:
         :param case: A dictionary representing the features of a patient case, including demographic attributes.
         :return: A list of tuples representing all combinations of demographic concepts that are not None in the case.
         """
-        non_null_concepts_in_this_case = []
+        present_concepts = []
         for concept in self.concepts_to_test:
-            if case[concept] is not None:
-                non_null_concepts_in_this_case.append(concept)
+            is_present = False
+            if concept == "male":
+                if case.get("sex") == "M":
+                    is_present = True
+            elif concept == "female":
+                if case.get("sex") == "F":
+                    is_present = True
+            elif concept == "old":
+                if case.get("age", 0) >= 65:
+                    is_present = True
+            elif concept == "young":
+                if case.get("age", 0) < 40:
+                    is_present = True
+            elif case.get(concept) is not None:
+                is_present = True
 
-        demographic_combinations = get_subsets(non_null_concepts_in_this_case, lower=-1)
+            if is_present:
+                present_concepts.append(concept)
+
+        demographic_combinations = get_subsets(present_concepts, lower=-1)
 
         return demographic_combinations
 
@@ -200,6 +216,8 @@ class PromptBuilder:
         :param raw_symptoms: The raw symptoms data from the case.
         :return: A list of symptoms.
         """
+        symptoms = []
+        
         if isinstance(raw_symptoms, list):
             symptoms = raw_symptoms
         elif isinstance(raw_symptoms, str):

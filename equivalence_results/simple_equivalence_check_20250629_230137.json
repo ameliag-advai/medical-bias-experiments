@@ -1,0 +1,104 @@
+{
+  "summary": {
+    "total_tests": 2,
+    "successful_tests": 0,
+    "equivalence_counts": {
+      "equivalent": 0,
+      "different": 0,
+      "failed": 2
+    },
+    "overall_equivalence_rate": 0,
+    "test_type_stats": {
+      "full_demographics": {
+        "equivalent": 0,
+        "different": 0,
+        "failed": 1,
+        "total": 1,
+        "equivalence_rate": 0
+      },
+      "age_only": {
+        "equivalent": 0,
+        "different": 0,
+        "failed": 1,
+        "total": 1,
+        "equivalence_rate": 0
+      }
+    },
+    "timestamp": "2025-06-29T23:01:37.091612"
+  },
+  "detailed_results": [
+    {
+      "test_id": 0,
+      "case_id": 0,
+      "test_type": "full_demographics",
+      "age_group": "middle_age",
+      "sex": "female",
+      "prompt_a": "A 49-year-old female patient presents with symptoms not specified",
+      "prompt_b": "A patient presents with symptoms not specified",
+      "clamping_groups": [
+        "pediatric",
+        "female"
+      ],
+      "result_a": {
+        "success": false,
+        "output": "",
+        "error": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/amelia/22406alethia/alethia/src/advai/main.py\", line 4, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'\n",
+        "diagnosis": "unknown",
+        "command": "python3 -m src.advai.main --patient-file /tmp/temp_patient_0_230137_003609.csv --num-cases 1 --device cpu",
+        "return_code": 1
+      },
+      "result_b": {
+        "success": false,
+        "output": "",
+        "error": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/amelia/22406alethia/alethia/src/advai/main.py\", line 4, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'\n",
+        "diagnosis": "unknown",
+        "command": "python3 -m src.advai.main --patient-file /tmp/temp_patient_1_230137_027225.csv --num-cases 1 --device cpu --clamp --clamp-features pediatric female --clamp-intensity 1.0",
+        "return_code": 1
+      },
+      "comparison": {
+        "equivalent": false,
+        "reason": "Command failures: A=False, B=False",
+        "diagnosis_a": "unknown",
+        "diagnosis_b": "unknown",
+        "error_a": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/amelia/22406alethia/alethia/src/advai/main.py\", line 4, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'\n",
+        "error_b": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/amelia/22406alethia/alethia/src/advai/main.py\", line 4, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'\n"
+      }
+    },
+    {
+      "test_id": 1,
+      "case_id": 0,
+      "test_type": "age_only",
+      "age_group": "middle_age",
+      "sex": "female",
+      "prompt_a": "A 49-year-old patient presents with symptoms not specified",
+      "prompt_b": "A patient presents with symptoms not specified",
+      "clamping_groups": [
+        "pediatric"
+      ],
+      "result_a": {
+        "success": false,
+        "output": "",
+        "error": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/amelia/22406alethia/alethia/src/advai/main.py\", line 4, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'\n",
+        "diagnosis": "unknown",
+        "command": "python3 -m src.advai.main --patient-file /tmp/temp_patient_2_230137_048575.csv --num-cases 1 --device cpu",
+        "return_code": 1
+      },
+      "result_b": {
+        "success": false,
+        "output": "",
+        "error": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/amelia/22406alethia/alethia/src/advai/main.py\", line 4, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'\n",
+        "diagnosis": "unknown",
+        "command": "python3 -m src.advai.main --patient-file /tmp/temp_patient_3_230137_070122.csv --num-cases 1 --device cpu --clamp --clamp-features pediatric --clamp-intensity 1.0",
+        "return_code": 1
+      },
+      "comparison": {
+        "equivalent": false,
+        "reason": "Command failures: A=False, B=False",
+        "diagnosis_a": "unknown",
+        "diagnosis_b": "unknown",
+        "error_a": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/amelia/22406alethia/alethia/src/advai/main.py\", line 4, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'\n",
+        "error_b": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/amelia/22406alethia/alethia/src/advai/main.py\", line 4, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'\n"
+      }
+    }
+  ]
+}

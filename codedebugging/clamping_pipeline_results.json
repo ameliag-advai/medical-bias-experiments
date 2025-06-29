@@ -1,0 +1,923 @@
+{
+  "concept_vectors": {
+    "male": {
+      "vector_norm": 0.6833427548408508,
+      "top_features": {
+        "13769": 0.3380689024925232,
+        "2559": -0.20658650994300842,
+        "3523": 0.18989823758602142,
+        "5732": -0.17328739166259766,
+        "12221": 0.17286987602710724,
+        "5082": -0.1603693962097168,
+        "2297": -0.14823830127716064,
+        "12753": -0.13834086060523987,
+        "12303": 0.13171100616455078,
+        "16067": 0.13113899528980255,
+        "6998": 0.1264873743057251,
+        "16028": -0.12086807191371918,
+        "6817": 0.11157023161649704,
+        "1501": -0.09663441777229309,
+        "12796": 0.09144121408462524,
+        "2963": 0.08305837213993073,
+        "2495": -0.08242106437683105,
+        "14134": -0.08104413747787476,
+        "11759": -0.08022880554199219,
+        "9716": -0.06679461896419525
+      }
+    },
+    "female": {
+      "vector_norm": 0.6791780591011047,
+      "top_features": {
+        "13769": 0.24035495519638062,
+        "2297": -0.22293277084827423,
+        "3523": 0.21959218382835388,
+        "5732": -0.21123790740966797,
+        "2559": -0.18372949957847595,
+        "2310": 0.18059425055980682,
+        "5082": -0.16354525089263916,
+        "2495": -0.13139963150024414,
+        "14893": 0.12531530857086182,
+        "2963": 0.11571754515171051,
+        "16028": -0.10815177857875824,
+        "12753": -0.09986284375190735,
+        "12303": 0.0933377742767334,
+        "16067": 0.09297001361846924,
+        "16075": 0.09037075191736221,
+        "222": 0.08376455307006836,
+        "5547": -0.08280503749847412,
+        "14134": -0.08104413747787476,
+        "1501": -0.07767870277166367,
+        "15603": -0.07538926601409912
+      }
+    },
+    "young": {
+      "vector_norm": 0.7616786360740662,
+      "top_features": {
+        "5732": -0.39061546325683594,
+        "3523": 0.23864075541496277,
+        "13769": 0.20830917358398438,
+        "5082": -0.1907731294631958,
+        "2297": -0.17982757091522217,
+        "12303": 0.17763328552246094,
+        "2559": -0.15428189933300018,
+        "12753": -0.1466723084449768,
+        "6817": 0.1353846937417984,
+        "16028": -0.13005749881267548,
+        "9716": -0.11995621025562286,
+        "16067": 0.11801983416080475,
+        "2811": -0.11123818159103394,
+        "1501": -0.10517162084579468,
+        "2979": -0.09781283140182495,
+        "2495": -0.09641456604003906,
+        "9231": 0.09529227018356323,
+        "6144": 0.08957590162754059,
+        "14134": -0.08104413747787476,
+        "2963": 0.07809026539325714
+      }
+    }
+  },
+  "clamping_analysis": {
+    "chest_pain_scenario": {
+      "baseline": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": ":",
+            "probability": 0.6563374400138855
+          },
+          {
+            "rank": 1,
+            "token": " a",
+            "probability": 0.19515421986579895
+          },
+          {
+            "rank": 2,
+            "token": "?",
+            "probability": 0.08978733420372009
+          },
+          {
+            "rank": 3,
+            "token": " angina",
+            "probability": 0.014203466475009918
+          },
+          {
+            "rank": 4,
+            "token": "\n",
+            "probability": 0.01067332923412323
+          },
+          {
+            "rank": 5,
+            "token": " (",
+            "probability": 0.006475220434367657
+          },
+          {
+            "rank": 6,
+            "token": "\n\n",
+            "probability": 0.004346121568232775
+          },
+          {
+            "rank": 7,
+            "token": " cardiac",
+            "probability": 0.0037048845551908016
+          },
+          {
+            "rank": 8,
+            "token": " which",
+            "probability": 0.0033591976389288902
+          },
+          {
+            "rank": 9,
+            "token": " heart",
+            "probability": 0.0018835592782124877
+          }
+        ],
+        "activation_changes": 0.0
+      },
+      "male_clamping": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": ":",
+            "probability": 0.6566760540008545
+          },
+          {
+            "rank": 1,
+            "token": " a",
+            "probability": 0.19648626446723938
+          },
+          {
+            "rank": 2,
+            "token": "?",
+            "probability": 0.08831752836704254
+          },
+          {
+            "rank": 3,
+            "token": " angina",
+            "probability": 0.013987861573696136
+          },
+          {
+            "rank": 4,
+            "token": "\n",
+            "probability": 0.010717933066189289
+          },
+          {
+            "rank": 5,
+            "token": " (",
+            "probability": 0.0064901369623839855
+          },
+          {
+            "rank": 6,
+            "token": "\n\n",
+            "probability": 0.004344732500612736
+          },
+          {
+            "rank": 7,
+            "token": " cardiac",
+            "probability": 0.003697729203850031
+          },
+          {
+            "rank": 8,
+            "token": " which",
+            "probability": 0.003318241098895669
+          },
+          {
+            "rank": 9,
+            "token": " heart",
+            "probability": 0.0018977400613948703
+          }
+        ],
+        "activation_changes": 0.527263879776001
+      },
+      "female_clamping": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": ":",
+            "probability": 0.6529403328895569
+          },
+          {
+            "rank": 1,
+            "token": " a",
+            "probability": 0.19733616709709167
+          },
+          {
+            "rank": 2,
+            "token": "?",
+            "probability": 0.09053181856870651
+          },
+          {
+            "rank": 3,
+            "token": " angina",
+            "probability": 0.014621090143918991
+          },
+          {
+            "rank": 4,
+            "token": "\n",
+            "probability": 0.010480199009180069
+          },
+          {
+            "rank": 5,
+            "token": " (",
+            "probability": 0.006476249545812607
+          },
+          {
+            "rank": 6,
+            "token": "\n\n",
+            "probability": 0.004287035204470158
+          },
+          {
+            "rank": 7,
+            "token": " cardiac",
+            "probability": 0.003826504573225975
+          },
+          {
+            "rank": 8,
+            "token": " which",
+            "probability": 0.003373247804120183
+          },
+          {
+            "rank": 9,
+            "token": " heart",
+            "probability": 0.0019427358638495207
+          }
+        ],
+        "activation_changes": 0.5655402541160583
+      },
+      "young_clamping": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": ":",
+            "probability": 0.6563374400138855
+          },
+          {
+            "rank": 1,
+            "token": " a",
+            "probability": 0.19515421986579895
+          },
+          {
+            "rank": 2,
+            "token": "?",
+            "probability": 0.08978733420372009
+          },
+          {
+            "rank": 3,
+            "token": " angina",
+            "probability": 0.014203466475009918
+          },
+          {
+            "rank": 4,
+            "token": "\n",
+            "probability": 0.01067332923412323
+          },
+          {
+            "rank": 5,
+            "token": " (",
+            "probability": 0.006475220434367657
+          },
+          {
+            "rank": 6,
+            "token": "\n\n",
+            "probability": 0.004346121568232775
+          },
+          {
+            "rank": 7,
+            "token": " cardiac",
+            "probability": 0.0037048845551908016
+          },
+          {
+            "rank": 8,
+            "token": " which",
+            "probability": 0.0033591976389288902
+          },
+          {
+            "rank": 9,
+            "token": " heart",
+            "probability": 0.0018835592782124877
+          }
+        ],
+        "activation_changes": 0.0
+      },
+      "female_young_clamping": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": ":",
+            "probability": 0.6540718078613281
+          },
+          {
+            "rank": 1,
+            "token": " a",
+            "probability": 0.19661247730255127
+          },
+          {
+            "rank": 2,
+            "token": "?",
+            "probability": 0.0902838185429573
+          },
+          {
+            "rank": 3,
+            "token": " angina",
+            "probability": 0.014480512589216232
+          },
+          {
+            "rank": 4,
+            "token": "\n",
+            "probability": 0.010544517077505589
+          },
+          {
+            "rank": 5,
+            "token": " (",
+            "probability": 0.006475949659943581
+          },
+          {
+            "rank": 6,
+            "token": "\n\n",
+            "probability": 0.004306727088987827
+          },
+          {
+            "rank": 7,
+            "token": " cardiac",
+            "probability": 0.003785437438637018
+          },
+          {
+            "rank": 8,
+            "token": " which",
+            "probability": 0.003368520410731435
+          },
+          {
+            "rank": 9,
+            "token": " heart",
+            "probability": 0.00192278774920851
+          }
+        ],
+        "activation_changes": 0.37702685594558716
+      }
+    },
+    "fatigue_scenario": {
+      "baseline": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": " which",
+            "probability": 0.3367466628551483
+          },
+          {
+            "rank": 1,
+            "token": " a",
+            "probability": 0.29487141966819763
+          },
+          {
+            "rank": 2,
+            "token": " that",
+            "probability": 0.09554922580718994
+          },
+          {
+            "rank": 3,
+            "token": " possible",
+            "probability": 0.08246210962533951
+          },
+          {
+            "rank": 4,
+            "token": " the",
+            "probability": 0.08180415630340576
+          },
+          {
+            "rank": 5,
+            "token": " an",
+            "probability": 0.01823912374675274
+          },
+          {
+            "rank": 6,
+            "token": " what",
+            "probability": 0.01554363314062357
+          },
+          {
+            "rank": 7,
+            "token": " several",
+            "probability": 0.013580897822976112
+          },
+          {
+            "rank": 8,
+            "token": " to",
+            "probability": 0.011874107643961906
+          },
+          {
+            "rank": 9,
+            "token": " potential",
+            "probability": 0.005729438737034798
+          }
+        ],
+        "activation_changes": 0.0
+      },
+      "male_clamping": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": " which",
+            "probability": 0.3339790403842926
+          },
+          {
+            "rank": 1,
+            "token": " a",
+            "probability": 0.2975512146949768
+          },
+          {
+            "rank": 2,
+            "token": " that",
+            "probability": 0.09505393356084824
+          },
+          {
+            "rank": 3,
+            "token": " possible",
+            "probability": 0.08221902698278427
+          },
+          {
+            "rank": 4,
+            "token": " the",
+            "probability": 0.08150920271873474
+          },
+          {
+            "rank": 5,
+            "token": " an",
+            "probability": 0.018488973379135132
+          },
+          {
+            "rank": 6,
+            "token": " what",
+            "probability": 0.01571642793715
+          },
+          {
+            "rank": 7,
+            "token": " several",
+            "probability": 0.013608960434794426
+          },
+          {
+            "rank": 8,
+            "token": " to",
+            "probability": 0.012206953950226307
+          },
+          {
+            "rank": 9,
+            "token": " potential",
+            "probability": 0.005744859576225281
+          }
+        ],
+        "activation_changes": 0.4610788822174072
+      },
+      "female_clamping": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": " which",
+            "probability": 0.3345082998275757
+          },
+          {
+            "rank": 1,
+            "token": " a",
+            "probability": 0.2966141104698181
+          },
+          {
+            "rank": 2,
+            "token": " that",
+            "probability": 0.096336729824543
+          },
+          {
+            "rank": 3,
+            "token": " possible",
+            "probability": 0.08266011625528336
+          },
+          {
+            "rank": 4,
+            "token": " the",
+            "probability": 0.08149058371782303
+          },
+          {
+            "rank": 5,
+            "token": " an",
+            "probability": 0.018244286999106407
+          },
+          {
+            "rank": 6,
+            "token": " what",
+            "probability": 0.015468258410692215
+          },
+          {
+            "rank": 7,
+            "token": " several",
+            "probability": 0.013324200175702572
+          },
+          {
+            "rank": 8,
+            "token": " to",
+            "probability": 0.011913658119738102
+          },
+          {
+            "rank": 9,
+            "token": " potential",
+            "probability": 0.005709730554372072
+          }
+        ],
+        "activation_changes": 0.4945506751537323
+      },
+      "young_clamping": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": " which",
+            "probability": 0.3367466628551483
+          },
+          {
+            "rank": 1,
+            "token": " a",
+            "probability": 0.29487141966819763
+          },
+          {
+            "rank": 2,
+            "token": " that",
+            "probability": 0.09554922580718994
+          },
+          {
+            "rank": 3,
+            "token": " possible",
+            "probability": 0.08246210962533951
+          },
+          {
+            "rank": 4,
+            "token": " the",
+            "probability": 0.08180415630340576
+          },
+          {
+            "rank": 5,
+            "token": " an",
+            "probability": 0.01823912374675274
+          },
+          {
+            "rank": 6,
+            "token": " what",
+            "probability": 0.01554363314062357
+          },
+          {
+            "rank": 7,
+            "token": " several",
+            "probability": 0.013580897822976112
+          },
+          {
+            "rank": 8,
+            "token": " to",
+            "probability": 0.011874107643961906
+          },
+          {
+            "rank": 9,
+            "token": " potential",
+            "probability": 0.005729438737034798
+          }
+        ],
+        "activation_changes": 0.0
+      },
+      "female_young_clamping": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": " which",
+            "probability": 0.33526238799095154
+          },
+          {
+            "rank": 1,
+            "token": " a",
+            "probability": 0.29602834582328796
+          },
+          {
+            "rank": 2,
+            "token": " that",
+            "probability": 0.09606911987066269
+          },
+          {
+            "rank": 3,
+            "token": " possible",
+            "probability": 0.08259464800357819
+          },
+          {
+            "rank": 4,
+            "token": " the",
+            "probability": 0.08159487694501877
+          },
+          {
+            "rank": 5,
+            "token": " an",
+            "probability": 0.018242916092276573
+          },
+          {
+            "rank": 6,
+            "token": " what",
+            "probability": 0.01549343392252922
+          },
+          {
+            "rank": 7,
+            "token": " several",
+            "probability": 0.013410290703177452
+          },
+          {
+            "rank": 8,
+            "token": " to",
+            "probability": 0.011901156976819038
+          },
+          {
+            "rank": 9,
+            "token": " potential",
+            "probability": 0.005716471001505852
+          }
+        ],
+        "activation_changes": 0.32970038056373596
+      }
+    },
+    "general_symptoms": {
+      "baseline": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": " which",
+            "probability": 0.6337526440620422
+          },
+          {
+            "rank": 1,
+            "token": " the",
+            "probability": 0.16616706550121307
+          },
+          {
+            "rank": 2,
+            "token": " what",
+            "probability": 0.05373459309339523
+          },
+          {
+            "rank": 3,
+            "token": " a",
+            "probability": 0.03196568787097931
+          },
+          {
+            "rank": 4,
+            "token": ":",
+            "probability": 0.02366330847144127
+          },
+          {
+            "rank": 5,
+            "token": " several",
+            "probability": 0.019598573446273804
+          },
+          {
+            "rank": 6,
+            "token": " multiple",
+            "probability": 0.012265338562428951
+          },
+          {
+            "rank": 7,
+            "token": " these",
+            "probability": 0.00970382895320654
+          },
+          {
+            "rank": 8,
+            "token": " differential",
+            "probability": 0.006667366251349449
+          },
+          {
+            "rank": 9,
+            "token": " different",
+            "probability": 0.005353508051484823
+          }
+        ],
+        "activation_changes": 0.0
+      },
+      "male_clamping": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": " which",
+            "probability": 0.6326541900634766
+          },
+          {
+            "rank": 1,
+            "token": " the",
+            "probability": 0.16649462282657623
+          },
+          {
+            "rank": 2,
+            "token": " what",
+            "probability": 0.05384647101163864
+          },
+          {
+            "rank": 3,
+            "token": " a",
+            "probability": 0.03189689293503761
+          },
+          {
+            "rank": 4,
+            "token": ":",
+            "probability": 0.023873772472143173
+          },
+          {
+            "rank": 5,
+            "token": " several",
+            "probability": 0.019691364839673042
+          },
+          {
+            "rank": 6,
+            "token": " multiple",
+            "probability": 0.012281573377549648
+          },
+          {
+            "rank": 7,
+            "token": " these",
+            "probability": 0.009733812883496284
+          },
+          {
+            "rank": 8,
+            "token": " differential",
+            "probability": 0.006730632856488228
+          },
+          {
+            "rank": 9,
+            "token": " different",
+            "probability": 0.005339042749255896
+          }
+        ],
+        "activation_changes": 0.49527814984321594
+      },
+      "female_clamping": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": " which",
+            "probability": 0.6343986988067627
+          },
+          {
+            "rank": 1,
+            "token": " the",
+            "probability": 0.16569872200489044
+          },
+          {
+            "rank": 2,
+            "token": " what",
+            "probability": 0.05393103137612343
+          },
+          {
+            "rank": 3,
+            "token": " a",
+            "probability": 0.03194582834839821
+          },
+          {
+            "rank": 4,
+            "token": ":",
+            "probability": 0.023516768589615822
+          },
+          {
+            "rank": 5,
+            "token": " several",
+            "probability": 0.019437570124864578
+          },
+          {
+            "rank": 6,
+            "token": " multiple",
+            "probability": 0.012148001231253147
+          },
+          {
+            "rank": 7,
+            "token": " these",
+            "probability": 0.009636547416448593
+          },
+          {
+            "rank": 8,
+            "token": " differential",
+            "probability": 0.006528826896101236
+          },
+          {
+            "rank": 9,
+            "token": " different",
+            "probability": 0.0053994613699615
+          }
+        ],
+        "activation_changes": 0.5312325954437256
+      },
+      "young_clamping": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": " which",
+            "probability": 0.6337526440620422
+          },
+          {
+            "rank": 1,
+            "token": " the",
+            "probability": 0.16616706550121307
+          },
+          {
+            "rank": 2,
+            "token": " what",
+            "probability": 0.05373459309339523
+          },
+          {
+            "rank": 3,
+            "token": " a",
+            "probability": 0.03196568787097931
+          },
+          {
+            "rank": 4,
+            "token": ":",
+            "probability": 0.02366330847144127
+          },
+          {
+            "rank": 5,
+            "token": " several",
+            "probability": 0.019598573446273804
+          },
+          {
+            "rank": 6,
+            "token": " multiple",
+            "probability": 0.012265338562428951
+          },
+          {
+            "rank": 7,
+            "token": " these",
+            "probability": 0.00970382895320654
+          },
+          {
+            "rank": 8,
+            "token": " differential",
+            "probability": 0.006667366251349449
+          },
+          {
+            "rank": 9,
+            "token": " different",
+            "probability": 0.005353508051484823
+          }
+        ],
+        "activation_changes": 0.0
+      },
+      "female_young_clamping": {
+        "top_predictions": [
+          {
+            "rank": 0,
+            "token": " which",
+            "probability": 0.6341813802719116
+          },
+          {
+            "rank": 1,
+            "token": " the",
+            "probability": 0.16585378348827362
+          },
+          {
+            "rank": 2,
+            "token": " what",
+            "probability": 0.05386712774634361
+          },
+          {
+            "rank": 3,
+            "token": " a",
+            "probability": 0.03195292130112648
+          },
+          {
+            "rank": 4,
+            "token": ":",
+            "probability": 0.023566044867038727
+          },
+          {
+            "rank": 5,
+            "token": " several",
+            "probability": 0.019491713494062424
+          },
+          {
+            "rank": 6,
+            "token": " multiple",
+            "probability": 0.012186858803033829
+          },
+          {
+            "rank": 7,
+            "token": " these",
+            "probability": 0.009659059345722198
+          },
+          {
+            "rank": 8,
+            "token": " differential",
+            "probability": 0.006574793718755245
+          },
+          {
+            "rank": 9,
+            "token": " different",
+            "probability": 0.005384162534028292
+          }
+        ],
+        "activation_changes": 0.354155033826828
+      }
+    }
+  },
+  "metadata": {
+    "num_cases": 12,
+    "num_prompts": 0,
+    "available_demographics": [
+      "male",
+      "female",
+      "young"
+    ],
+    "model_name": "gemma-2b-it",
+    "sae_layer": "blocks.12.hook_resid_post"
+  }
+}

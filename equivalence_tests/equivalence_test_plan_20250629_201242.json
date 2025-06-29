@@ -1,0 +1,242 @@
+[
+  {
+    "type": "full_prompt",
+    "demographics": "middle_age + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt middle_age female --output-suffix equiv_full_prompt_middle_age_female_20250629_201242",
+    "description": "Full prompt: middle_age female"
+  },
+  {
+    "type": "age_prompt_sex_clamp",
+    "demographics": "middle_age + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt middle_age --clamp-features female --clamp-intensity 1.0 --output-suffix equiv_age_prompt_sex_clamp_middle_age_female_20250629_201242",
+    "description": "Age prompt (middle_age) + sex clamping (female 1x)"
+  },
+  {
+    "type": "sex_prompt_age_clamp",
+    "demographics": "middle_age + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt female --clamp-features middle_age --clamp-intensity 1.0 --output-suffix equiv_sex_prompt_age_clamp_middle_age_female_20250629_201242",
+    "description": "Sex prompt (female) + age clamping (middle_age 1x)"
+  },
+  {
+    "type": "neutral_both_clamp",
+    "demographics": "middle_age + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --clamp-features middle_age female --clamp-intensity 1.0 --output-suffix equiv_neutral_both_clamp_middle_age_female_20250629_201242",
+    "description": "Neutral prompt + both clamping (middle_age female 1x)"
+  },
+  {
+    "type": "full_prompt",
+    "demographics": "pediatric + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt pediatric male --output-suffix equiv_full_prompt_pediatric_male_20250629_201242",
+    "description": "Full prompt: pediatric male"
+  },
+  {
+    "type": "age_prompt_sex_clamp",
+    "demographics": "pediatric + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt pediatric --clamp-features male --clamp-intensity 1.0 --output-suffix equiv_age_prompt_sex_clamp_pediatric_male_20250629_201242",
+    "description": "Age prompt (pediatric) + sex clamping (male 1x)"
+  },
+  {
+    "type": "sex_prompt_age_clamp",
+    "demographics": "pediatric + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt male --clamp-features pediatric --clamp-intensity 1.0 --output-suffix equiv_sex_prompt_age_clamp_pediatric_male_20250629_201242",
+    "description": "Sex prompt (male) + age clamping (pediatric 1x)"
+  },
+  {
+    "type": "neutral_both_clamp",
+    "demographics": "pediatric + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --clamp-features pediatric male --clamp-intensity 1.0 --output-suffix equiv_neutral_both_clamp_pediatric_male_20250629_201242",
+    "description": "Neutral prompt + both clamping (pediatric male 1x)"
+  },
+  {
+    "type": "full_prompt",
+    "demographics": "middle_age + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt middle_age male --output-suffix equiv_full_prompt_middle_age_male_20250629_201242",
+    "description": "Full prompt: middle_age male"
+  },
+  {
+    "type": "age_prompt_sex_clamp",
+    "demographics": "middle_age + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt middle_age --clamp-features male --clamp-intensity 1.0 --output-suffix equiv_age_prompt_sex_clamp_middle_age_male_20250629_201242",
+    "description": "Age prompt (middle_age) + sex clamping (male 1x)"
+  },
+  {
+    "type": "sex_prompt_age_clamp",
+    "demographics": "middle_age + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt male --clamp-features middle_age --clamp-intensity 1.0 --output-suffix equiv_sex_prompt_age_clamp_middle_age_male_20250629_201242",
+    "description": "Sex prompt (male) + age clamping (middle_age 1x)"
+  },
+  {
+    "type": "neutral_both_clamp",
+    "demographics": "middle_age + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --clamp-features middle_age male --clamp-intensity 1.0 --output-suffix equiv_neutral_both_clamp_middle_age_male_20250629_201242",
+    "description": "Neutral prompt + both clamping (middle_age male 1x)"
+  },
+  {
+    "type": "full_prompt",
+    "demographics": "senior + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt senior female --output-suffix equiv_full_prompt_senior_female_20250629_201242",
+    "description": "Full prompt: senior female"
+  },
+  {
+    "type": "age_prompt_sex_clamp",
+    "demographics": "senior + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt senior --clamp-features female --clamp-intensity 1.0 --output-suffix equiv_age_prompt_sex_clamp_senior_female_20250629_201242",
+    "description": "Age prompt (senior) + sex clamping (female 1x)"
+  },
+  {
+    "type": "sex_prompt_age_clamp",
+    "demographics": "senior + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt female --clamp-features senior --clamp-intensity 1.0 --output-suffix equiv_sex_prompt_age_clamp_senior_female_20250629_201242",
+    "description": "Sex prompt (female) + age clamping (senior 1x)"
+  },
+  {
+    "type": "neutral_both_clamp",
+    "demographics": "senior + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --clamp-features senior female --clamp-intensity 1.0 --output-suffix equiv_neutral_both_clamp_senior_female_20250629_201242",
+    "description": "Neutral prompt + both clamping (senior female 1x)"
+  },
+  {
+    "type": "full_prompt",
+    "demographics": "senior + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt senior male --output-suffix equiv_full_prompt_senior_male_20250629_201242",
+    "description": "Full prompt: senior male"
+  },
+  {
+    "type": "age_prompt_sex_clamp",
+    "demographics": "senior + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt senior --clamp-features male --clamp-intensity 1.0 --output-suffix equiv_age_prompt_sex_clamp_senior_male_20250629_201242",
+    "description": "Age prompt (senior) + sex clamping (male 1x)"
+  },
+  {
+    "type": "sex_prompt_age_clamp",
+    "demographics": "senior + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt male --clamp-features senior --clamp-intensity 1.0 --output-suffix equiv_sex_prompt_age_clamp_senior_male_20250629_201242",
+    "description": "Sex prompt (male) + age clamping (senior 1x)"
+  },
+  {
+    "type": "neutral_both_clamp",
+    "demographics": "senior + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --clamp-features senior male --clamp-intensity 1.0 --output-suffix equiv_neutral_both_clamp_senior_male_20250629_201242",
+    "description": "Neutral prompt + both clamping (senior male 1x)"
+  },
+  {
+    "type": "full_prompt",
+    "demographics": "young_adult + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt young_adult male --output-suffix equiv_full_prompt_young_adult_male_20250629_201242",
+    "description": "Full prompt: young_adult male"
+  },
+  {
+    "type": "age_prompt_sex_clamp",
+    "demographics": "young_adult + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt young_adult --clamp-features male --clamp-intensity 1.0 --output-suffix equiv_age_prompt_sex_clamp_young_adult_male_20250629_201242",
+    "description": "Age prompt (young_adult) + sex clamping (male 1x)"
+  },
+  {
+    "type": "sex_prompt_age_clamp",
+    "demographics": "young_adult + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt male --clamp-features young_adult --clamp-intensity 1.0 --output-suffix equiv_sex_prompt_age_clamp_young_adult_male_20250629_201242",
+    "description": "Sex prompt (male) + age clamping (young_adult 1x)"
+  },
+  {
+    "type": "neutral_both_clamp",
+    "demographics": "young_adult + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --clamp-features young_adult male --clamp-intensity 1.0 --output-suffix equiv_neutral_both_clamp_young_adult_male_20250629_201242",
+    "description": "Neutral prompt + both clamping (young_adult male 1x)"
+  },
+  {
+    "type": "full_prompt",
+    "demographics": "pediatric + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt pediatric female --output-suffix equiv_full_prompt_pediatric_female_20250629_201242",
+    "description": "Full prompt: pediatric female"
+  },
+  {
+    "type": "age_prompt_sex_clamp",
+    "demographics": "pediatric + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt pediatric --clamp-features female --clamp-intensity 1.0 --output-suffix equiv_age_prompt_sex_clamp_pediatric_female_20250629_201242",
+    "description": "Age prompt (pediatric) + sex clamping (female 1x)"
+  },
+  {
+    "type": "sex_prompt_age_clamp",
+    "demographics": "pediatric + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt female --clamp-features pediatric --clamp-intensity 1.0 --output-suffix equiv_sex_prompt_age_clamp_pediatric_female_20250629_201242",
+    "description": "Sex prompt (female) + age clamping (pediatric 1x)"
+  },
+  {
+    "type": "neutral_both_clamp",
+    "demographics": "pediatric + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --clamp-features pediatric female --clamp-intensity 1.0 --output-suffix equiv_neutral_both_clamp_pediatric_female_20250629_201242",
+    "description": "Neutral prompt + both clamping (pediatric female 1x)"
+  },
+  {
+    "type": "full_prompt",
+    "demographics": "young_adult + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt young_adult female --output-suffix equiv_full_prompt_young_adult_female_20250629_201242",
+    "description": "Full prompt: young_adult female"
+  },
+  {
+    "type": "age_prompt_sex_clamp",
+    "demographics": "young_adult + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt young_adult --clamp-features female --clamp-intensity 1.0 --output-suffix equiv_age_prompt_sex_clamp_young_adult_female_20250629_201242",
+    "description": "Age prompt (young_adult) + sex clamping (female 1x)"
+  },
+  {
+    "type": "sex_prompt_age_clamp",
+    "demographics": "young_adult + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt female --clamp-features young_adult --clamp-intensity 1.0 --output-suffix equiv_sex_prompt_age_clamp_young_adult_female_20250629_201242",
+    "description": "Sex prompt (female) + age clamping (young_adult 1x)"
+  },
+  {
+    "type": "neutral_both_clamp",
+    "demographics": "young_adult + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --clamp-features young_adult female --clamp-intensity 1.0 --output-suffix equiv_neutral_both_clamp_young_adult_female_20250629_201242",
+    "description": "Neutral prompt + both clamping (young_adult female 1x)"
+  },
+  {
+    "type": "full_prompt",
+    "demographics": "adolescent + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt adolescent male --output-suffix equiv_full_prompt_adolescent_male_20250629_201242",
+    "description": "Full prompt: adolescent male"
+  },
+  {
+    "type": "age_prompt_sex_clamp",
+    "demographics": "adolescent + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt adolescent --clamp-features male --clamp-intensity 1.0 --output-suffix equiv_age_prompt_sex_clamp_adolescent_male_20250629_201242",
+    "description": "Age prompt (adolescent) + sex clamping (male 1x)"
+  },
+  {
+    "type": "sex_prompt_age_clamp",
+    "demographics": "adolescent + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt male --clamp-features adolescent --clamp-intensity 1.0 --output-suffix equiv_sex_prompt_age_clamp_adolescent_male_20250629_201242",
+    "description": "Sex prompt (male) + age clamping (adolescent 1x)"
+  },
+  {
+    "type": "neutral_both_clamp",
+    "demographics": "adolescent + male",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --clamp-features adolescent male --clamp-intensity 1.0 --output-suffix equiv_neutral_both_clamp_adolescent_male_20250629_201242",
+    "description": "Neutral prompt + both clamping (adolescent male 1x)"
+  },
+  {
+    "type": "full_prompt",
+    "demographics": "adolescent + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt adolescent female --output-suffix equiv_full_prompt_adolescent_female_20250629_201242",
+    "description": "Full prompt: adolescent female"
+  },
+  {
+    "type": "age_prompt_sex_clamp",
+    "demographics": "adolescent + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt adolescent --clamp-features female --clamp-intensity 1.0 --output-suffix equiv_age_prompt_sex_clamp_adolescent_female_20250629_201242",
+    "description": "Age prompt (adolescent) + sex clamping (female 1x)"
+  },
+  {
+    "type": "sex_prompt_age_clamp",
+    "demographics": "adolescent + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --demographic-prompt female --clamp-features adolescent --clamp-intensity 1.0 --output-suffix equiv_sex_prompt_age_clamp_adolescent_female_20250629_201242",
+    "description": "Sex prompt (female) + age clamping (adolescent 1x)"
+  },
+  {
+    "type": "neutral_both_clamp",
+    "demographics": "adolescent + female",
+    "command": "python3 src/advai/main.py --num-cases 100 --device cpu --clamp-features adolescent female --clamp-intensity 1.0 --output-suffix equiv_neutral_both_clamp_adolescent_female_20250629_201242",
+    "description": "Neutral prompt + both clamping (adolescent female 1x)"
+  }
+]

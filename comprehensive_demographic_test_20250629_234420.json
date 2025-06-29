@@ -1,0 +1,8116 @@
+{
+  "metadata": {
+    "test_type": "comprehensive_demographic_clamping",
+    "patient_demographics": {
+      "age": 50,
+      "sex": "male",
+      "age_group": "middle_age"
+    },
+    "total_cases": 100,
+    "scenarios_per_case": 5,
+    "total_tests": 500,
+    "timestamp": "20250629_234420"
+  },
+  "results": [
+    {
+      "case_id": 1,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "chest pain",
+      "intensity": 0.1,
+      "results": {
+        "male_only": {
+          "similarity": 0.9953897595405579,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9919110536575317,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9873125553131104,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9962950348854065,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9989224672317505,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 2,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "chest pain",
+      "intensity": 0.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9952930212020874,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.991817057132721,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.98714280128479,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9962418079376221,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9988224506378174,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 3,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "chest pain",
+      "intensity": 0.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9949475526809692,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9912787675857544,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9863351583480835,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9957572817802429,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9984655380249023,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 4,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "chest pain",
+      "intensity": 0.75,
+      "results": {
+        "male_only": {
+          "similarity": 0.9943728446960449,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9902658462524414,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.984876275062561,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9947800040245056,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.997871458530426,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 5,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "chest pain",
+      "intensity": 1.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9935699701309204,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.988782525062561,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9827752709388733,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9933145642280579,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9970415830612183,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 6,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "chest pain",
+      "intensity": 1.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9925402402877808,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.986835241317749,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9800442457199097,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9913673400878906,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9959776401519775,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 7,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "chest pain",
+      "intensity": 1.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9912863373756409,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9844321012496948,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9766986966133118,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9889466762542725,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9946818947792053,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 8,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "chest pain",
+      "intensity": 2.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9881156086921692,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9783004522323608,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9682444334030151,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9827295541763306,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9914061427116394,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 9,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "chest pain",
+      "intensity": 2.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9840831756591797,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9704874753952026,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9575982093811035,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9747676849365234,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9872419834136963,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 10,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "chest pain",
+      "intensity": 3.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9792211651802063,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9611159563064575,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.94498211145401,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9651901721954346,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9822227358818054,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 11,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "headache",
+      "intensity": 0.1,
+      "results": {
+        "male_only": {
+          "similarity": 0.9952138662338257,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.992996871471405,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9898823499679565,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9952871799468994,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9989205002784729,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 12,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "headache",
+      "intensity": 0.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9951143264770508,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9928189516067505,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9896262288093567,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9951863884925842,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9988102912902832,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 13,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "headache",
+      "intensity": 0.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9947590827941895,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9921298027038574,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9886592626571655,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9945813417434692,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9984164834022522,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 14,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "headache",
+      "intensity": 0.75,
+      "results": {
+        "male_only": {
+          "similarity": 0.9941678047180176,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9909528493881226,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9870221018791199,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9934326410293579,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9977614283561707,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 15,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "headache",
+      "intensity": 1.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9933419227600098,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9892935752868652,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9847252368927002,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9917460680007935,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9968463182449341,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 16,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "headache",
+      "intensity": 1.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9922831058502197,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9871587753295898,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9817821979522705,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9895296096801758,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9956734776496887,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 17,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "headache",
+      "intensity": 1.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9909933805465698,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9845578670501709,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9782105684280396,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9867942929267883,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9942456483840942,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 18,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "headache",
+      "intensity": 2.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9877333641052246,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9780042171478271,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9692676663398743,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9798206686973572,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9906386137008667,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 19,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "headache",
+      "intensity": 2.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.983588695526123,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9697420597076416,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9580975770950317,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9709538221359253,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.986058235168457,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 20,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "headache",
+      "intensity": 3.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.978593111038208,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.959903359413147,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9449372887611389,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9603508114814758,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9805452823638916,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 21,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "fatigue",
+      "intensity": 0.1,
+      "results": {
+        "male_only": {
+          "similarity": 0.9945423007011414,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.993449330329895,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9900811910629272,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9968617558479309,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9990297555923462,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 22,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "fatigue",
+      "intensity": 0.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9944634437561035,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9932855367660522,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9898555278778076,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9967432022094727,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9989447593688965,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 23,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "fatigue",
+      "intensity": 0.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9941820502281189,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9927013516426086,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9890509843826294,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9962084293365479,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9986411333084106,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 24,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "fatigue",
+      "intensity": 0.75,
+      "results": {
+        "male_only": {
+          "similarity": 0.9937135577201843,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.991729736328125,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9877146482467651,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9952536821365356,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9981356859207153,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 25,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "fatigue",
+      "intensity": 1.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9930587410926819,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9903745055198669,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9858524203300476,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.993882417678833,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9974294900894165,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 26,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "fatigue",
+      "intensity": 1.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9922188520431519,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9886400699615479,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9834738373756409,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9921000003814697,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9965235590934753,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 27,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "fatigue",
+      "intensity": 1.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9911952018737793,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9865328073501587,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9805896878242493,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9899131059646606,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9954198598861694,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 28,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "fatigue",
+      "intensity": 2.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9886037707328796,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9812284708023071,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9733616709709167,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.984359085559845,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9926265478134155,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 29,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "fatigue",
+      "intensity": 2.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9853013157844543,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9745330810546875,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9642988443374634,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9773005843162537,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9890697598457336,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 30,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "fatigue",
+      "intensity": 3.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9813098907470703,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9665328860282898,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9535585641860962,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9688360095024109,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9847739338874817,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 31,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "back pain",
+      "intensity": 0.1,
+      "results": {
+        "male_only": {
+          "similarity": 0.995980441570282,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9933851957321167,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.990127444267273,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9962724447250366,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9988040924072266,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 32,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "back pain",
+      "intensity": 0.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9959150552749634,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9932495355606079,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9899404048919678,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.996204137802124,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9987325072288513,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 33,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "back pain",
+      "intensity": 0.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9956813454627991,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9927650094032288,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.989273190498352,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9958149194717407,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9984769821166992,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 34,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "back pain",
+      "intensity": 0.75,
+      "results": {
+        "male_only": {
+          "similarity": 0.9952921867370605,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9919592142105103,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9881641268730164,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9950827360153198,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9980515837669373,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 35,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "back pain",
+      "intensity": 1.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9947484731674194,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9908342361450195,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9866176843643188,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9940099716186523,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9974568486213684,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 36,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "back pain",
+      "intensity": 1.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9940503239631653,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9893936514854431,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9846401214599609,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9925998449325562,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9966937303543091,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 37,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "back pain",
+      "intensity": 1.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9931991696357727,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9876413941383362,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9822390079498291,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.990856409072876,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9957634210586548,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 38,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "back pain",
+      "intensity": 2.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9910426139831543,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9832227826118469,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9762057662010193,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9863927960395813,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9934073090553284,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 39,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "back pain",
+      "intensity": 2.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9882901906967163,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9776275157928467,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9686094522476196,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9806721806526184,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.990402340888977,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 40,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "back pain",
+      "intensity": 3.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9849570989608765,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9709172248840332,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9595615863800049,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9737606048583984,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9867663383483887,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 41,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "abdominal pain",
+      "intensity": 0.1,
+      "results": {
+        "male_only": {
+          "similarity": 0.99662184715271,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9946045875549316,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9911515116691589,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9971541166305542,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9990519285202026,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 42,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "abdominal pain",
+      "intensity": 0.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9965381622314453,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9945822954177856,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9910631775856018,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9971777200698853,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9989637136459351,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 43,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "abdominal pain",
+      "intensity": 0.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9962392449378967,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9942142367362976,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9904600381851196,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9968709945678711,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9986488819122314,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 44,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "abdominal pain",
+      "intensity": 0.75,
+      "results": {
+        "male_only": {
+          "similarity": 0.9957417249679565,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9934337139129639,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9892906546592712,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9961326122283936,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9981248378753662,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 45,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "abdominal pain",
+      "intensity": 1.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9950464963912964,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.992243766784668,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9875607490539551,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9949653148651123,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9973923563957214,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 46,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "abdominal pain",
+      "intensity": 1.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.994154691696167,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9906488656997681,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9852790832519531,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9933737516403198,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9964532852172852,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 47,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "abdominal pain",
+      "intensity": 1.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9930679202079773,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9886546730995178,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9824572205543518,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9913638830184937,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9953088760375977,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 48,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "abdominal pain",
+      "intensity": 2.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.990317702293396,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9834995269775391,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9752517938613892,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9861218333244324,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9924136996269226,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 49,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "abdominal pain",
+      "intensity": 2.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9868149161338806,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.976851224899292,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9660831093788147,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9793168902397156,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9887281656265259,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 50,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "abdominal pain",
+      "intensity": 3.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9825839996337891,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9688023328781128,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.955120325088501,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9710474610328674,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9842787981033325,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 51,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "shortness of breath",
+      "intensity": 0.1,
+      "results": {
+        "male_only": {
+          "similarity": 0.9972723126411438,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9942731857299805,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9931524395942688,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9974045157432556,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9994114637374878,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 52,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "shortness of breath",
+      "intensity": 0.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9971866607666016,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9940955638885498,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.992906928062439,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9972118735313416,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9993184208869934,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 53,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "shortness of breath",
+      "intensity": 0.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9968808889389038,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9934616088867188,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9920321106910706,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9965246915817261,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.998985767364502,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 54,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "shortness of breath",
+      "intensity": 0.75,
+      "results": {
+        "male_only": {
+          "similarity": 0.9963714480400085,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9924077391624451,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9905790686607361,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9953824877738953,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9984322786331177,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 55,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "shortness of breath",
+      "intensity": 1.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9956598281860352,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9909378886222839,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9885554909706116,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9937899112701416,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9976588487625122,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 56,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "shortness of breath",
+      "intensity": 1.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9947470426559448,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.989057719707489,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9859718680381775,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9917534589767456,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9966669678688049,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 57,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "shortness of breath",
+      "intensity": 1.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.993634819984436,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9867741465568542,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9828414916992188,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9892815351486206,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9954587817192078,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 58,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "shortness of breath",
+      "intensity": 2.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9908204078674316,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9810320138931274,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9750058650970459,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9830716848373413,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9924032688140869,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 59,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "shortness of breath",
+      "intensity": 2.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9872368574142456,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.97379469871521,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9652014374732971,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9752566814422607,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9885154962539673,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 60,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "shortness of breath",
+      "intensity": 3.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9829092621803284,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9651627540588379,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9536106586456299,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9659537672996521,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9838256239891052,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 61,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "dizziness",
+      "intensity": 0.1,
+      "results": {
+        "male_only": {
+          "similarity": 0.9911794066429138,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9923257231712341,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9874938726425171,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9962413311004639,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9984362125396729,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 62,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "dizziness",
+      "intensity": 0.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9910691380500793,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9920961260795593,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9871780276298523,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9959936141967773,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9983165264129639,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 63,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "dizziness",
+      "intensity": 0.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9906754493713379,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9912771582603455,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9860521554946899,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9951100945472717,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9978892803192139,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 64,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "dizziness",
+      "intensity": 0.75,
+      "results": {
+        "male_only": {
+          "similarity": 0.9900202751159668,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9899166822433472,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9841843843460083,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9936432242393494,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9971785545349121,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 65,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "dizziness",
+      "intensity": 1.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9891053438186646,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9880216121673584,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9815872311592102,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9916001558303833,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9961860179901123,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 66,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "dizziness",
+      "intensity": 1.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9879326820373535,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9856008291244507,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9782781004905701,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9889920949935913,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9949140548706055,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 67,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "dizziness",
+      "intensity": 1.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9865052700042725,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9826660752296448,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9742786288261414,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9858319759368896,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9933664202690125,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 68,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "dizziness",
+      "intensity": 2.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9828991889953613,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9753127098083496,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9643154144287109,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.977922797203064,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9894586801528931,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 69,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "dizziness",
+      "intensity": 2.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9783202409744263,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9660964012145996,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9519436955451965,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9680283069610596,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9845017790794373,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 70,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "dizziness",
+      "intensity": 3.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9728100299835205,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9551790952682495,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9374502301216125,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9563332200050354,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9785433411598206,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 71,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "nausea",
+      "intensity": 0.1,
+      "results": {
+        "male_only": {
+          "similarity": 0.9929463863372803,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9929466843605042,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9889465570449829,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9973892569541931,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9990454912185669,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 72,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "nausea",
+      "intensity": 0.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9928518533706665,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9927501082420349,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9886758923530579,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.997195839881897,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9989414811134338,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 73,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "nausea",
+      "intensity": 0.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9925145506858826,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9920490980148315,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9877113103866577,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9964696168899536,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9985700249671936,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 74,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "nausea",
+      "intensity": 0.75,
+      "results": {
+        "male_only": {
+          "similarity": 0.9919531345367432,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.990884006023407,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9861097931861877,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9952415227890015,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9979519844055176,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 75,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "nausea",
+      "intensity": 1.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9911686182022095,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9892597198486328,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.983880877494812,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9935171604156494,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9970886707305908,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 76,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "nausea",
+      "intensity": 1.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9901627898216248,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.987183153629303,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9810372591018677,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9913040399551392,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9959819912910461,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 77,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "nausea",
+      "intensity": 1.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9889376163482666,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9846627712249756,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9775948524475098,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9886124134063721,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9946341514587402,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 78,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "nausea",
+      "intensity": 2.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9858393669128418,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9783333539962769,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9689934253692627,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9818418025970459,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9912281036376953,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 79,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "nausea",
+      "intensity": 2.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.981898307800293,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9703719615936279,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9582608342170715,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9733207821846008,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9868999719619751,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 80,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "nausea",
+      "intensity": 3.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9771450757980347,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9609003067016602,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9456151723861694,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9631885886192322,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9816861152648926,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 81,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "joint pain",
+      "intensity": 0.1,
+      "results": {
+        "male_only": {
+          "similarity": 0.9954882860183716,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9916455745697021,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9889354705810547,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9963440895080566,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9988514184951782,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 82,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "joint pain",
+      "intensity": 0.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9954167604446411,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.991503119468689,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9887369275093079,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9962361454963684,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9987751841545105,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 83,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "joint pain",
+      "intensity": 0.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.995161771774292,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.990984320640564,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9880183935165405,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.995758056640625,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9985028505325317,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 84,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "joint pain",
+      "intensity": 0.75,
+      "results": {
+        "male_only": {
+          "similarity": 0.9947370886802673,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9901151657104492,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9868181943893433,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9949084520339966,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9980494976043701,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 85,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "joint pain",
+      "intensity": 1.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9941436052322388,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.988898515701294,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9851416349411011,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9936904907226562,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9974158406257629,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 86,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "joint pain",
+      "intensity": 1.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9933819770812988,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9873383641242981,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9829959869384766,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9921082854270935,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9966028928756714,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 87,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "joint pain",
+      "intensity": 1.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9924534559249878,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9854394197463989,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9803904294967651,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9901667833328247,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9956119656562805,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 88,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "joint pain",
+      "intensity": 2.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9901018142700195,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9806498289108276,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9738457798957825,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9852330684661865,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9931029081344604,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 89,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "joint pain",
+      "intensity": 2.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.987102746963501,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9745882153511047,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9656158089637756,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9789527058601379,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9899047017097473,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 90,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "joint pain",
+      "intensity": 3.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9834738969802856,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9673262238502502,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9558310508728027,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9714035987854004,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9860373735427856,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 91,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "muscle weakness",
+      "intensity": 0.1,
+      "results": {
+        "male_only": {
+          "similarity": 0.9938642978668213,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9896484613418579,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9862186312675476,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9956372976303101,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9989497661590576,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 92,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "muscle weakness",
+      "intensity": 0.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9937354326248169,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9894508719444275,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9859199523925781,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9955211281776428,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9988130927085876,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 93,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "muscle weakness",
+      "intensity": 0.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9932753443717957,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9886142015457153,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9847244620323181,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9947901964187622,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9983256459236145,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 94,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "muscle weakness",
+      "intensity": 0.75,
+      "results": {
+        "male_only": {
+          "similarity": 0.9925100207328796,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9871479272842407,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9826654195785522,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.993391752243042,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9975147843360901,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 95,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "muscle weakness",
+      "intensity": 1.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9914416074752808,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9850603938102722,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.979759156703949,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9913339018821716,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9963829517364502,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 96,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "muscle weakness",
+      "intensity": 1.25,
+      "results": {
+        "male_only": {
+          "similarity": 0.9900728464126587,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9823635816574097,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9760282039642334,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9886292219161987,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9949333667755127,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 97,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "muscle weakness",
+      "intensity": 1.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9884076714515686,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9790723919868469,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9715009927749634,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9852936863899231,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9931702017784119,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 98,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "muscle weakness",
+      "intensity": 2.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9842067360877991,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9707821607589722,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9601974487304688,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9768102169036865,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9887241125106812,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 99,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "muscle weakness",
+      "intensity": 2.5,
+      "results": {
+        "male_only": {
+          "similarity": 0.9788833260536194,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9603660106658936,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9461699724197388,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9660730957984924,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9830945730209351,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    },
+    {
+      "case_id": 100,
+      "patient_demographics": {
+        "age": 50,
+        "sex": "male",
+        "age_group": "middle_age"
+      },
+      "symptom": "muscle weakness",
+      "intensity": 3.0,
+      "results": {
+        "male_only": {
+          "similarity": 0.9724927544593811,
+          "equivalent": true,
+          "comparison_target": "sex_only",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        },
+        "age_only": {
+          "similarity": 0.9480339884757996,
+          "equivalent": true,
+          "comparison_target": "age_only",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "combined": {
+          "similarity": 0.9297890067100525,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 9
+        },
+        "sex_plus_age_clamp": {
+          "similarity": 0.9533104300498962,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            11208,
+            5547,
+            158,
+            10863,
+            778
+          ],
+          "num_features": 5
+        },
+        "age_plus_sex_clamp": {
+          "similarity": 0.9763427376747131,
+          "equivalent": true,
+          "comparison_target": "full_demo",
+          "features_used": [
+            12593,
+            11208,
+            13522,
+            1832,
+            8718
+          ],
+          "num_features": 5
+        }
+      }
+    }
+  ]
+}

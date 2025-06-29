@@ -5,7 +5,7 @@ import json
 import logging
 from typing import Dict, Any, Tuple, List
 
-from src.advai.analysis.clamping import clamp_sae_features
+from src.advai.analysis.clamping_v2 import clamp_sae_features
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()

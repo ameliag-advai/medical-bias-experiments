@@ -1,0 +1,211 @@
+{
+  "file1": "results_database_20250628_162555.csv",
+  "file2": "results_database_20250628_180448.csv",
+  "common_cases": 2,
+  "mean_absolute_difference": 0.0031849158870045358,
+  "max_absolute_difference": 2.366340398788452,
+  "std_difference": 0.0553090522121624,
+  "significant_features": 86,
+  "top_differences": [
+    {
+      "feature": "activation_5082",
+      "mean_difference": 2.308187559247017
+    },
+    {
+      "feature": "activation_6817",
+      "mean_difference": 1.772720217704773
+    },
+    {
+      "feature": "activation_7991",
+      "mean_difference": 1.560333490371704
+    },
+    {
+      "feature": "activation_8514",
+      "mean_difference": 1.5108506008982656
+    },
+    {
+      "feature": "activation_2320",
+      "mean_difference": 1.467199206352234
+    },
+    {
+      "feature": "activation_12303",
+      "mean_difference": 1.4425777196884155
+    },
+    {
+      "feature": "activation_2495",
+      "mean_difference": 1.4244134575128555
+    },
+    {
+      "feature": "activation_11223",
+      "mean_difference": 1.3716104626655579
+    },
+    {
+      "feature": "activation_4383",
+      "mean_difference": 1.320575714111328
+    },
+    {
+      "feature": "activation_13287",
+      "mean_difference": 1.2675429582595823
+    },
+    {
+      "feature": "activation_4462",
+      "mean_difference": 1.206736296415329
+    },
+    {
+      "feature": "activation_14582",
+      "mean_difference": 1.1608424186706543
+    },
+    {
+      "feature": "activation_4780",
+      "mean_difference": 1.124419927597046
+    },
+    {
+      "feature": "activation_7115",
+      "mean_difference": 1.120338387787342
+    },
+    {
+      "feature": "activation_6627",
+      "mean_difference": 1.1029784679412842
+    },
+    {
+      "feature": "activation_12703",
+      "mean_difference": 1.065357327461243
+    },
+    {
+      "feature": "activation_10805",
+      "mean_difference": 1.0580828189849854
+    },
+    {
+      "feature": "activation_11499",
+      "mean_difference": 1.0040141344070435
+    },
+    {
+      "feature": "activation_4528",
+      "mean_difference": 0.9962361454963684
+    },
+    {
+      "feature": "activation_1235",
+      "mean_difference": 0.9310852289199828
+    },
+    {
+      "feature": "activation_4485",
+      "mean_difference": 0.9163405299186707
+    },
+    {
+      "feature": "activation_12409",
+      "mean_difference": 0.8892272487282753
+    },
+    {
+      "feature": "activation_3564",
+      "mean_difference": 0.8858587443828583
+    },
+    {
+      "feature": "activation_15434",
+      "mean_difference": 0.8855517506599426
+    },
+    {
+      "feature": "activation_1695",
+      "mean_difference": 0.8555048108100891
+    },
+    {
+      "feature": "activation_497",
+      "mean_difference": 0.8057922124862671
+    },
+    {
+      "feature": "activation_14706",
+      "mean_difference": 0.7573819756507874
+    },
+    {
+      "feature": "activation_2940",
+      "mean_difference": 0.7292486429214478
+    },
+    {
+      "feature": "activation_1796",
+      "mean_difference": 0.720543161034584
+    },
+    {
+      "feature": "activation_5345",
+      "mean_difference": 0.664819061756134
+    },
+    {
+      "feature": "activation_7040",
+      "mean_difference": 0.6552303433418274
+    },
+    {
+      "feature": "activation_2811",
+      "mean_difference": 0.6422518491744995
+    },
+    {
+      "feature": "activation_15563",
+      "mean_difference": 0.6140901446342468
+    },
+    {
+      "feature": "activation_649",
+      "mean_difference": 0.5931826233863831
+    },
+    {
+      "feature": "activation_12146",
+      "mean_difference": 0.5654640793800354
+    },
+    {
+      "feature": "activation_2747",
+      "mean_difference": 0.5420621633529663
+    },
+    {
+      "feature": "activation_1612",
+      "mean_difference": 0.49934619665145874
+    },
+    {
+      "feature": "activation_9083",
+      "mean_difference": 0.4922936558723449
+    },
+    {
+      "feature": "activation_2939",
+      "mean_difference": 0.48655568808317184
+    },
+    {
+      "feature": "activation_10831",
+      "mean_difference": 0.4706117808818817
+    },
+    {
+      "feature": "activation_8351",
+      "mean_difference": 0.46813967823982233
+    },
+    {
+      "feature": "activation_1147",
+      "mean_difference": 0.44506943225860596
+    },
+    {
+      "feature": "activation_8206",
+      "mean_difference": 0.44302959740161896
+    },
+    {
+      "feature": "activation_12195",
+      "mean_difference": 0.40744732320308685
+    },
+    {
+      "feature": "activation_7244",
+      "mean_difference": 0.38296315073966974
+    },
+    {
+      "feature": "activation_4753",
+      "mean_difference": 0.3735891580581665
+    },
+    {
+      "feature": "activation_10518",
+      "mean_difference": 0.37211132049560547
+    },
+    {
+      "feature": "activation_6158",
+      "mean_difference": 0.3531517386436462
+    },
+    {
+      "feature": "activation_1858",
+      "mean_difference": 0.3449971973896026
+    },
+    {
+      "feature": "activation_6998",
+      "mean_difference": 0.33410724997520447
+    }
+  ]
+}

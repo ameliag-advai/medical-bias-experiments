@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-06-28T20:04:23.545915",
+  "experiment_type": "systematic_bias_analysis",
+  "scenarios": {
+    "baseline": [
+      "with_demographics",
+      "no_demographics"
+    ],
+    "clamping": {
+      "features": [
+        "male",
+        "female",
+        "young",
+        "old"
+      ],
+      "intensities": [
+        1,
+        5,
+        10,
+        100
+      ]
+    }
+  },
+  "total_experiments": 18,
+  "estimated_runtime_hours": 8
+}

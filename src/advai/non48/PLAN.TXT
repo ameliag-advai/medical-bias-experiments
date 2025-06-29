@@ -1,0 +1,177 @@
+Bias in large language models (LLMs) remains a critical concern, particularly in high-stakes applications such as
+medical decision-making. While many studies measure bias by varying input prompts and observing output
+differences, relatively little work has explored how bias is represented internally within the model’s latent space. In
+this study, we will investigate whether mechanistic interpretability techniques can reveal and replicate the effects of
+prompt-level bias through direct internal manipulation of model features.
+Using the Gemma 2 9B model and the recently released Gemma Scope toolkit, we will identify internal features that
+activate in response to demographic attributes such as race or gender. We will then run controlled experiments to
+compare three scenarios: (1) prompts that include protected characteristics, (2) prompts that omit them, and (3)
+prompts that omit them but include internal feature “clamping” to simulate their presence. Our goal is to understand
+whether internal interventions induce the same biases as explicit mentions in text, and whether these biases
+manifest similarly across different demographic groups.
+To ensure clarity and reproducibility, we will use synthetic medical datasets where protected attributes can be
+cleanly added or removed. This setting will allow us to trace how biases propagate through the model and evaluate
+the implications for interpretability and fairness.
+Investigate how mechanistic interpretability (via Gemma Scope on Gemma 2 9B) can reveal and quantify bias in
+medical decision-making scenarios, focusing on:
+• Comparing prompt-based vs. internally clamped manipulations of protected characteristics (e.g., race).
+• Exploring whether clamping a bias-inducing feature in the model’s internal representation produces similar
+changes in predictions as explicitly mentioning that feature in text.
+• Demonstrating reproducibility across chareteristics, using a synthetic medical dataset (e.g., Synthea or
+DDXPlus) that allows easy toggling of protected attributes.
+The final deliverable of this project will be a paper that we can submit to AAAI.
+Dataset:
+Synthetic or semi-synthetic (e.g., DDXPlus or Synthea) to avoid privacy issues and allow flexible insertion or removal
+of demographics (race, gender, etc.).
+Model & Interpretability:
+Gemma 2 9B model, as it strikes a balance between manageability and realism.
+Gemma Scope (with Mishax instrumentation) for analysing and manipulating internal features at relevant layers.
+Data & Codebase: A structured dataset of medical cases (with and without protected characteristic mentions) plus
+all scripts for preprocessing, interpretability, and evaluation.
+Experiment Pipeline:
+Prompt-level bias tests.
+Internal clamping tests using Gemma Scope + Mishax.
+Results & Paper: Statistical comparison, interpretability visualisations, and a reproducible conference paper.
+Sprint 1 (Weeks 1-2): Project Setup & Dataset Finalisation
+Task 1: Literature & Feasibility Check
+• Review relevant work on bias in LLMs and mechanistic interpretability.
+• Familiarise with Gemma Scope documentation, including how to use Mishax instrumentation for the 9B
+model.
+• Confirm feasibility for the GPU or compute infrastructure needed to run Gemma 2 9B with interpretability
+overhead.
+Task 2: Dataset Selection & Preparation
+• Compare DDXPlus vs. Synthea vs. smaller synthetic sets:
+• DDXPlus: Large synthetic dataset with structured diagnoses, can easily insert or remove demographic
+info.
+• Synthea: Realistic synthetic EHR data where demographics (race, age, gender, etc.) can be toggled or
+edited.
+• Decide which dataset best aligns with the project scope (size, detail level, complexity).
+• Create a prototype dataset slice (e.g., 500–1,000 cases) in natural language format. This slice will help in
+early testing.
+Deliverables:
+• Documented review of relevant interpretability methods (for the paper’s related work section).
+• Chosen dataset (DDXPlus/Synthea/other), with a small pilot set in consistent natural language format.
+Sprint 2 (Weeks 3-4): Data Curation & Initial Codebase
+Task 3: Dataset Curation & Augmentation
+• For each case in the chosen dataset, create two versions:
+• Scrubbed: No mention of the protected characteristic (race/gender).
+• Inclusive: Includes explicit protected characteristic mention.
+• Ensure balanced coverage of demographic groups if possible (e.g., different races and genders) to enable
+robust bias analysis.
+Task 4: Core Codebase Setup
+• Initialise a Git repository for reproducible code.
+• Write Python scripts for:
+• Data loading (from Synthea/DDXPlus).
+• Data transformation into the final text prompt format.
+• Test-run Gemma 2 9B model inference (loading from HuggingFace or local checkpoint). Verify environment
+requirements.
+Deliverables:
+• Clean, balanced dataset in .jsonl or .csv format for easy iteration.
+• Initial codebase with data loading scripts and a minimal inference script for Gemma 2 9B.
+Sprint 3 (Weeks 5-6): Model Integration & Gemma Scope Setup
+Task 5: Gemma Scope + Mishax Integration
+• Install and configure Gemma Scope for the 9B model:
+• Download Sparse Autoencoder (SAE) weights provided for each layer.
+• Set up Mishax instrumentation library to intercept forward passes.
+• Test small-scale interpretability workflows:
+o Identify a known “concept” feature (e.g., feature that triggers for idiomatic expressions) to confirm
+hooking works properly.
+Task 6: Designing Internal Clamping Logic
+• Decide how to locate or define the protected characteristic feature or cluster of features.
+• Possibly run a pilot approach: feed examples that mention race, see which features activate strongly.
+• Implement a script to clamp that feature (set it high, low, or to zero) during inference.
+• Validate that the system returns consistent results after interventions.
+Deliverables:
+• Working interpretability pipeline (data in → Gemma 2 9B → Gemma Scope → manipulated output).
+• Draft method describing how you find and clamp the feature(s) in the internal representation.
+Sprint 4 (Weeks 7-8): Bias Experiments
+Task 7: Experimental Protocol
+• Prompt-Based (baseline):
+• Provide each medical case in two forms:
+o With protected characteristic included (“Patient is a 40-year-old Black male...”).
+o With protected characteristic scrubbed.
+• Observe changes in the model’s diagnosis or recommended treatment.
+• Internally Clamped:
+• For the same medical case, do not mention the protected characteristic in text. Instead, clamp the
+discovered feature in Gemma Scope that correlates with that characteristic.
+• Compare outcomes to see if this matches the prompt-based condition.
+Task 8: Running Experiments & Data Logging
+• Automate batch experiments for:
+• Scrubbed scenario (no mention, no clamp).
+• Inclusive scenario (mention race/gender in text).
+• Clamped scenario (no mention, but forced high activation).
+• Possibly a combined scenario (mention + clamp) +others if relevant.
+• Log predictions, intermediate layer activations, and interpretability outputs (which layers or features fire for
+each scenario).
+Deliverables:
+• Preliminary results on the difference in diagnosis or classification rates across scenarios.
+• Structured logs capturing both the output text and internal activation patterns for further analysis.
+Sprint 5 (Weeks 9-10): Analysis, Visualization & Refinement
+Task 9: Statistical & Interpretability Analysis
+• Quantitative:
+• Compare diagnosis rates (e.g., the fraction of times the model chooses a particular diagnosis) across
+subgroups and conditions.
+• Use statistical tests (t-test, chi-square, etc.) or bias metrics (demographic parity, equalised odds,
+etc.), depending on the data.
+• Qualitative (Mechanistic):
+• Examine which Gemma Scope features or attention patterns are highly activated when race is clamped
+or explicitly mentioned.
+• Produce charts or visualisations (e.g., bar plots) of feature activation to highlight differences between
+scenarios.
+Task 10: Refinements
+• If results are inconclusive or noisy, refine approach:
+• Possibly incorporate multiple protected attributes (e.g., race + gender) to confirm consistency of
+findings.
+• Re-check your prompt engineering to ensure the question is standardised across runs.
+• Document any major changes or interesting side effects.
+Deliverables:
+• Analysis with tables, plots, and interpretability visualisations that show how internal manipulations differ
+from or match prompt-based manipulations.
+• Draft text and figures for the Results & Discussion section of the paper.
+Sprint 6 (Weeks 11-12): Paper Writing & Final Reproducibility
+Task 11: Paper Assembly
+• Consolidate sections into a cohesive manuscript. At this point, you should have:
+• Introduction & Motivation: The importance of bias detection, mechanistic interpretability approach,
+novelty of comparing prompt vs. internal clamp.
+• Related Work: Summaries of prior LLM bias studies and interpretability research.
+• Methods: Description of your dataset (DDXPlus/Synthea), model setup, Gemma Scope
+instrumentation, experiment design.
+• Results & Discussion: Quantitative bias differences, interpretability findings, significance, and
+limitations.
+• Conclusion & Future Work: Summaries of main insights, potential expansions (e.g., second protected
+attribute, applying other interpretability methods, etc.).
+• Format the paper for AAAI
+Task 12: Final Reproducibility & Submission Prep
+• Clean up the Git repository:
+• Provide instructions on installing dependencies (requirements.txt or environment.yml).
+• Upload final scripts with clear usage.
+• Add well-commented code demonstrating how to replicate the entire pipeline (data creation → model
+inference → interpretability → evaluation).
+• Double-check references, finalise figures, and ensure all analysis logs are either included or summarised.
+Deliverables:
+• Complete conference paper (in PDF or LaTeX) with all sections.
+• Public/Private code repository containing dataset scripts, Gemma Scope usage, experiment scripts, and
+final analyses.
+Choosing the Dataset (DDXPlus vs. Synthea)
+• DDXPlus: Great if you want a structured differential diagnosis scenario with pre-defined
+symptoms/diseases. Inserting or removing race is straightforward.
+• Synthea: Produces realistic synthetic EHR data. You may need to adapt it into a short clinical vignette form,
+but it already includes demographics (race, gender, etc.) that you can easily toggle.
+• In both cases, privacy issues are minimal, and you can sample the size needed for your experiments.
+Balanced Data Subset
+• Whichever dataset you pick, aim to sample a balanced set of demographic attributes, so you have robust
+statistics for each group.
+• Consider ensuring enough representation of each protected class to make comparisons meaningful.
+Gemma Scope + Mishax for Internal Clamping
+• Make sure to confirm your compute environment can handle the Gemma 2 9B model plus overhead from
+interpretability.
+• Plan for extra time (especially in Sprints 5-6) to handle memory or performance bottlenecks when working
+with the full set of Sparse Autoencoders.
+Parallel Writing
+• Keep a running Overleaf doc where you add updates from each sprint. This way, you have an evolving draft
+of your Methods, Results, and Discussion.
+Ethical & Technical Caveats
+• Even though data is synthetic, consider disclaimers about bias and fairness; real-world biases might be
+different or more complex.
+• Demonstrate that your approach is a proof-of-concept for how internal manipulations might generalise to
+real medical models.

@@ -1,0 +1,392 @@
+{
+  "timestamp": "20250629_204640",
+  "total_experiments": 11,
+  "baseline_count": 11,
+  "clamping_count": 0,
+  "demographic_groups": {
+    "mixed": [
+      {
+        "name": "20250628_205814_baseline",
+        "clamping": null,
+        "cases": 1
+      },
+      {
+        "name": "20250628_214250_baseline",
+        "clamping": null,
+        "cases": 1
+      },
+      {
+        "name": "20250628_215116_clamping",
+        "clamping": null,
+        "cases": 1
+      },
+      {
+        "name": "20250628_220521_clamping",
+        "clamping": null,
+        "cases": 1
+      },
+      {
+        "name": "20250628_220543_clamping",
+        "clamping": null,
+        "cases": 2
+      },
+      {
+        "name": "20250628_231855_clamping",
+        "clamping": null,
+        "cases": 1
+      },
+      {
+        "name": "20250628_233651_clamping",
+        "clamping": null,
+        "cases": 2
+      },
+      {
+        "name": "20250628_234553_clamping",
+        "clamping": null,
+        "cases": 4
+      },
+      {
+        "name": "20250629_011344_clamping",
+        "clamping": null,
+        "cases": 1
+      },
+      {
+        "name": "20250629_012743_clamping",
+        "clamping": null,
+        "cases": 56
+      },
+      {
+        "name": "20250629_012911_clamping",
+        "clamping": null,
+        "cases": 100
+      }
+    ]
+  },
+  "experiments": [
+    {
+      "filepath": "src/advai/outputs/20250628_205814_baseline/results_database.csv",
+      "total_cases": 1,
+      "demographics": {},
+      "top_diagnoses": {},
+      "clamping_info": null,
+      "sample_cases": [
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        }
+      ],
+      "experiment_name": "20250628_205814_baseline",
+      "summary_info": {
+        "clamp_values": "N/A",
+        "features_clamped": "0 features",
+        "cases_processed": "1"
+      }
+    },
+    {
+      "filepath": "src/advai/outputs/20250628_214250_baseline/results_database.csv",
+      "total_cases": 1,
+      "demographics": {},
+      "top_diagnoses": {},
+      "clamping_info": null,
+      "sample_cases": [
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        }
+      ],
+      "experiment_name": "20250628_214250_baseline",
+      "summary_info": {
+        "clamp_values": "N/A",
+        "features_clamped": "0 features",
+        "cases_processed": "1"
+      }
+    },
+    {
+      "filepath": "src/advai/outputs/20250628_215116_clamping/results_database.csv",
+      "total_cases": 1,
+      "demographics": {},
+      "top_diagnoses": {},
+      "clamping_info": null,
+      "sample_cases": [
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        }
+      ],
+      "experiment_name": "20250628_215116_clamping",
+      "summary_info": {
+        "clamp_values": "[5]",
+        "features_clamped": "1 features",
+        "cases_processed": "1"
+      }
+    },
+    {
+      "filepath": "src/advai/outputs/20250628_220521_clamping/results_database.csv",
+      "total_cases": 1,
+      "demographics": {},
+      "top_diagnoses": {},
+      "clamping_info": null,
+      "sample_cases": [
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        }
+      ],
+      "experiment_name": "20250628_220521_clamping",
+      "summary_info": {
+        "clamp_values": "[5]",
+        "features_clamped": "1 features",
+        "cases_processed": "1"
+      }
+    },
+    {
+      "filepath": "src/advai/outputs/20250628_220543_clamping/results_database.csv",
+      "total_cases": 2,
+      "demographics": {},
+      "top_diagnoses": {},
+      "clamping_info": null,
+      "sample_cases": [
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        }
+      ],
+      "experiment_name": "20250628_220543_clamping",
+      "summary_info": {
+        "clamp_values": "[10]",
+        "features_clamped": "1 features",
+        "cases_processed": "1"
+      }
+    },
+    {
+      "filepath": "src/advai/outputs/20250628_231855_clamping/results_database.csv",
+      "total_cases": 1,
+      "demographics": {},
+      "top_diagnoses": {},
+      "clamping_info": null,
+      "sample_cases": [
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        }
+      ],
+      "experiment_name": "20250628_231855_clamping",
+      "summary_info": {
+        "clamp_values": "[5]",
+        "features_clamped": "1 features",
+        "cases_processed": "1"
+      }
+    },
+    {
+      "filepath": "src/advai/outputs/20250628_233651_clamping/results_database.csv",
+      "total_cases": 2,
+      "demographics": {},
+      "top_diagnoses": {},
+      "clamping_info": null,
+      "sample_cases": [
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        }
+      ],
+      "experiment_name": "20250628_233651_clamping",
+      "summary_info": {
+        "clamp_values": "[5]",
+        "features_clamped": "1 features",
+        "cases_processed": "2"
+      }
+    },
+    {
+      "filepath": "src/advai/outputs/20250628_234553_clamping/results_database.csv",
+      "total_cases": 4,
+      "demographics": {},
+      "top_diagnoses": {},
+      "clamping_info": null,
+      "sample_cases": [
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        }
+      ],
+      "experiment_name": "20250628_234553_clamping",
+      "summary_info": {
+        "clamp_values": "[5, 5]",
+        "features_clamped": "1 features",
+        "cases_processed": "1"
+      }
+    },
+    {
+      "filepath": "src/advai/outputs/20250629_011344_clamping/results_database.csv",
+      "total_cases": 1,
+      "demographics": {},
+      "top_diagnoses": {},
+      "clamping_info": null,
+      "sample_cases": [
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        }
+      ],
+      "experiment_name": "20250629_011344_clamping",
+      "summary_info": {}
+    },
+    {
+      "filepath": "src/advai/outputs/20250629_012743_clamping/results_database.csv",
+      "total_cases": 56,
+      "demographics": {},
+      "top_diagnoses": {},
+      "clamping_info": null,
+      "sample_cases": [
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        }
+      ],
+      "experiment_name": "20250629_012743_clamping",
+      "summary_info": {}
+    },
+    {
+      "filepath": "src/advai/outputs/20250629_012911_clamping/results_database.csv",
+      "total_cases": 100,
+      "demographics": {},
+      "top_diagnoses": {},
+      "clamping_info": null,
+      "sample_cases": [
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        },
+        {
+          "age": "",
+          "sex": "",
+          "top_diagnosis": "",
+          "clamp_features": "",
+          "clamp_value": ""
+        }
+      ],
+      "experiment_name": "20250629_012911_clamping",
+      "summary_info": {
+        "clamp_values": "[5]",
+        "features_clamped": "1 features",
+        "cases_processed": "100"
+      }
+    }
+  ]
+}

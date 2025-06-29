@@ -3,9 +3,9 @@ import os
 import re
 from dotenv import load_dotenv
 
-from src.advai.models.loader import load_model_and_sae
-from src.advai.analysis.pipeline import run_analysis_pipeline
-from src.advai.analysis.clamping_analysis import main as clamping_main
+from .models.loader import load_model_and_sae
+from .analysis.pipeline import run_analysis_pipeline
+# from src.advai.analysis.clamping_analysis import main as clamping_main  # Moved to non48
 
 
 def validate_device(device_str):
@@ -56,26 +56,18 @@ def main():
     parser.add_argument('--clamp', action='store_true', help='Enable clamping feature')
     parser.add_argument(
         '--clamp-features',
-        type=parse_feature_group,
+        type=str,
         nargs='+',
-        choices=[
-            ['male'],
-            ['female'],
-            ['old'],
-            ['young'],
-            ['old', 'male'],
-            ['old', 'female'],
-            ['young', 'male'],
-            ['young', 'female']
-        ],
         help=(
-            "Groups of features to clamp. Ensure to separate groups containing more than one feature with spaces. \
-            For example: --clamp-features 'male old' 'female young' 'old'. The choice ['male'] corresponds to 'male' in \
-            the terminal command. The choice ['old', 'male'] corresponds to 'old male' in the terminal command. Make sure to \
-            use double quotes around groups. If this doesn't work, try using single quotes instead."
+            "Demographic features to clamp. Supported groups: "
+            "Age: pediatric, adolescent, young_adult, middle_age, senior. "
+            "Gender: male, female. "
+            "Can combine multiple groups (e.g., --clamp-features pediatric male)"
         )
     )
-    parser.add_argument('--clamp-values', type=int, nargs="+", choices=[0, 5, 10], help='Values to clamp the feature at')
+    parser.add_argument('--clamp-intensity', type=float, default=1.0, help='Intensity multiplier for clamping (1.0, 5.0, 10.0)')
+    parser.add_argument('--demographic-prompt', type=str, nargs='+', help='Add demographic information to prompt (e.g., --demographic-prompt pediatric male)')
+    parser.add_argument('--output-suffix', type=str, help='Suffix for output file naming')
     parser.add_argument('--post-hoc-analysis', action='store_true', help='Run post-hoc clamping analysis on existing results')
     args = parser.parse_args()
 
@@ -88,12 +80,9 @@ def main():
     print(f"Using device: {args.device}")
 
     # If post-hoc analysis requested, invoke clamping_analysis
+    # NOTE: Post-hoc analysis moved to non48 folder - not needed for 48-hour project
     if args.post_hoc_analysis:
-        if not args.clamp_features or args.clamp_values is None:
-            raise ValueError("Clamp feature and value must be specified when post-hoc analysis is enabled.")
-        import sys as _sys
-        _sys.argv = [_sys.argv[0], '--demographic', args.clamp_features, '--extent', str(args.clamp_values)]
-        clamping_main()
+        print("⚠️  Post-hoc analysis feature moved to non48 folder - not available in 48-hour pipeline")
         return
 
     # Validate clamping
@@ -118,6 +107,7 @@ def main():
         clamping=args.clamp,
         clamp_features=args.clamp_features if args.clamp else None,
         clamp_values=args.clamp_values if args.clamp else None,
+        interactive=False,  # Non-interactive mode for batch processing
     )
 
 

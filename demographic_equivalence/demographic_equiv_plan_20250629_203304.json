@@ -1,0 +1,143 @@
+{
+  "timestamp": "20250629_203304",
+  "input_file": "release-test-patients-age-grouped.csv",
+  "cases_per_group": 100,
+  "device": "cpu",
+  "created_files": [
+    {
+      "group": "male",
+      "filename": "demographic_csvs/male_100cases_20250629_203304.csv",
+      "count": 100
+    },
+    {
+      "group": "female",
+      "filename": "demographic_csvs/female_100cases_20250629_203304.csv",
+      "count": 100
+    },
+    {
+      "group": "pediatric",
+      "filename": "demographic_csvs/pediatric_100cases_20250629_203304.csv",
+      "count": 100
+    },
+    {
+      "group": "adolescent",
+      "filename": "demographic_csvs/adolescent_100cases_20250629_203304.csv",
+      "count": 100
+    },
+    {
+      "group": "young_adult",
+      "filename": "demographic_csvs/young_adult_100cases_20250629_203304.csv",
+      "count": 100
+    },
+    {
+      "group": "middle_age",
+      "filename": "demographic_csvs/middle_age_100cases_20250629_203304.csv",
+      "count": 100
+    },
+    {
+      "group": "senior",
+      "filename": "demographic_csvs/senior_100cases_20250629_203304.csv",
+      "count": 100
+    }
+  ],
+  "commands": [
+    {
+      "group": "male",
+      "test_type": "prompt_baseline",
+      "description": "Male patients with male demographics in prompt",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/male_100cases_20250629_203304.csv --num-cases 100 --device cpu --output-suffix male_prompt_baseline_20250629_203304",
+      "filename": "demographic_csvs/male_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "male",
+      "test_type": "clamped_1x",
+      "description": "Male patients with neutral prompt + male clamping 1x",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/male_100cases_20250629_203304.csv --num-cases 100 --device cpu --clamp-features male --clamp-intensity 1 --output-suffix male_clamped_1x_20250629_203304",
+      "filename": "demographic_csvs/male_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "female",
+      "test_type": "prompt_baseline",
+      "description": "Female patients with female demographics in prompt",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/female_100cases_20250629_203304.csv --num-cases 100 --device cpu --output-suffix female_prompt_baseline_20250629_203304",
+      "filename": "demographic_csvs/female_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "female",
+      "test_type": "clamped_1x",
+      "description": "Female patients with neutral prompt + female clamping 1x",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/female_100cases_20250629_203304.csv --num-cases 100 --device cpu --clamp-features female --clamp-intensity 1 --output-suffix female_clamped_1x_20250629_203304",
+      "filename": "demographic_csvs/female_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "pediatric",
+      "test_type": "prompt_baseline",
+      "description": "Pediatric patients with pediatric demographics in prompt",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/pediatric_100cases_20250629_203304.csv --num-cases 100 --device cpu --output-suffix pediatric_prompt_baseline_20250629_203304",
+      "filename": "demographic_csvs/pediatric_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "pediatric",
+      "test_type": "clamped_1x",
+      "description": "Pediatric patients with neutral prompt + pediatric clamping 1x",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/pediatric_100cases_20250629_203304.csv --num-cases 100 --device cpu --clamp-features pediatric --clamp-intensity 1 --output-suffix pediatric_clamped_1x_20250629_203304",
+      "filename": "demographic_csvs/pediatric_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "adolescent",
+      "test_type": "prompt_baseline",
+      "description": "Adolescent patients with adolescent demographics in prompt",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/adolescent_100cases_20250629_203304.csv --num-cases 100 --device cpu --output-suffix adolescent_prompt_baseline_20250629_203304",
+      "filename": "demographic_csvs/adolescent_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "adolescent",
+      "test_type": "clamped_1x",
+      "description": "Adolescent patients with neutral prompt + adolescent clamping 1x",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/adolescent_100cases_20250629_203304.csv --num-cases 100 --device cpu --clamp-features adolescent --clamp-intensity 1 --output-suffix adolescent_clamped_1x_20250629_203304",
+      "filename": "demographic_csvs/adolescent_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "young_adult",
+      "test_type": "prompt_baseline",
+      "description": "Young_Adult patients with young_adult demographics in prompt",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/young_adult_100cases_20250629_203304.csv --num-cases 100 --device cpu --output-suffix young_adult_prompt_baseline_20250629_203304",
+      "filename": "demographic_csvs/young_adult_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "young_adult",
+      "test_type": "clamped_1x",
+      "description": "Young_Adult patients with neutral prompt + young_adult clamping 1x",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/young_adult_100cases_20250629_203304.csv --num-cases 100 --device cpu --clamp-features young_adult --clamp-intensity 1 --output-suffix young_adult_clamped_1x_20250629_203304",
+      "filename": "demographic_csvs/young_adult_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "middle_age",
+      "test_type": "prompt_baseline",
+      "description": "Middle_Age patients with middle_age demographics in prompt",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/middle_age_100cases_20250629_203304.csv --num-cases 100 --device cpu --output-suffix middle_age_prompt_baseline_20250629_203304",
+      "filename": "demographic_csvs/middle_age_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "middle_age",
+      "test_type": "clamped_1x",
+      "description": "Middle_Age patients with neutral prompt + middle_age clamping 1x",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/middle_age_100cases_20250629_203304.csv --num-cases 100 --device cpu --clamp-features middle_age --clamp-intensity 1 --output-suffix middle_age_clamped_1x_20250629_203304",
+      "filename": "demographic_csvs/middle_age_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "senior",
+      "test_type": "prompt_baseline",
+      "description": "Senior patients with senior demographics in prompt",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/senior_100cases_20250629_203304.csv --num-cases 100 --device cpu --output-suffix senior_prompt_baseline_20250629_203304",
+      "filename": "demographic_csvs/senior_100cases_20250629_203304.csv"
+    },
+    {
+      "group": "senior",
+      "test_type": "clamped_1x",
+      "description": "Senior patients with neutral prompt + senior clamping 1x",
+      "command": "python3 -m src.advai.main --patient-file demographic_csvs/senior_100cases_20250629_203304.csv --num-cases 100 --device cpu --clamp-features senior --clamp-intensity 1 --output-suffix senior_clamped_1x_20250629_203304",
+      "filename": "demographic_csvs/senior_100cases_20250629_203304.csv"
+    }
+  ]
+}
